@@ -2739,7 +2739,10 @@ function showContinueButton(card) {
   btn.innerHTML = '➡ Continue Seder';
   btn.addEventListener('click', () => {
     card.classList.add('collapse');
-    setTimeout(() => card.remove(), 700);
+    setTimeout(() => {
+      card.style.display = 'none';
+      card.remove();
+    }, 700);
   });
   card.appendChild(btn);
 }
