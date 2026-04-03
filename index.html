@@ -923,6 +923,391 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   .seder-section::before { display: none; }
   * { animation: none !important; }
 }
+
+/* ============================================
+   VIDEO EMBEDS
+   ============================================ */
+.video-section {
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.video-toggle-btn {
+  background: rgba(201,168,76,0.15);
+  border: 1px solid #c9a84c;
+  color: #c9a84c;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  width: 100%;
+  justify-content: center;
+  font-family: var(--font-latin);
+  transition: all 0.3s;
+}
+.video-toggle-btn:hover { background: rgba(201,168,76,0.25); }
+.video-wrapper {
+  display: none;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+.video-wrapper.open { display: block; }
+.video-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+
+/* ============================================
+   KIDS QUIZ SYSTEM
+   ============================================ */
+.quiz-fab {
+  position: fixed;
+  bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 16px);
+  right: 16px;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.quiz-fab:hover { transform: scale(1.1); }
+
+@media (min-width: 768px) {
+  .quiz-fab { bottom: 24px; }
+}
+
+.quiz-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10,10,26,0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+.quiz-modal.open { display: flex; }
+
+.quiz-close {
+  position: absolute;
+  top: 12px; right: 16px;
+  background: none; border: none;
+  color: var(--cream);
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1001;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.quiz-container {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+}
+
+.quiz-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--gold);
+  font-family: var(--font-latin);
+}
+
+/* Setup screen */
+.quiz-setup input[type="text"] {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid rgba(201,168,76,0.3);
+  background: rgba(201,168,76,0.05);
+  color: var(--cream);
+  font-size: 1.2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-latin);
+  outline: none;
+  transition: border-color 0.3s;
+}
+.quiz-setup input[type="text"]:focus { border-color: var(--gold); }
+.quiz-setup input[type="text"]::placeholder { color: rgba(245,230,200,0.4); }
+
+.difficulty-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.diff-btn {
+  padding: 12px 24px;
+  border: 2px solid rgba(201,168,76,0.3);
+  background: transparent;
+  color: var(--cream);
+  font-size: 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.diff-btn:hover, .diff-btn.selected {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+}
+
+.quiz-start-btn {
+  padding: 14px 48px;
+  border: none;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  transition: transform 0.3s, opacity 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.quiz-start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.quiz-start-btn:not(:disabled):hover { transform: scale(1.05); }
+
+/* Question screen */
+.quiz-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(201,168,76,0.15);
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.quiz-question-num {
+  font-size: 0.95rem;
+  color: var(--cream);
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-latin);
+}
+
+.quiz-timer-bar {
+  width: 100%;
+  height: 5px;
+  background: rgba(201,168,76,0.1);
+  border-radius: 3px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.quiz-timer-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 3px;
+  width: 100%;
+  transition: width linear;
+}
+.quiz-timer-fill.warning { background: #e74c3c; }
+
+.quiz-question-text {
+  font-size: 1.5rem;
+  color: var(--cream-light);
+  font-family: var(--font-latin);
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  min-height: 3rem;
+}
+
+.quiz-answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-answer-btn {
+  padding: 16px 12px;
+  border: 2px solid rgba(201,168,76,0.2);
+  background: rgba(201,168,76,0.05);
+  color: var(--cream);
+  font-size: 1.15rem;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 60px;
+  -webkit-tap-highlight-color: transparent;
+}
+.quiz-answer-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.1);
+}
+
+@keyframes correctGlow {
+  0% { box-shadow: 0 0 0 0 rgba(46,204,113,0.6); }
+  50% { box-shadow: 0 0 20px 6px rgba(46,204,113,0.4); }
+  100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
+}
+@keyframes wrongShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.quiz-answer-btn.correct {
+  background: rgba(46,204,113,0.2);
+  border-color: #2ecc71;
+  color: #2ecc71;
+  animation: correctGlow 0.6s ease;
+}
+.quiz-answer-btn.wrong {
+  background: rgba(231,76,60,0.2);
+  border-color: #e74c3c;
+  color: #e74c3c;
+  animation: wrongShake 0.5s ease;
+}
+
+.quiz-feedback {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  min-height: 2rem;
+  font-family: var(--font-latin);
+}
+
+.quiz-next-btn {
+  padding: 12px 36px;
+  border: none;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  display: none;
+  margin: 0 auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Scoreboard */
+.quiz-scoreboard {
+  text-align: center;
+}
+.scoreboard-title {
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  font-family: var(--font-latin);
+}
+.scoreboard-result {
+  font-size: 1.5rem;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+  font-family: var(--font-latin);
+}
+.scoreboard-score {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--gold-light);
+  margin-bottom: 1.5rem;
+  font-family: var(--font-latin);
+}
+.scoreboard-list {
+  list-style: none;
+  margin: 0 auto 1.5rem;
+  max-width: 320px;
+}
+.scoreboard-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  font-size: 1.1rem;
+  font-family: var(--font-latin);
+  color: var(--cream);
+}
+.scoreboard-list li:first-child { color: var(--gold-light); font-weight: 700; }
+
+.scoreboard-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.scoreboard-actions button {
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  -webkit-tap-highlight-color: transparent;
+}
+.play-again-btn {
+  border: none;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  font-weight: 600;
+}
+.clear-scores-btn {
+  border: 1px solid rgba(231,76,60,0.5);
+  background: transparent;
+  color: #e74c3c;
+}
+
+/* Confetti */
+@keyframes confettiFall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+.confetti-container {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1002;
+  overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  width: 10px; height: 10px;
+  top: -20px;
+  animation: confettiFall 3s ease-in forwards;
+}
+
+@media print {
+  .quiz-fab, .quiz-modal, .video-section { display: none !important; }
+}
 </style>
 </head>
 <body class="lang-all">
@@ -1167,6 +1552,14 @@ body.lang-nl [data-langcontent="en"] { display: none; }
       <div class="text-nl" style="text-align: center; font-size: calc(1.05rem * var(--font-scale)); font-weight: 600;">Waarom is deze nacht anders dan alle andere nachten?</div>
     </div>
 
+    <!-- Video: Mah Nishtanah for kids -->
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Mah Nishtanah for Kids (Animated)</button>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/GvO4HXFDmvE" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+      </div>
+    </div>
+
     <div class="question-block">
       <div class="question-number">Question 1</div>
       <div data-langcontent="he"><div class="text-he">שֶׁבְּכָל הַלֵּילוֹת אָנוּ אוֹכְלִין חָמֵץ וּמַצָּה, הַלַּיְלָה הַזֶּה כֻּלּוֹ מַצָּה?</div></div>
@@ -1208,6 +1601,21 @@ body.lang-nl [data-langcontent="en"] { display: none; }
       <div class="text-en"><strong>We were slaves to Pharaoh in Egypt,</strong> and the Lord our God brought us out from there with a mighty hand and an outstretched arm. Had the Holy One, Blessed be He, not taken our ancestors out of Egypt, then we, our children, and our children's children would still be enslaved to Pharaoh in Egypt.</div>
       <div class="text-en">Even if all of us were wise, all understanding, all elders, all knowledgeable in Torah — we would still be obligated to tell the story of the Exodus from Egypt. And whoever expands upon the story deserves praise.</div>
     </div>
+
+    <!-- Videos: Exodus Story for Kids -->
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: The Passover Story for Kids (Animated)</button>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/rJjDUYYFSZk" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Moses & Pharaoh for Kids</button>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/Hbt56oQ3PwA" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+      </div>
+    </div>
+
     <div data-langcontent="nl">
       <div class="text-nl"><strong>Wij waren slaven van Farao in Egypte,</strong> en de Heer onze God bracht ons daar vandaan met een sterke hand en een uitgestrekte arm. Als de Heilige, Gezegend zij Hij, onze voorouders niet uit Egypte had gehaald, dan zouden wij, onze kinderen en de kinderen van onze kinderen nog steeds slaven zijn van Farao in Egypte.</div>
       <div class="text-nl">Zelfs als wij allen wijs waren, allen verstandig, allen ouderen, allen geleerd in de Tora — wij zouden nog steeds verplicht zijn het verhaal van de uittocht uit Egypte te vertellen. En wie het verhaal uitbreidt, verdient lof.</div>
@@ -1406,6 +1814,20 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     </div>
 
     <div class="dayenu-refrain shimmer-text" data-langcontent="he" style="font-size: calc(2.2rem * var(--font-scale));">דַּיֵּנוּ! דַּיֵּנוּ!</div>
+
+    <!-- Videos: Dayenu -->
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Dayenu (Classic)</button>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/GCROGpIVCDQ" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Dayenu Kids Singalong</button>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/sH_1NaQwTyE" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+      </div>
+    </div>
   </div>
 
   <!-- Second Cup -->
@@ -1663,6 +2085,14 @@ body.lang-nl [data-langcontent="en"] { display: none; }
       <div data-langcontent="en"><div class="text-en" style="text-align: center; font-weight: 600;">Then came the Holy One, Blessed be He, and slew the Angel of Death.<br>One little goat, one little goat!</div></div>
       <div data-langcontent="nl"><div class="text-nl" style="text-align: center; font-weight: 600;">Toen kwam de Heilige, Gezegend zij Hij, en doodde de Engel des Doods.<br>Eén geitje, één geitje!</div></div>
     </div>
+
+    <!-- Video: Chad Gadya -->
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Chad Gadya (Animated)</button>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/VUzmZ_CJaYo" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+      </div>
+    </div>
   </div>
 
   <div class="instruction">🍷 Drink the fourth and final cup of wine while leaning to the left.</div>
@@ -1701,6 +2131,14 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     <div class="text-nl" style="text-align: center; font-size: calc(1.2rem * var(--font-scale)); font-weight: 600; margin: 1rem 0;">Volgend Jaar in Jeruzalem!</div>
   </div>
 
+  <!-- Video: Next Year in Jerusalem -->
+  <div class="video-section">
+    <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Next Year in Jerusalem</button>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/l6nvFiSoOhQ" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+    </div>
+  </div>
+
   <div style="height: 2rem;"></div>
 
   <!-- Star of David closing -->
@@ -1717,6 +2155,15 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 </section>
 
 </main>
+
+<!-- Quiz FAB -->
+<button class="quiz-fab" onclick="openQuiz()" aria-label="Kids Quiz">🎮</button>
+
+<!-- Quiz Modal -->
+<div class="quiz-modal" id="quizModal">
+  <button class="quiz-close" onclick="closeQuiz()">✕</button>
+  <div class="quiz-container" id="quizContainer"></div>
+</div>
 
 <!-- ============================================
      BOTTOM NAVIGATION
@@ -2001,6 +2448,279 @@ document.addEventListener('visibilitychange', async () => {
     }
   }
 });
+
+// ==========================================
+// VIDEO TOGGLE
+// ==========================================
+function toggleVideo(btn) {
+  const wrapper = btn.nextElementSibling;
+  const isOpen = wrapper.classList.contains('open');
+  wrapper.classList.toggle('open');
+  btn.textContent = isOpen
+    ? btn.textContent.replace('▼', '▶')
+    : btn.textContent.replace('▶', '▼');
+}
+
+// ==========================================
+// KIDS QUIZ SYSTEM
+// ==========================================
+const quizData = {
+  easy: {
+    points: 5,
+    label: '⭐ Easy (4-7)',
+    questions: [
+      { q: "What do we eat instead of bread at Passover?", a: ["🫓 Matzah", "🫓 Pita", "🥯 Bagel", "🍘 Crackers"], c: 0 },
+      { q: "How many cups of wine do we drink?", a: ["2️⃣ Two", "3️⃣ Three", "4️⃣ Four", "5️⃣ Five"], c: 2 },
+      { q: "What do we dip in salt water?", a: ["🥕 Carrots", "🌿 Karpas/Parsley", "🥒 Cucumber", "🥬 Celery"], c: 1 },
+      { q: "Who led the Jewish people out of Egypt?", a: ["🧔 Abraham", "👑 David", "📜 Moses", "🚢 Noah"], c: 2 },
+      { q: "Whose heart did God harden?", a: ["🤴 The King", "👑 Pharaoh", "🤴 The Prince", "⚔️ The General"], c: 1 }
+    ]
+  },
+  medium: {
+    points: 10,
+    label: '🌟 Medium (8-11)',
+    questions: [
+      { q: "How many plagues did God send?", a: ["7️⃣ Seven", "8️⃣ Eight", "9️⃣ Nine", "🔟 Ten"], c: 3 },
+      { q: "What is the name of the hidden matzah?", a: ["🌿 Maror", "🥬 Karpas", "🫓 Afikomen", "🥪 Korech"], c: 2 },
+      { q: "What does 'Dayenu' mean?", a: ["🗣️ Let my people go", "✅ It would have been enough", "🙏 Thank you God", "🏙️ Next year in Jerusalem"], c: 1 },
+      { q: "Which plague came first?", a: ["🦗 Locusts", "🐸 Frogs", "🩸 Blood", "🌑 Darkness"], c: 2 },
+      { q: "What is the bitter herb called?", a: ["🥬 Karpas", "🌿 Maror", "🍎 Charoset", "🫓 Matzah"], c: 1 }
+    ]
+  },
+  hard: {
+    points: 15,
+    label: '🏆 Hard (12+)',
+    questions: [
+      { q: "What does Ha Lachma Anya mean?", a: ["🍞 This is the bread of affliction", "🌿 This is the bitter herb", "🐑 This is the Passover offering", "🫓 This is the matzah of freedom"], c: 0 },
+      { q: "How many stanzas does Dayenu have?", a: ["🔢 10", "🔢 12", "🔢 14", "🔢 15"], c: 2 },
+      { q: "What do the four sons represent?", a: ["📚 Four types of students", "👨‍👦 Four brothers of Moses", "💀 Four plagues", "🍷 Four cups"], c: 0 },
+      { q: "What is Korech?", a: ["🙏 A prayer", "🎵 A song", "🥪 The Hillel sandwich", "💧 Washing hands"], c: 2 },
+      { q: "When do we open the door for Elijah?", a: ["🍽️ Before the meal", "🎵 After Hallel", "🕯️ At the start", "🫓 After Afikomen"], c: 1 }
+    ]
+  }
+};
+
+let quizState = { difficulty: null, playerName: '', questions: [], current: 0, score: 0, timerInterval: null, questionStart: 0 };
+
+function openQuiz() {
+  document.getElementById('quizModal').classList.add('open');
+  showSetup();
+}
+
+function closeQuiz() {
+  document.getElementById('quizModal').classList.remove('open');
+  clearInterval(quizState.timerInterval);
+}
+
+function showSetup() {
+  const c = document.getElementById('quizContainer');
+  c.innerHTML = `
+    <div class="quiz-setup">
+      <div class="quiz-title">🎮 Seder Quiz</div>
+      <input type="text" id="quizPlayerName" placeholder="Enter your name..." maxlength="20" value="${quizState.playerName}">
+      <div style="color: var(--cream); opacity: 0.6; margin-bottom: 0.75rem; font-family: var(--font-latin);">Choose difficulty:</div>
+      <div class="difficulty-btns">
+        <button class="diff-btn" onclick="selectDifficulty('easy', this)">⭐ Easy<br><small>Ages 4-7</small></button>
+        <button class="diff-btn" onclick="selectDifficulty('medium', this)">🌟 Medium<br><small>Ages 8-11</small></button>
+        <button class="diff-btn" onclick="selectDifficulty('hard', this)">🏆 Hard<br><small>Ages 12+</small></button>
+      </div>
+      <button class="quiz-start-btn" id="quizStartBtn" disabled onclick="startQuiz()">Start Quiz →</button>
+    </div>
+  `;
+}
+
+function selectDifficulty(diff, btn) {
+  quizState.difficulty = diff;
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const nameInput = document.getElementById('quizPlayerName');
+  document.getElementById('quizStartBtn').disabled = !nameInput.value.trim();
+  nameInput.addEventListener('input', () => {
+    document.getElementById('quizStartBtn').disabled = !nameInput.value.trim() || !quizState.difficulty;
+  });
+}
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  const name = document.getElementById('quizPlayerName').value.trim();
+  if (!name || !quizState.difficulty) return;
+  quizState.playerName = name;
+  quizState.score = 0;
+  quizState.current = 0;
+  quizState.questions = shuffleArray(quizData[quizState.difficulty].questions).slice(0, 5);
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = quizState.questions[quizState.current];
+  const total = quizState.questions.length;
+  const progress = ((quizState.current) / total) * 100;
+  const c = document.getElementById('quizContainer');
+
+  c.innerHTML = `
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${progress}%"></div></div>
+    <div class="quiz-question-num">Question ${quizState.current + 1} of ${total} · ${quizState.playerName} · ${quizState.score} pts</div>
+    <div class="quiz-timer-bar"><div class="quiz-timer-fill" id="quizTimerFill"></div></div>
+    <div class="quiz-question-text">${q.q}</div>
+    <div class="quiz-answers" id="quizAnswers">
+      ${q.a.map((a, i) => `<button class="quiz-answer-btn" onclick="answerQuestion(${i})">${a}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="quiz-next-btn" id="quizNextBtn" onclick="nextQuestion()">Next →</button>
+  `;
+
+  quizState.questionStart = Date.now();
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(quizState.timerInterval);
+  const fill = document.getElementById('quizTimerFill');
+  if (!fill) return;
+  const duration = 10000;
+  const start = Date.now();
+  fill.style.transition = 'none';
+  fill.style.width = '100%';
+  fill.classList.remove('warning');
+
+  requestAnimationFrame(() => {
+    fill.style.transition = `width ${duration}ms linear`;
+    fill.style.width = '0%';
+  });
+
+  quizState.timerInterval = setInterval(() => {
+    const elapsed = Date.now() - start;
+    if (elapsed > 7000) fill.classList.add('warning');
+    if (elapsed >= duration) {
+      clearInterval(quizState.timerInterval);
+      autoTimeout();
+    }
+  }, 250);
+}
+
+function autoTimeout() {
+  const q = quizState.questions[quizState.current];
+  const btns = document.querySelectorAll('.quiz-answer-btn');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('correct');
+  });
+  document.getElementById('quizFeedback').innerHTML = '⏰ Time\'s up!';
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+
+function answerQuestion(index) {
+  clearInterval(quizState.timerInterval);
+  const q = quizState.questions[quizState.current];
+  const btns = document.querySelectorAll('.quiz-answer-btn');
+  const elapsed = Date.now() - quizState.questionStart;
+  const feedback = document.getElementById('quizFeedback');
+
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.c) b.classList.add('correct');
+  });
+
+  if (index === q.c) {
+    let pts = quizData[quizState.difficulty].points;
+    let bonusText = '';
+    if (elapsed < 5000) { pts += 5; bonusText = ' (+5 speed bonus!)'; }
+    quizState.score += pts;
+    feedback.innerHTML = `✅ Correct! +${pts} points${bonusText}`;
+    if (navigator.vibrate) navigator.vibrate(50);
+  } else {
+    btns[index].classList.add('wrong');
+    feedback.innerHTML = '❌ Not quite!';
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+  }
+
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  quizState.current++;
+  if (quizState.current >= quizState.questions.length) {
+    finishQuiz();
+  } else {
+    showQuestion();
+  }
+}
+
+function finishQuiz() {
+  clearInterval(quizState.timerInterval);
+  saveScore(quizState.playerName, quizState.score, quizState.difficulty);
+  showConfetti();
+  showScoreboard();
+}
+
+function saveScore(name, score, difficulty) {
+  let scores = [];
+  try { scores = JSON.parse(localStorage.getItem('haggadah_scores') || '[]'); } catch(e) {}
+  scores.push({ name, score, difficulty, date: new Date().toISOString() });
+  scores.sort((a, b) => b.score - a.score);
+  scores = scores.slice(0, 50);
+  localStorage.setItem('haggadah_scores', JSON.stringify(scores));
+}
+
+function getScores() {
+  try { return JSON.parse(localStorage.getItem('haggadah_scores') || '[]'); } catch(e) { return []; }
+}
+
+function showScoreboard() {
+  const scores = getScores().slice(0, 10);
+  const medals = ['👑', '🥈', '🥉'];
+  const c = document.getElementById('quizContainer');
+
+  const listHTML = scores.length
+    ? `<ul class="scoreboard-list">${scores.map((s, i) => `<li><span>${i < 3 ? medals[i] : (i+1)+'.'} ${s.name}</span><span>${s.score} pts</span></li>`).join('')}</ul>`
+    : '<div style="color:var(--cream);opacity:0.5;margin:1rem 0;">No scores yet!</div>';
+
+  c.innerHTML = `
+    <div class="quiz-scoreboard">
+      <div class="scoreboard-title">🏆 Seder Champions</div>
+      <div class="scoreboard-result">${quizState.playerName}'s Score</div>
+      <div class="scoreboard-score">${quizState.score} points</div>
+      ${listHTML}
+      <div class="scoreboard-actions">
+        <button class="play-again-btn" onclick="showSetup()">🎮 Play Again</button>
+        <button class="clear-scores-btn" onclick="clearScores()">🗑️ Clear Scores</button>
+      </div>
+    </div>
+  `;
+}
+
+function clearScores() {
+  localStorage.removeItem('haggadah_scores');
+  showScoreboard();
+}
+
+function showConfetti() {
+  const container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+  const colors = ['#c9a84c', '#e8c96d', '#f5d77a', '#7b1c3c', '#2ecc71', '#3498db', '#e74c3c', '#f39c12'];
+  for (let i = 0; i < 60; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = Math.random() * 2 + 's';
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (6 + Math.random() * 8) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 5000);
+}
 </script>
 </body>
 </html>
