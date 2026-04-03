@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="he" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a1a">
+<meta name="screen-orientation" content="portrait">
+<title>הַגָּדָה שֶׁל פֶּסַח — Passover Haggadah 5786</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Noto+Serif+Hebrew:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CSS RESET & BASE — MOBILE FIRST
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0a0a1a;
+  --navy-light: #111128;
+  --navy-mid: #1a1a3e;
+  --gold: #c9a84c;
+  --gold-light: #e8c96d;
+  --gold-bright: #f5d77a;
+  --cream: #f5e6c8;
+  --cream-light: #faf3e6;
+  --burgundy: #7b1c3c;
+  --burgundy-light: #a02050;
+  --wine: #5c1528;
+  --wine-glass: #8b2040;
+  --white: #ffffff;
+  --font-hebrew: 'Frank Ruhl Libre', 'Noto Serif Hebrew', serif;
+  --font-latin: 'Playfair Display', Georgia, serif;
+  --font-size-base: 18px;
+  --font-scale: 1;
+  --section-padding: 1.5rem;
+  --bottom-nav-height: 70px;
+  --top-bar-height: 52px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  font-size: var(--font-size-base);
+}
+
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--font-latin);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--top-bar-height);
+  padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom));
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* ============================================
+   GOLDEN SHIMMER ANIMATION
+   ============================================ */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes wineDrop {
+  0% { transform: translateY(-20px) scale(0); opacity: 1; }
+  60% { transform: translateY(40px) scale(1); opacity: 1; }
+  100% { transform: translateY(60px) scale(0.8); opacity: 0; }
+}
+
+@keyframes starGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px var(--gold)); }
+  50% { filter: drop-shadow(0 0 12px var(--gold-light)); }
+}
+
+@keyframes candleFlicker {
+  0%, 100% { opacity: 0.9; transform: scaleY(1); }
+  25% { opacity: 1; transform: scaleY(1.05) translateX(1px); }
+  50% { opacity: 0.85; transform: scaleY(0.95); }
+  75% { opacity: 1; transform: scaleY(1.02) translateX(-1px); }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-bright) 25%, var(--gold) 50%, var(--gold-light) 75%, var(--gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+/* ============================================
+   STICKY TOP BAR — LANGUAGE + CONTROLS
+   ============================================ */
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--top-bar-height);
+  background: rgba(10, 10, 26, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.75rem;
+  z-index: 1000;
+}
+
+.lang-tabs {
+  display: flex;
+  gap: 2px;
+  background: rgba(201, 168, 76, 0.1);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.lang-tab {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: var(--cream);
+  font-family: var(--font-latin);
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lang-tab[data-lang="he"] { font-family: var(--font-hebrew); }
+
+.lang-tab.active {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.top-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.control-btn {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  background: transparent;
+  color: var(--gold);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.control-btn:active { background: rgba(201, 168, 76, 0.2); }
+
+.control-btn.wake-active {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: var(--gold);
+}
+
+/* Cups indicator */
+.cups-indicator {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin: 0 6px;
+}
+
+.cup {
+  width: 16px; height: 22px;
+  position: relative;
+  opacity: 0.3;
+  transition: all 0.5s;
+}
+
+.cup.filled { opacity: 1; }
+
+.cup svg { width: 100%; height: 100%; }
+
+/* ============================================
+   BOTTOM NAVIGATION — 15 STEPS
+   ============================================ */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: calc(var(--bottom-nav-height) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: rgba(10, 10, 26, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(201, 168, 76, 0.2);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-scroll {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex: 1;
+  align-items: center;
+  padding: 0 8px;
+  gap: 2px;
+}
+
+.nav-scroll::-webkit-scrollbar { display: none; }
+
+.nav-item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  min-width: 52px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item .nav-num {
+  font-family: var(--font-latin);
+  font-size: 10px;
+  color: rgba(201, 168, 76, 0.5);
+  margin-bottom: 2px;
+}
+
+.nav-item .nav-he {
+  font-family: var(--font-hebrew);
+  font-size: 14px;
+  color: var(--cream);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.nav-item.active {
+  background: rgba(201, 168, 76, 0.15);
+}
+
+.nav-item.active .nav-he { color: var(--gold); }
+.nav-item.active .nav-num { color: var(--gold); }
+
+.nav-item.visited .nav-num { color: var(--gold); }
+
+.nav-progress {
+  height: 2px;
+  background: rgba(201, 168, 76, 0.1);
+  width: 100%;
+}
+
+.nav-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* ============================================
+   DECORATIVE SVG ELEMENTS
+   ============================================ */
+.ornament-border {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+.section-divider {
+  width: 100%;
+  max-width: 300px;
+  margin: 2rem auto;
+  display: block;
+  opacity: 0.5;
+}
+
+/* ============================================
+   SECTION STYLING
+   ============================================ */
+.seder-section {
+  min-height: 80vh;
+  padding: var(--section-padding);
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease both;
+}
+
+.seder-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+
+.section-step-number {
+  font-family: var(--font-latin);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.section-title-he {
+  font-family: var(--font-hebrew);
+  font-size: calc(2.5rem * var(--font-scale));
+  font-weight: 700;
+  text-align: center;
+  color: var(--gold);
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+  direction: rtl;
+}
+
+.section-title-en {
+  font-family: var(--font-latin);
+  font-size: calc(1.1rem * var(--font-scale));
+  font-weight: 400;
+  font-style: italic;
+  text-align: center;
+  color: var(--cream);
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+}
+
+/* Hebrew text blocks */
+.text-he {
+  font-family: var(--font-hebrew);
+  font-size: calc(1.25rem * var(--font-scale));
+  line-height: 2;
+  direction: rtl;
+  text-align: right;
+  color: var(--cream-light);
+  margin-bottom: 1.5rem;
+}
+
+.text-he.large {
+  font-size: calc(1.5rem * var(--font-scale));
+}
+
+.text-he.blessing {
+  font-size: calc(1.35rem * var(--font-scale));
+  color: var(--gold-light);
+  padding: 1rem;
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 8px;
+  background: rgba(201, 168, 76, 0.03);
+  margin-bottom: 1.5rem;
+}
+
+/* English text */
+.text-en {
+  font-family: var(--font-latin);
+  font-size: calc(1rem * var(--font-scale));
+  line-height: 1.8;
+  color: var(--cream);
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+}
+
+/* Dutch text */
+.text-nl {
+  font-family: var(--font-latin);
+  font-size: calc(0.95rem * var(--font-scale));
+  line-height: 1.8;
+  color: var(--cream);
+  opacity: 0.7;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+/* Instruction text */
+.instruction {
+  font-family: var(--font-latin);
+  font-size: calc(0.9rem * var(--font-scale));
+  color: var(--burgundy-light);
+  font-style: italic;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-left: 2px solid var(--burgundy);
+  margin: 1.5rem 0;
+  background: rgba(123, 28, 60, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+
+/* Language visibility */
+[data-langcontent="he"] { display: block; }
+[data-langcontent="en"] { display: block; }
+[data-langcontent="nl"] { display: block; }
+
+body.lang-he [data-langcontent="en"],
+body.lang-he [data-langcontent="nl"] { display: none; }
+
+body.lang-en [data-langcontent="he"],
+body.lang-en [data-langcontent="nl"] { display: none; }
+
+body.lang-nl [data-langcontent="he"],
+body.lang-nl [data-langcontent="en"] { display: none; }
+
+/* ============================================
+   COVER PAGE
+   ============================================ */
+#cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+#cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 80%, rgba(123, 28, 60, 0.05) 0%, transparent 60%);
+}
+
+.cover-ornament-top, .cover-ornament-bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  opacity: 0.25;
+}
+
+.cover-ornament-top { top: 10%; }
+.cover-ornament-bottom { bottom: 10%; transform: translateX(-50%) rotate(180deg); }
+
+.cover-star {
+  width: 80px; height: 80px;
+  margin-bottom: 1.5rem;
+  animation: starGlow 3s ease-in-out infinite, float 6s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-title-he {
+  font-family: var(--font-hebrew);
+  font-size: calc(3rem * var(--font-scale));
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  direction: rtl;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-title-en {
+  font-family: var(--font-latin);
+  font-size: calc(1.4rem * var(--font-scale));
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-title-nl {
+  font-family: var(--font-latin);
+  font-size: calc(1rem * var(--font-scale));
+  font-weight: 400;
+  font-style: italic;
+  color: var(--cream);
+  opacity: 0.6;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-year {
+  font-family: var(--font-hebrew);
+  font-size: calc(1.3rem * var(--font-scale));
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-year-ce {
+  font-family: var(--font-latin);
+  font-size: calc(0.9rem * var(--font-scale));
+  color: var(--cream);
+  opacity: 0.5;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cover-plate {
+  width: min(280px, 70vw);
+  margin: 1rem auto 2rem;
+  position: relative;
+  z-index: 1;
+  animation: float 8s ease-in-out infinite;
+}
+
+.cover-begin {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-family: var(--font-latin);
+  font-size: 1rem;
+  letter-spacing: 2px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s;
+  position: relative;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cover-begin:active, .cover-begin:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* ============================================
+   MAGGID SUB-SECTIONS
+   ============================================ */
+.maggid-sub {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(201, 168, 76, 0.02);
+  border: 1px solid rgba(201, 168, 76, 0.08);
+}
+
+.maggid-sub-title {
+  font-family: var(--font-hebrew);
+  font-size: calc(1.6rem * var(--font-scale));
+  color: var(--gold);
+  text-align: center;
+  direction: rtl;
+  margin-bottom: 1rem;
+}
+
+/* Four Questions */
+.question-block {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(123, 28, 60, 0.05);
+  border-left: 3px solid var(--burgundy);
+}
+
+.question-number {
+  font-family: var(--font-latin);
+  font-size: 0.8rem;
+  color: var(--burgundy-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+
+/* Four Sons */
+.sons-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.son-card {
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: rgba(201, 168, 76, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  transition: all 0.3s;
+}
+
+.son-card:active {
+  background: rgba(201, 168, 76, 0.08);
+}
+
+.son-emoji {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.son-name {
+  font-family: var(--font-hebrew);
+  font-size: calc(1.3rem * var(--font-scale));
+  color: var(--gold);
+  direction: rtl;
+  margin-bottom: 0.25rem;
+}
+
+.son-name-en {
+  font-family: var(--font-latin);
+  font-size: calc(0.85rem * var(--font-scale));
+  color: var(--cream);
+  opacity: 0.6;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+/* Ten Plagues */
+.plagues-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 1rem 0;
+}
+
+.plague-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+  border-radius: 10px;
+  background: rgba(92, 21, 40, 0.1);
+  border: 1px solid rgba(123, 28, 60, 0.2);
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.plague-item.struck {
+  background: rgba(123, 28, 60, 0.2);
+  border-color: var(--burgundy);
+}
+
+.plague-emoji { font-size: 1.5rem; margin-bottom: 4px; }
+
+.plague-he {
+  font-family: var(--font-hebrew);
+  font-size: calc(1rem * var(--font-scale));
+  color: var(--cream);
+  direction: rtl;
+}
+
+.plague-en {
+  font-family: var(--font-latin);
+  font-size: calc(0.75rem * var(--font-scale));
+  color: var(--cream);
+  opacity: 0.5;
+}
+
+.wine-drop {
+  position: absolute;
+  width: 8px; height: 12px;
+  background: var(--wine-glass);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: wineDrop 0.8s ease-in forwards;
+  pointer-events: none;
+  top: 0;
+}
+
+/* Dayenu */
+.dayenu-stanza {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dayenu-stanza:active {
+  background: rgba(201, 168, 76, 0.05);
+}
+
+.dayenu-refrain {
+  font-family: var(--font-hebrew);
+  font-size: calc(1.8rem * var(--font-scale));
+  color: var(--gold);
+  text-align: center;
+  direction: rtl;
+  margin: 1.5rem 0;
+  font-weight: 700;
+}
+
+/* ============================================
+   ELIJAH'S CUP / SPECIAL MOMENTS
+   ============================================ */
+.special-moment {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin: 2rem 0;
+  border-radius: 16px;
+  background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.special-moment .candle {
+  font-size: 3rem;
+  animation: candleFlicker 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ============================================
+   CHAD GADYA / SONG SECTIONS
+   ============================================ */
+.song-verse {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.05);
+}
+
+.song-verse:last-child { border-bottom: none; }
+
+/* ============================================
+   NIRTZAH — CLOSING
+   ============================================ */
+.closing-text {
+  font-family: var(--font-hebrew);
+  font-size: calc(2.5rem * var(--font-scale));
+  font-weight: 900;
+  text-align: center;
+  direction: rtl;
+  line-height: 1.4;
+  margin: 2rem 0;
+}
+
+/* ============================================
+   DESKTOP ENHANCEMENTS
+   ============================================ */
+@media (min-width: 768px) {
+  :root {
+    --section-padding: 3rem;
+    --bottom-nav-height: 0px;
+    --top-bar-height: 56px;
+  }
+
+  body {
+    padding-bottom: 0;
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+  /* Desktop sidebar */
+  .desktop-sidebar {
+    display: flex !important;
+    position: fixed;
+    left: 0; top: var(--top-bar-height);
+    bottom: 0;
+    width: 220px;
+    background: rgba(10, 10, 26, 0.97);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(201, 168, 76, 0.1);
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 1rem 0;
+    z-index: 999;
+    scrollbar-width: thin;
+  }
+
+  .desktop-sidebar::-webkit-scrollbar { width: 3px; }
+  .desktop-sidebar::-webkit-scrollbar-thumb { background: rgba(201, 168, 76, 0.3); }
+
+  .desktop-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .desktop-nav-item:hover,
+  .desktop-nav-item.active {
+    background: rgba(201, 168, 76, 0.08);
+  }
+
+  .desktop-nav-item.active {
+    border-right: 2px solid var(--gold);
+  }
+
+  .desktop-nav-item .dn-num {
+    font-size: 11px;
+    color: var(--gold);
+    opacity: 0.5;
+    width: 20px;
+    text-align: center;
+    font-family: var(--font-latin);
+  }
+
+  .desktop-nav-item.active .dn-num { opacity: 1; }
+
+  .desktop-nav-item .dn-he {
+    font-family: var(--font-hebrew);
+    font-size: 15px;
+    color: var(--cream);
+    direction: rtl;
+    flex: 1;
+  }
+
+  .desktop-nav-item.active .dn-he { color: var(--gold); }
+
+  .desktop-nav-item .dn-en {
+    font-family: var(--font-latin);
+    font-size: 11px;
+    color: var(--cream);
+    opacity: 0.4;
+  }
+
+  .main-content {
+    margin-left: 220px;
+  }
+
+  .seder-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem;
+  }
+
+  .cover-title-he { font-size: calc(4rem * var(--font-scale)); }
+  .section-title-he { font-size: calc(3rem * var(--font-scale)); }
+  .text-he { font-size: calc(1.4rem * var(--font-scale)); }
+  .text-he.large { font-size: calc(1.7rem * var(--font-scale)); }
+
+  .plagues-grid { grid-template-columns: repeat(5, 1fr); }
+  .sons-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* 3-column layout for trilingual view */
+  .trilingual {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  body.lang-all .trilingual [data-langcontent] { display: block !important; }
+
+  .trilingual [data-langcontent="en"] { order: 1; }
+  .trilingual [data-langcontent="he"] { order: 2; }
+  .trilingual [data-langcontent="nl"] { order: 3; }
+}
+
+@media (max-width: 767px) {
+  .desktop-sidebar { display: none !important; }
+  .main-content { margin-left: 0; }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  body {
+    background: white !important;
+    color: #1a1a1a !important;
+    padding: 0 !important;
+    font-size: 12pt !important;
+  }
+
+  .top-bar, .bottom-nav, .desktop-sidebar, .cover-begin,
+  .control-btn, .cups-indicator { display: none !important; }
+
+  .seder-section {
+    min-height: auto !important;
+    page-break-inside: avoid;
+    border-bottom: 1px solid #ccc;
+    padding: 1rem 0 !important;
+  }
+
+  .section-title-he { color: #1a1a1a !important; }
+  .text-he { color: #1a1a1a !important; }
+  .shimmer-text {
+    -webkit-text-fill-color: #1a1a1a !important;
+    color: #1a1a1a !important;
+  }
+
+  [data-langcontent] { display: block !important; }
+  .instruction { border-left-color: #666 !important; color: #444 !important; }
+
+  .seder-section::before { display: none; }
+  * { animation: none !important; }
+}
+</style>
+</head>
+<body class="lang-all">
+
+<!-- ============================================
+     TOP BAR
+     ============================================ -->
+<div class="top-bar">
+  <div class="lang-tabs">
+    <button class="lang-tab active" data-lang="all" onclick="setLang('all')">All</button>
+    <button class="lang-tab" data-lang="he" onclick="setLang('he')">עברית</button>
+    <button class="lang-tab" data-lang="en" onclick="setLang('en')">English</button>
+    <button class="lang-tab" data-lang="nl" onclick="setLang('nl')">Nederlands</button>
+  </div>
+  <div class="top-controls">
+    <div class="cups-indicator" id="cupsIndicator">
+      <svg class="cup" viewBox="0 0 24 32"><path d="M6 4h12v18c0 3-2.5 6-6 6s-6-3-6-6V4z" fill="none" stroke="currentColor" stroke-width="1.5" class="cup-outline"/><path d="M6 4h12v18c0 3-2.5 6-6 6s-6-3-6-6V4z" fill="var(--wine-glass)" class="cup-fill" opacity="0"/><path d="M4 4h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg class="cup" viewBox="0 0 24 32"><path d="M6 4h12v18c0 3-2.5 6-6 6s-6-3-6-6V4z" fill="none" stroke="currentColor" stroke-width="1.5" class="cup-outline"/><path d="M6 4h12v18c0 3-2.5 6-6 6s-6-3-6-6V4z" fill="var(--wine-glass)" class="cup-fill" opacity="0"/><path d="M4 4h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg class="cup" viewBox="0 0 24 32"><path d="M6 4h12v18c0 3-2.5 6-6 6s-6-3-6-6V4z" fill="none" stroke="currentColor" stroke-width="1.5" class="cup-outline"/><path d="M6 4h12v18c0 3-2.5 6-6 6s-6-3-6-6V4z" fill="var(--wine-glass)" class="cup-fill" opacity="0"/><path d="M4 4h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg class="cup" viewBox="0 0 24 32"><path d="M6 4h12v18c0 3-2.5 6-6 6s-6-3-6-6V4z" fill="none" stroke="currentColor" stroke-width="1.5" class="cup-outline"/><path d="M6 4h12v18c0 3-2.5 6-6 6s-6-3-6-6V4z" fill="var(--wine-glass)" class="cup-fill" opacity="0"/><path d="M4 4h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </div>
+    <button class="control-btn" onclick="changeFontSize(-1)" aria-label="Decrease font size">A-</button>
+    <button class="control-btn" onclick="changeFontSize(1)" aria-label="Increase font size">A+</button>
+    <button class="control-btn" id="wakeLockBtn" onclick="toggleWakeLock()" aria-label="Keep screen on">☀</button>
+  </div>
+</div>
+
+<!-- ============================================
+     DESKTOP SIDEBAR
+     ============================================ -->
+<nav class="desktop-sidebar" id="desktopSidebar"></nav>
+
+<!-- ============================================
+     MAIN CONTENT
+     ============================================ -->
+<main class="main-content" id="mainContent">
+
+<!-- ===================== COVER ===================== -->
+<section class="seder-section" id="cover" data-step="0" data-cup="0">
+  <!-- Star of David SVG -->
+  <svg class="cover-star" viewBox="0 0 100 100" fill="none">
+    <polygon points="50,5 61,35 95,35 67,55 78,90 50,68 22,90 33,55 5,35 39,35" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+    <polygon points="50,12 59,35 87,35 65,52 73,82 50,64 27,82 35,52 13,35 41,35" stroke="var(--gold-light)" stroke-width="0.5" fill="none" opacity="0.4"/>
+  </svg>
+
+  <h1 class="cover-title-he shimmer-text">הַגָּדָה שֶׁל פֶּסַח</h1>
+  <h2 class="cover-title-en">Passover Haggadah</h2>
+  <h3 class="cover-title-nl">Pesach Haggada</h3>
+
+  <div class="cover-year">תשפ״ו</div>
+  <div class="cover-year-ce">5786 · 2026</div>
+
+  <!-- Seder Plate SVG -->
+  <svg class="cover-plate" viewBox="0 0 300 300" fill="none">
+    <circle cx="150" cy="150" r="140" stroke="var(--gold)" stroke-width="1" opacity="0.3"/>
+    <circle cx="150" cy="150" r="130" stroke="var(--gold)" stroke-width="0.5" opacity="0.2"/>
+    <circle cx="150" cy="150" r="120" stroke="var(--gold)" stroke-width="1" opacity="0.15" stroke-dasharray="4 4"/>
+    <!-- Center -->
+    <circle cx="150" cy="150" r="28" stroke="var(--gold)" stroke-width="0.8" fill="rgba(201,168,76,0.03)"/>
+    <text x="150" y="146" text-anchor="middle" fill="var(--gold)" font-family="'Noto Serif Hebrew', serif" font-size="9" opacity="0.8">זְרוֹעַ</text>
+    <text x="150" y="158" text-anchor="middle" fill="var(--cream)" font-family="'Playfair Display', serif" font-size="7" opacity="0.5">Shankbone</text>
+    <!-- Top -->
+    <circle cx="150" cy="55" r="25" stroke="var(--gold)" stroke-width="0.8" fill="rgba(201,168,76,0.03)"/>
+    <text x="150" y="52" text-anchor="middle" fill="var(--gold)" font-family="'Noto Serif Hebrew', serif" font-size="9" opacity="0.8">בֵּיצָה</text>
+    <text x="150" y="63" text-anchor="middle" fill="var(--cream)" font-family="'Playfair Display', serif" font-size="7" opacity="0.5">Egg</text>
+    <!-- Top Right -->
+    <circle cx="230" cy="95" r="25" stroke="var(--gold)" stroke-width="0.8" fill="rgba(201,168,76,0.03)"/>
+    <text x="230" y="92" text-anchor="middle" fill="var(--gold)" font-family="'Noto Serif Hebrew', serif" font-size="9" opacity="0.8">מָרוֹר</text>
+    <text x="230" y="103" text-anchor="middle" fill="var(--cream)" font-family="'Playfair Display', serif" font-size="7" opacity="0.5">Bitter Herbs</text>
+    <!-- Bottom Right -->
+    <circle cx="230" cy="205" r="25" stroke="var(--gold)" stroke-width="0.8" fill="rgba(201,168,76,0.03)"/>
+    <text x="230" y="202" text-anchor="middle" fill="var(--gold)" font-family="'Noto Serif Hebrew', serif" font-size="9" opacity="0.8">חֲרֹסֶת</text>
+    <text x="230" y="213" text-anchor="middle" fill="var(--cream)" font-family="'Playfair Display', serif" font-size="7" opacity="0.5">Charoset</text>
+    <!-- Bottom -->
+    <circle cx="150" cy="245" r="25" stroke="var(--gold)" stroke-width="0.8" fill="rgba(201,168,76,0.03)"/>
+    <text x="150" y="242" text-anchor="middle" fill="var(--gold)" font-family="'Noto Serif Hebrew', serif" font-size="9" opacity="0.8">כַּרְפַּס</text>
+    <text x="150" y="253" text-anchor="middle" fill="var(--cream)" font-family="'Playfair Display', serif" font-size="7" opacity="0.5">Parsley</text>
+    <!-- Top Left -->
+    <circle cx="70" cy="95" r="25" stroke="var(--gold)" stroke-width="0.8" fill="rgba(201,168,76,0.03)"/>
+    <text x="70" y="92" text-anchor="middle" fill="var(--gold)" font-family="'Noto Serif Hebrew', serif" font-size="9" opacity="0.8">חַזֶּרֶת</text>
+    <text x="70" y="103" text-anchor="middle" fill="var(--cream)" font-family="'Playfair Display', serif" font-size="7" opacity="0.5">Chazeret</text>
+    <!-- Bottom Left -->
+    <circle cx="70" cy="205" r="25" stroke="var(--gold)" stroke-width="0.8" fill="rgba(201,168,76,0.03)"/>
+    <text x="70" y="202" text-anchor="middle" fill="var(--gold)" font-family="'Noto Serif Hebrew', serif" font-size="8" opacity="0.8">מַצָּה</text>
+    <text x="70" y="213" text-anchor="middle" fill="var(--cream)" font-family="'Playfair Display', serif" font-size="7" opacity="0.5">Matzah</text>
+    <!-- Decorative vines -->
+    <path d="M40,150 Q20,120 40,90 Q50,70 70,65" stroke="var(--gold)" stroke-width="0.5" fill="none" opacity="0.15"/>
+    <path d="M260,150 Q280,120 260,90 Q250,70 230,65" stroke="var(--gold)" stroke-width="0.5" fill="none" opacity="0.15"/>
+    <path d="M40,150 Q20,180 40,210 Q50,230 70,235" stroke="var(--gold)" stroke-width="0.5" fill="none" opacity="0.15"/>
+    <path d="M260,150 Q280,180 260,210 Q250,230 230,235" stroke="var(--gold)" stroke-width="0.5" fill="none" opacity="0.15"/>
+  </svg>
+
+  <button class="cover-begin" onclick="scrollToSection(1)">
+    <span>Begin the Seder</span>
+    <span style="font-family: var(--font-hebrew)">▾</span>
+  </button>
+</section>
+
+<!-- ===================== 1. KADESH ===================== -->
+<section class="seder-section" id="kadesh" data-step="1" data-cup="1">
+  <!-- Ornamental divider SVG -->
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/><circle cx="75" cy="5" r="1.5" fill="var(--gold)" opacity="0.3"/><circle cx="225" cy="15" r="1.5" fill="var(--gold)" opacity="0.3"/></svg>
+
+  <div class="section-step-number">Step 1 of 15</div>
+  <h2 class="section-title-he shimmer-text">קַדֵּשׁ</h2>
+  <div class="section-title-en">Kadesh — Sanctification</div>
+
+  <div class="instruction">🍷 Fill the first cup of wine. Rise and recite the Kiddush.</div>
+
+  <div class="trilingual">
+    <div data-langcontent="en">
+      <div class="text-en"><strong>Blessed are You, Lord our God, King of the universe, who creates the fruit of the vine.</strong></div>
+      <div class="text-en">Blessed are You, Lord our God, King of the universe, who has chosen us from among all peoples and raised us above all tongues and sanctified us with His commandments. And You have given us, Lord our God, with love, appointed times for gladness, festivals and seasons for joy — this day of the Festival of Matzot, the time of our freedom, a holy convocation, a memorial of the Exodus from Egypt.</div>
+      <div class="text-en">Blessed are You, Lord our God, King of the universe, who has kept us alive, sustained us, and brought us to this season.</div>
+    </div>
+
+    <div data-langcontent="he">
+      <div class="text-he blessing">
+        בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגָּפֶן.
+      </div>
+      <div class="text-he">
+        בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר בָּחַר בָּנוּ מִכָּל עָם, וְרוֹמְמָנוּ מִכָּל לָשׁוֹן, וְקִדְּשָׁנוּ בְּמִצְוֹתָיו. וַתִּתֶּן לָנוּ יְיָ אֱלֹהֵינוּ בְּאַהֲבָה מוֹעֲדִים לְשִׂמְחָה, חַגִּים וּזְמַנִּים לְשָׂשׂוֹן, אֶת יוֹם חַג הַמַּצּוֹת הַזֶּה, זְמַן חֵרוּתֵנוּ, מִקְרָא קֹדֶשׁ, זֵכֶר לִיצִיאַת מִצְרָיִם.
+      </div>
+      <div class="text-he blessing">
+        בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהֶחֱיָנוּ וְקִיְּמָנוּ וְהִגִּיעָנוּ לַזְּמַן הַזֶּה.
+      </div>
+    </div>
+
+    <div data-langcontent="nl">
+      <div class="text-nl"><strong>Gezegend bent U, Heer onze God, Koning van het heelal, die de vrucht van de wijnstok schept.</strong></div>
+      <div class="text-nl">Gezegend bent U, Heer onze God, Koning van het heelal, die ons uit alle volkeren heeft uitverkoren en ons boven alle talen heeft verheven en ons heeft geheiligd met Zijn geboden. U heeft ons, Heer onze God, in liefde feesttijden tot vreugde gegeven, feesten en seizoenen tot blijdschap — deze dag van het Feest der Ongezuurde Broden, het tijdperk van onze vrijheid, een heilige samenkomst, ter herinnering aan de uittocht uit Egypte.</div>
+      <div class="text-nl">Gezegend bent U, Heer onze God, Koning van het heelal, die ons in leven heeft gehouden, ons heeft ondersteund, en ons dit seizoen heeft laten bereiken.</div>
+    </div>
+  </div>
+
+  <div class="instruction">🍷 Drink the first cup of wine while leaning to the left.</div>
+</section>
+
+<!-- ===================== 2. URCHATZ ===================== -->
+<section class="seder-section" id="urchatz" data-step="2" data-cup="1">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 2 of 15</div>
+  <h2 class="section-title-he shimmer-text">וּרְחַץ</h2>
+  <div class="section-title-en">Urchatz — Washing</div>
+
+  <div class="instruction">💧 Wash your hands without reciting a blessing.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he">נוֹטְלִים אֶת הַיָּדַיִם בְּלֹא בְּרָכָה.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en">We wash our hands without saying a blessing. This is a preparatory washing, a purification before we partake of the Karpas. In the Temple, the priests washed before handling sacred offerings. Tonight, every person at this table is a priest, and this table is an altar.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl">Wij wassen onze handen zonder een zegen uit te spreken. Dit is een voorbereidende wassing, een reiniging voordat wij de Karpas nuttigen. In de Tempel wasten de priesters zich voordat zij de heilige offers behandelden. Vanavond is iedereen aan deze tafel een priester, en deze tafel is een altaar.</div>
+  </div>
+</section>
+
+<!-- ===================== 3. KARPAS ===================== -->
+<section class="seder-section" id="karpas" data-step="3" data-cup="1">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 3 of 15</div>
+  <h2 class="section-title-he shimmer-text">כַּרְפַּס</h2>
+  <div class="section-title-en">Karpas — Green Vegetable</div>
+
+  <div class="instruction">🌿 Dip a green vegetable (parsley or celery) in salt water and recite:</div>
+
+  <div data-langcontent="he">
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָאֲדָמָה.</div>
+    <div class="text-he">טוֹבְלִים כַּרְפַּס בְּמֵי מֶלַח, כְּנֶגֶד הַדְּמָעוֹת שֶׁל אֲבוֹתֵינוּ בְּמִצְרַיִם.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en"><strong>Blessed are You, Lord our God, King of the universe, who creates the fruit of the earth.</strong></div>
+    <div class="text-en">We dip the green vegetable in salt water — the green symbolizing spring and renewal, the salt water representing the tears of our ancestors in Egypt. Even in our moments of rebirth, we remember the suffering that came before.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl"><strong>Gezegend bent U, Heer onze God, Koning van het heelal, die de vrucht van de aarde schept.</strong></div>
+    <div class="text-nl">Wij dopen de groente in zout water — het groen symboliseert de lente en vernieuwing, het zoute water vertegenwoordigt de tranen van onze voorouders in Egypte. Zelfs in onze momenten van wedergeboorte herinneren wij ons het lijden dat eraan voorafging.</div>
+  </div>
+</section>
+
+<!-- ===================== 4. YACHATZ ===================== -->
+<section class="seder-section" id="yachatz" data-step="4" data-cup="1">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 4 of 15</div>
+  <h2 class="section-title-he shimmer-text">יַחַץ</h2>
+  <div class="section-title-en">Yachatz — Breaking</div>
+
+  <div class="instruction">🫓 Take the middle matzah and break it into two pieces. The larger piece becomes the Afikoman — hide it for the children to find later.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he">לוֹקְחִים אֶת הַמַּצָּה הָאֶמְצָעִית וּבוֹצְעִים אוֹתָהּ לִשְׁתַּיִם. אֶת הַחֵלֶק הַגָּדוֹל מַצְפִּינִים לָאֲפִיקוֹמָן.</div>
+    <div class="text-he">הַמַּצָּה הַשְּׁבוּרָה הִיא לֶחֶם עֹנִי — כְּשֵׁם שֶׁהֶעָנִי שׁוֹבֵר פְּרוּסָה וּמַשְׁאִיר חֵלֶק לְמָחָר, כָּךְ אָנוּ שׁוֹבְרִים אֶת הַמַּצָּה.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en">The broken matzah is the bread of poverty — just as the poor person breaks off a piece and saves the rest for tomorrow, so we break the matzah. We begin with brokenness, because the story of liberation begins in a place of incompleteness.</div>
+    <div class="text-en">The Afikoman — the hidden piece — will be our dessert, the last taste of the evening. Freedom is something we must search for, and sometimes it is the children who find it first.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl">De gebroken matze is het brood der armoede — zoals de arme een stuk afbreekt en de rest voor morgen bewaart, zo breken wij de matze. We beginnen met gebrokenheid, want het verhaal van bevrijding begint op een plek van onvolledigheid.</div>
+    <div class="text-nl">De Afikoman — het verborgen stuk — wordt ons dessert, de laatste smaak van de avond. Vrijheid is iets waarnaar we moeten zoeken, en soms zijn het de kinderen die het eerst vinden.</div>
+  </div>
+</section>
+
+<!-- ===================== 5. MAGGID ===================== -->
+<section class="seder-section" id="maggid" data-step="5" data-cup="2">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 5 of 15</div>
+  <h2 class="section-title-he shimmer-text">מַגִּיד</h2>
+  <div class="section-title-en">Maggid — The Telling</div>
+
+  <div class="instruction">📖 Uncover the matzah. This is the heart of the Seder — the telling of the Exodus story.</div>
+
+  <!-- HA LACHMA ANYA -->
+  <div class="maggid-sub">
+    <div class="maggid-sub-title">הָא לַחְמָא עַנְיָא</div>
+    <div data-langcontent="he">
+      <div class="text-he large">
+        הָא לַחְמָא עַנְיָא דִּי אֲכָלוּ אַבְהָתָנָא בְאַרְעָא דְמִצְרָיִם. כָּל דִכְפִין יֵיתֵי וְיֵיכוֹל, כָּל דִצְרִיךְ יֵיתֵי וְיִפְסַח. הָשַּׁתָּא הָכָא, לְשָׁנָה הַבָּאָה בְּאַרְעָא דְיִשְׂרָאֵל. הָשַּׁתָּא עַבְדֵי, לְשָׁנָה הַבָּאָה בְּנֵי חוֹרִין.
+      </div>
+    </div>
+    <div data-langcontent="en">
+      <div class="text-en"><strong>This is the bread of affliction</strong> that our ancestors ate in the land of Egypt. Let all who are hungry come and eat; let all who are in need come and celebrate Passover. Now we are here; next year may we be in the Land of Israel. Now we are slaves; next year may we be free.</div>
+    </div>
+    <div data-langcontent="nl">
+      <div class="text-nl"><strong>Dit is het brood der ellende</strong> dat onze voorouders aten in het land Egypte. Laat allen die honger hebben komen en eten; laat allen die in nood verkeren komen en Pesach vieren. Nu zijn wij hier; volgend jaar mogen wij in het Land Israël zijn. Nu zijn wij slaven; volgend jaar mogen wij vrij zijn.</div>
+    </div>
+  </div>
+
+  <!-- MA NISHTANA — FOUR QUESTIONS -->
+  <div class="maggid-sub">
+    <div class="maggid-sub-title">מַה נִּשְׁתַּנָּה — The Four Questions</div>
+    <div class="instruction">👧 The youngest person at the table asks the Four Questions.</div>
+
+    <div data-langcontent="he">
+      <div class="text-he large" style="text-align: center;">מַה נִּשְׁתַּנָּה הַלַּיְלָה הַזֶּה מִכָּל הַלֵּילוֹת?</div>
+    </div>
+    <div data-langcontent="en">
+      <div class="text-en" style="text-align: center; font-size: calc(1.15rem * var(--font-scale)); font-weight: 600;">Why is this night different from all other nights?</div>
+    </div>
+    <div data-langcontent="nl">
+      <div class="text-nl" style="text-align: center; font-size: calc(1.05rem * var(--font-scale)); font-weight: 600;">Waarom is deze nacht anders dan alle andere nachten?</div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-number">Question 1</div>
+      <div data-langcontent="he"><div class="text-he">שֶׁבְּכָל הַלֵּילוֹת אָנוּ אוֹכְלִין חָמֵץ וּמַצָּה, הַלַּיְלָה הַזֶּה כֻּלּוֹ מַצָּה?</div></div>
+      <div data-langcontent="en"><div class="text-en">On all other nights we eat both leavened bread and matzah — why on this night only matzah?</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Op alle andere nachten eten wij zowel gerezen brood als matze — waarom op deze nacht alleen matze?</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-number">Question 2</div>
+      <div data-langcontent="he"><div class="text-he">שֶׁבְּכָל הַלֵּילוֹת אָנוּ אוֹכְלִין שְׁאָר יְרָקוֹת, הַלַּיְלָה הַזֶּה מָרוֹר?</div></div>
+      <div data-langcontent="en"><div class="text-en">On all other nights we eat all kinds of vegetables — why on this night bitter herbs?</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Op alle andere nachten eten wij allerlei groenten — waarom op deze nacht bittere kruiden?</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-number">Question 3</div>
+      <div data-langcontent="he"><div class="text-he">שֶׁבְּכָל הַלֵּילוֹת אֵין אָנוּ מַטְבִּילִין אֲפִילוּ פַּעַם אֶחָת, הַלַּיְלָה הַזֶּה שְׁתֵּי פְעָמִים?</div></div>
+      <div data-langcontent="en"><div class="text-en">On all other nights we do not dip our food even once — why on this night do we dip twice?</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Op alle andere nachten dopen wij ons voedsel niet eens één keer — waarom op deze nacht twee keer?</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-number">Question 4</div>
+      <div data-langcontent="he"><div class="text-he">שֶׁבְּכָל הַלֵּילוֹת אָנוּ אוֹכְלִין בֵּין יוֹשְׁבִין וּבֵין מְסֻבִּין, הַלַּיְלָה הַזֶּה כֻּלָּנוּ מְסֻבִּין?</div></div>
+      <div data-langcontent="en"><div class="text-en">On all other nights we eat either sitting upright or reclining — why on this night do we all recline?</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Op alle andere nachten eten wij zittend of liggend — waarom liggen wij op deze nacht allen aan?</div></div>
+    </div>
+  </div>
+
+  <!-- AVADIM HAYINU -->
+  <div class="maggid-sub">
+    <div class="maggid-sub-title">עֲבָדִים הָיִינוּ</div>
+    <div data-langcontent="he">
+      <div class="text-he large">
+        עֲבָדִים הָיִינוּ לְפַרְעֹה בְּמִצְרָיִם, וַיּוֹצִיאֵנוּ יְיָ אֱלֹהֵינוּ מִשָּׁם בְּיָד חֲזָקָה וּבִזְרוֹעַ נְטוּיָה. וְאִלּוּ לֹא הוֹצִיא הַקָּדוֹשׁ בָּרוּךְ הוּא אֶת אֲבוֹתֵינוּ מִמִּצְרַיִם, הֲרֵי אָנוּ וּבָנֵינוּ וּבְנֵי בָנֵינוּ, מְשֻׁעְבָּדִים הָיִינוּ לְפַרְעֹה בְּמִצְרָיִם.
+      </div>
+    </div>
+    <div data-langcontent="en">
+      <div class="text-en"><strong>We were slaves to Pharaoh in Egypt,</strong> and the Lord our God brought us out from there with a mighty hand and an outstretched arm. Had the Holy One, Blessed be He, not taken our ancestors out of Egypt, then we, our children, and our children's children would still be enslaved to Pharaoh in Egypt.</div>
+      <div class="text-en">Even if all of us were wise, all understanding, all elders, all knowledgeable in Torah — we would still be obligated to tell the story of the Exodus from Egypt. And whoever expands upon the story deserves praise.</div>
+    </div>
+    <div data-langcontent="nl">
+      <div class="text-nl"><strong>Wij waren slaven van Farao in Egypte,</strong> en de Heer onze God bracht ons daar vandaan met een sterke hand en een uitgestrekte arm. Als de Heilige, Gezegend zij Hij, onze voorouders niet uit Egypte had gehaald, dan zouden wij, onze kinderen en de kinderen van onze kinderen nog steeds slaven zijn van Farao in Egypte.</div>
+      <div class="text-nl">Zelfs als wij allen wijs waren, allen verstandig, allen ouderen, allen geleerd in de Tora — wij zouden nog steeds verplicht zijn het verhaal van de uittocht uit Egypte te vertellen. En wie het verhaal uitbreidt, verdient lof.</div>
+    </div>
+  </div>
+
+  <!-- FOUR SONS -->
+  <div class="maggid-sub">
+    <div class="maggid-sub-title">אַרְבָּעָה בָנִים — The Four Children</div>
+
+    <div class="sons-grid">
+      <div class="son-card">
+        <div class="son-emoji">🧒🏻</div>
+        <div class="son-name">חָכָם</div>
+        <div class="son-name-en">The Wise Child</div>
+        <div data-langcontent="he"><div class="text-he" style="font-size: calc(1rem * var(--font-scale));">מָה הָעֵדוֹת וְהַחֻקִּים וְהַמִּשְׁפָּטִים אֲשֶׁר צִוָּה יְיָ אֱלֹהֵינוּ אֶתְכֶם?<br>אַף אַתָּה אֱמוֹר לוֹ כְּהִלְכוֹת הַפֶּסַח: אֵין מַפְטִירִין אַחַר הַפֶּסַח אֲפִיקוֹמָן.</div></div>
+        <div data-langcontent="en"><div class="text-en">"What are the testimonies, statutes and laws which the Lord our God has commanded you?" — Teach this one all the details of Passover, down to the very last law of the Afikoman.</div></div>
+        <div data-langcontent="nl"><div class="text-nl">"Wat zijn de getuigenissen, wetten en voorschriften die de Heer onze God u heeft geboden?" — Onderwijs dit kind alle details van Pesach, tot aan de allerlaatste wet van de Afikoman.</div></div>
+      </div>
+
+      <div class="son-card">
+        <div class="son-emoji">😤</div>
+        <div class="son-name">רָשָׁע</div>
+        <div class="son-name-en">The Wicked Child</div>
+        <div data-langcontent="he"><div class="text-he" style="font-size: calc(1rem * var(--font-scale));">מָה הָעֲבוֹדָה הַזֹּאת לָכֶם?<br>לָכֶם — וְלֹא לוֹ. אַף אַתָּה הַקְהֵה אֶת שִׁנָּיו.</div></div>
+        <div data-langcontent="en"><div class="text-en">"What does this service mean to <em>you</em>?" — By saying "you" and not "us," this child excludes themselves. Respond: "It is because of what God did for <em>me</em> when I left Egypt" — for me, and not for one who excludes themselves.</div></div>
+        <div data-langcontent="nl"><div class="text-nl">"Wat betekent deze dienst voor <em>jullie</em>?" — Door "jullie" te zeggen en niet "ons" sluit dit kind zichzelf uit. Antwoord: "Het is vanwege wat God voor <em>mij</em> deed toen ik uit Egypte vertrok" — voor mij, en niet voor wie zichzelf buitensluit.</div></div>
+      </div>
+
+      <div class="son-card">
+        <div class="son-emoji">🤷</div>
+        <div class="son-name">תָּם</div>
+        <div class="son-name-en">The Simple Child</div>
+        <div data-langcontent="he"><div class="text-he" style="font-size: calc(1rem * var(--font-scale));">מַה זֹּאת?<br>וְאָמַרְתָּ אֵלָיו: בְּחוֹזֶק יָד הוֹצִיאָנוּ יְיָ מִמִּצְרַיִם, מִבֵּית עֲבָדִים.</div></div>
+        <div data-langcontent="en"><div class="text-en">"What is this?" — Say simply: "With a mighty hand God brought us out of Egypt, from the house of slavery."</div></div>
+        <div data-langcontent="nl"><div class="text-nl">"Wat is dit?" — Zeg eenvoudig: "Met een sterke hand bracht God ons uit Egypte, uit het huis der slavernij."</div></div>
+      </div>
+
+      <div class="son-card">
+        <div class="son-emoji">😶</div>
+        <div class="son-name">שֶׁאֵינוֹ יוֹדֵעַ לִשְׁאוֹל</div>
+        <div class="son-name-en">The One Who Does Not Know How to Ask</div>
+        <div data-langcontent="he"><div class="text-he" style="font-size: calc(1rem * var(--font-scale));">אַתְּ פְּתַח לוֹ, שֶׁנֶּאֱמַר: וְהִגַּדְתָּ לְבִנְךָ בַּיּוֹם הַהוּא לֵאמֹר, בַּעֲבוּר זֶה עָשָׂה יְיָ לִי בְּצֵאתִי מִמִּצְרָיִם.</div></div>
+        <div data-langcontent="en"><div class="text-en">For this child, <em>you</em> must begin. As it is written: "You shall tell your child on that day, saying: 'It is because of what God did for me when I left Egypt.'"</div></div>
+        <div data-langcontent="nl"><div class="text-nl">Voor dit kind moet <em>u</em> beginnen. Zoals geschreven staat: "U zult uw kind op die dag vertellen: 'Het is vanwege wat God voor mij deed toen ik uit Egypte vertrok.'"</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEN PLAGUES -->
+  <div class="maggid-sub">
+    <div class="maggid-sub-title">עֶשֶׂר מַכּוֹת — The Ten Plagues</div>
+    <div class="instruction">🍷 As each plague is named, dip your finger into the wine and remove a drop — our joy is diminished by the suffering of others.</div>
+
+    <div class="plagues-grid" id="plaguesGrid">
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="1">
+        <div class="plague-emoji">🩸</div>
+        <div class="plague-he">דָּם</div>
+        <div class="plague-en">Blood</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="2">
+        <div class="plague-emoji">🐸</div>
+        <div class="plague-he">צְפַרְדֵּעַ</div>
+        <div class="plague-en">Frogs</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="3">
+        <div class="plague-emoji">🦟</div>
+        <div class="plague-he">כִּנִּים</div>
+        <div class="plague-en">Lice</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="4">
+        <div class="plague-emoji">🪰</div>
+        <div class="plague-he">עָרוֹב</div>
+        <div class="plague-en">Wild Beasts</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="5">
+        <div class="plague-emoji">🐄</div>
+        <div class="plague-he">דֶּבֶר</div>
+        <div class="plague-en">Pestilence</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="6">
+        <div class="plague-emoji">🤕</div>
+        <div class="plague-he">שְׁחִין</div>
+        <div class="plague-en">Boils</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="7">
+        <div class="plague-emoji">🌨️</div>
+        <div class="plague-he">בָּרָד</div>
+        <div class="plague-en">Hail</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="8">
+        <div class="plague-emoji">🦗</div>
+        <div class="plague-he">אַרְבֶּה</div>
+        <div class="plague-en">Locusts</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="9">
+        <div class="plague-emoji">🌑</div>
+        <div class="plague-he">חוֹשֶׁךְ</div>
+        <div class="plague-en">Darkness</div>
+      </div>
+      <div class="plague-item" onclick="strikePlague(this)" data-plague="10">
+        <div class="plague-emoji">💀</div>
+        <div class="plague-he">מַכַּת בְּכוֹרוֹת</div>
+        <div class="plague-en">Death of Firstborn</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAYENU -->
+  <div class="maggid-sub">
+    <div class="maggid-sub-title">דַּיֵּנוּ — It Would Have Been Enough</div>
+
+    <div class="dayenu-stanza" onclick="this.classList.toggle('active')">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ הוֹצִיאָנוּ מִמִּצְרַיִם, וְלֹא עָשָׂה בָהֶם שְׁפָטִים — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He brought us out of Egypt and not executed judgments against the Egyptians — it would have been enough!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons uit Egypte geleid en geen oordelen over de Egyptenaren voltrokken — het zou genoeg zijn geweest!</div></div>
+    </div>
+    <div class="dayenu-refrain" data-langcontent="he">דַּיֵּנוּ!</div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ עָשָׂה בָהֶם שְׁפָטִים, וְלֹא עָשָׂה בֵאלֹהֵיהֶם — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He executed judgments against them and not against their gods — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij oordelen over hen voltrokken en niet over hun goden — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ עָשָׂה בֵאלֹהֵיהֶם, וְלֹא הָרַג אֶת בְּכוֹרֵיהֶם — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He executed judgments against their gods and not slain their firstborn — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij oordelen over hun goden voltrokken en hun eerstgeborenen niet gedood — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ הָרַג אֶת בְּכוֹרֵיהֶם, וְלֹא נָתַן לָנוּ אֶת מָמוֹנָם — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He slain their firstborn and not given us their wealth — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij hun eerstgeborenen gedood en ons hun rijkdom niet gegeven — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ נָתַן לָנוּ אֶת מָמוֹנָם, וְלֹא קָרַע לָנוּ אֶת הַיָּם — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He given us their wealth and not split the sea for us — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons hun rijkdom gegeven en de zee niet voor ons gespleten — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ קָרַע לָנוּ אֶת הַיָּם, וְלֹא הֶעֱבִירָנוּ בְתוֹכוֹ בֶּחָרָבָה — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He split the sea for us and not led us through it on dry land — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij de zee voor ons gespleten en ons er niet doorheen geleid over droog land — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ הֶעֱבִירָנוּ בְתוֹכוֹ בֶּחָרָבָה, וְלֹא שִׁקַּע צָרֵינוּ בְּתוֹכוֹ — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He led us through on dry land and not drowned our oppressors in it — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons over droog land geleid en onze onderdrukkers er niet in verdronken — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ שִׁקַּע צָרֵינוּ בְּתוֹכוֹ, וְלֹא סִפֵּק צָרְכֵּנוּ בַּמִּדְבָּר אַרְבָּעִים שָׁנָה — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He drowned our oppressors and not sustained us in the desert for forty years — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij onze onderdrukkers verdronken en ons niet veertig jaar in de woestijn onderhouden — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ סִפֵּק צָרְכֵּנוּ בַּמִּדְבָּר אַרְבָּעִים שָׁנָה, וְלֹא הֶאֱכִילָנוּ אֶת הַמָּן — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He sustained us in the desert for forty years and not fed us the manna — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons veertig jaar in de woestijn onderhouden en ons het manna niet gevoed — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ הֶאֱכִילָנוּ אֶת הַמָּן, וְלֹא נָתַן לָנוּ אֶת הַשַּׁבָּת — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He fed us the manna and not given us the Shabbat — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons het manna gevoed en ons de Sjabbat niet gegeven — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ נָתַן לָנוּ אֶת הַשַּׁבָּת, וְלֹא קֵרְבָנוּ לִפְנֵי הַר סִינַי — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He given us the Shabbat and not brought us before Mount Sinai — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons de Sjabbat gegeven en ons niet voor de berg Sinaï gebracht — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ קֵרְבָנוּ לִפְנֵי הַר סִינַי, וְלֹא נָתַן לָנוּ אֶת הַתּוֹרָה — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He brought us before Mount Sinai and not given us the Torah — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons voor de berg Sinaï gebracht en ons de Tora niet gegeven — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ נָתַן לָנוּ אֶת הַתּוֹרָה, וְלֹא הִכְנִיסָנוּ לְאֶרֶץ יִשְׂרָאֵל — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He given us the Torah and not brought us into the Land of Israel — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons de Tora gegeven en ons niet het Land Israël binnengebracht — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-stanza">
+      <div data-langcontent="he"><div class="text-he">אִלּוּ הִכְנִיסָנוּ לְאֶרֶץ יִשְׂרָאֵל, וְלֹא בָנָה לָנוּ אֶת בֵּית הַבְּחִירָה — דַּיֵּנוּ!</div></div>
+      <div data-langcontent="en"><div class="text-en">Had He brought us into the Land of Israel and not built for us the Temple — Dayenu!</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Had Hij ons het Land Israël binnengebracht en de Tempel niet voor ons gebouwd — Dayenu!</div></div>
+    </div>
+
+    <div class="dayenu-refrain shimmer-text" data-langcontent="he" style="font-size: calc(2.2rem * var(--font-scale));">דַּיֵּנוּ! דַּיֵּנוּ!</div>
+  </div>
+
+  <!-- Second Cup -->
+  <div class="instruction">🍷 Raise the cup and recite the blessing. Drink the second cup of wine while leaning to the left.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגָּפֶן.</div>
+  </div>
+</section>
+
+<!-- ===================== 6. RACHTZAH ===================== -->
+<section class="seder-section" id="rachtzah" data-step="6" data-cup="2">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 6 of 15</div>
+  <h2 class="section-title-he shimmer-text">רָחְצָה</h2>
+  <div class="section-title-en">Rachtzah — Washing Before the Meal</div>
+
+  <div class="instruction">💧 Wash your hands — this time with the blessing.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו, וְצִוָּנוּ עַל נְטִילַת יָדָיִם.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en"><strong>Blessed are You, Lord our God, King of the universe, who has sanctified us with His commandments and commanded us concerning the washing of hands.</strong></div>
+    <div class="text-en">This time the washing is different. Now we wash with intention and blessing. We are about to eat the matzah, the central symbol of our freedom, and we approach it with clean hands and full hearts.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl"><strong>Gezegend bent U, Heer onze God, Koning van het heelal, die ons geheiligd heeft met Zijn geboden en ons heeft opgedragen de handen te wassen.</strong></div>
+    <div class="text-nl">Dit keer is de wassing anders. Nu wassen wij met intentie en zegen. Wij staan op het punt de matze te eten, het centrale symbool van onze vrijheid, en wij benaderen het met schone handen en volle harten.</div>
+  </div>
+</section>
+
+<!-- ===================== 7. MOTZI MATZAH ===================== -->
+<section class="seder-section" id="motzi" data-step="7" data-cup="2">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 7 of 15</div>
+  <h2 class="section-title-he shimmer-text">מוֹצִיא מַצָּה</h2>
+  <div class="section-title-en">Motzi Matzah — Blessing and Eating Matzah</div>
+
+  <div class="instruction">🫓 Hold all three matzot. Say both blessings, then eat the matzah while reclining to the left.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמּוֹצִיא לֶחֶם מִן הָאָרֶץ.</div>
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו, וְצִוָּנוּ עַל אֲכִילַת מַצָּה.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en"><strong>Blessed are You, Lord our God, King of the universe, who brings forth bread from the earth.</strong></div>
+    <div class="text-en"><strong>Blessed are You, Lord our God, King of the universe, who has sanctified us with His commandments and commanded us concerning the eating of matzah.</strong></div>
+    <div class="text-en">We eat this flat, unadorned bread — the bread our ancestors baked in haste, because the dough had no time to rise. Slavery doesn't wait for bread to rise, and neither does freedom.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl"><strong>Gezegend bent U, Heer onze God, Koning van het heelal, die brood uit de aarde voortbrengt.</strong></div>
+    <div class="text-nl"><strong>Gezegend bent U, Heer onze God, Koning van het heelal, die ons geheiligd heeft met Zijn geboden en ons het eten van matze heeft opgedragen.</strong></div>
+    <div class="text-nl">Wij eten dit platte, onversierde brood — het brood dat onze voorouders in haast bakten, omdat het deeg geen tijd had om te rijzen. Slavernij wacht niet tot brood rijst, en vrijheid evenmin.</div>
+  </div>
+</section>
+
+<!-- ===================== 8. MAROR ===================== -->
+<section class="seder-section" id="maror" data-step="8" data-cup="2">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 8 of 15</div>
+  <h2 class="section-title-he shimmer-text">מָרוֹר</h2>
+  <div class="section-title-en">Maror — Bitter Herbs</div>
+
+  <div class="instruction">🌿 Dip the bitter herbs in charoset and recite:</div>
+
+  <div data-langcontent="he">
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו, וְצִוָּנוּ עַל אֲכִילַת מָרוֹר.</div>
+    <div class="text-he">הַמָּרוֹר מַזְכִּיר לָנוּ אֶת מְרִירוּת הַשִּׁעְבּוּד בְּמִצְרָיִם. הַחֲרֹסֶת, הַמִּתוּקָה וְהַחוּמָּה, מְסַמֶּלֶת אֶת הַטִּיט שֶׁעָבְדוּ בּוֹ אֲבוֹתֵינוּ.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en"><strong>Blessed are You, Lord our God, King of the universe, who has sanctified us with His commandments and commanded us concerning the eating of bitter herbs.</strong></div>
+    <div class="text-en">The bitter herb reminds us of the bitterness of slavery in Egypt. The charoset — sweet and brown — represents the mortar with which our ancestors labored. We dip bitterness into sweetness, because even in the hardest labor there was hope.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl"><strong>Gezegend bent U, Heer onze God, Koning van het heelal, die ons geheiligd heeft met Zijn geboden en ons het eten van bittere kruiden heeft opgedragen.</strong></div>
+    <div class="text-nl">Het bittere kruid herinnert ons aan de bitterheid van de slavernij in Egypte. De charoset — zoet en bruin — vertegenwoordigt het metselwerk waarmee onze voorouders werkten. Wij dopen bitterheid in zoetigheid, want zelfs in de zwaarste arbeid was er hoop.</div>
+  </div>
+</section>
+
+<!-- ===================== 9. KORECH ===================== -->
+<section class="seder-section" id="korech" data-step="9" data-cup="2">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 9 of 15</div>
+  <h2 class="section-title-he shimmer-text">כּוֹרֵךְ</h2>
+  <div class="section-title-en">Korech — The Hillel Sandwich</div>
+
+  <div class="instruction">🫓 Make a sandwich of matzah, maror, and charoset. Eat while reclining.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he">זֵכֶר לְמִקְדָּשׁ כְּהִלֵּל. כֵּן עָשָׂה הִלֵּל בִּזְמַן שֶׁבֵּית הַמִּקְדָּשׁ הָיָה קַיָּם: הָיָה כּוֹרֵךְ פֶּסַח, מַצָּה וּמָרוֹר וְאוֹכֵל בְּיַחַד, לְקַיֵּם מַה שֶׁנֶּאֱמַר: עַל מַצּוֹת וּמְרוֹרִים יֹאכְלֻהוּ.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en"><strong>In remembrance of the Temple, following Hillel.</strong> This is what Hillel did when the Temple still stood: he would combine the Passover offering, matzah and bitter herbs and eat them together, to fulfill what is written: "With matzot and bitter herbs they shall eat it."</div>
+    <div class="text-en">Hillel's sandwich holds a profound truth: freedom and suffering, sweetness and bitterness, are not separate — they are consumed together, experienced together, understood together.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl"><strong>Ter herinnering aan de Tempel, volgens Hillel.</strong> Dit is wat Hillel deed toen de Tempel nog stond: hij combineerde het Pesach-offer, matze en bittere kruiden en at ze samen, om te vervullen wat geschreven staat: "Met matzes en bittere kruiden zullen zij het eten."</div>
+    <div class="text-nl">Hillels sandwich bevat een diepe waarheid: vrijheid en lijden, zoetheid en bitterheid, zijn niet gescheiden — ze worden samen geconsumeerd, samen ervaren, samen begrepen.</div>
+  </div>
+</section>
+
+<!-- ===================== 10. SHULCHAN ORECH ===================== -->
+<section class="seder-section" id="shulchan" data-step="10" data-cup="2">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 10 of 15</div>
+  <h2 class="section-title-he shimmer-text">שֻׁלְחָן עוֹרֵךְ</h2>
+  <div class="section-title-en">Shulchan Orech — The Festive Meal</div>
+
+  <div class="instruction">🍽️ Enjoy the festive meal! It is customary to begin with a hard-boiled egg dipped in salt water.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he" style="text-align: center;">הַסְּעוּדָה מוּגֶשֶׁת. בְּתֵאָבוֹן!</div>
+    <div class="text-he">נוֹהֲגִים לִפְתּוֹחַ בְּבֵיצָה קָשָׁה טְבוּלָה בְּמֵי מֶלַח — זֵכֶר לְקָרְבַּן חֲגִיגָה וּלְאֵבֶל עַל חוּרְבַּן בֵּית הַמִּקְדָּשׁ.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en" style="text-align: center; font-size: calc(1.15rem * var(--font-scale));">The meal is served. <em>B'te'avon!</em></div>
+    <div class="text-en">It is customary to begin with a hard-boiled egg dipped in salt water — a reminder of the festival offering and a symbol of mourning for the destruction of the Temple. The egg, which becomes harder when boiled, represents the resilience of the Jewish people: the more we are persecuted, the stronger we become.</div>
+    <div class="text-en">This is the time for family, for laughter, for the recipes passed down through generations. Eat well, and remember: we feast tonight because once we could not.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl" style="text-align: center; font-size: calc(1.05rem * var(--font-scale));">De maaltijd wordt geserveerd. <em>Eet smakelijk!</em></div>
+    <div class="text-nl">Het is gebruikelijk te beginnen met een hardgekookt ei gedoopt in zout water — een herinnering aan het feestoffer en een symbool van rouw om de verwoesting van de Tempel. Het ei, dat harder wordt wanneer het gekookt wordt, vertegenwoordigt de veerkracht van het Joodse volk: hoe meer wij vervolgd worden, hoe sterker wij worden.</div>
+  </div>
+</section>
+
+<!-- ===================== 11. TZAFUN ===================== -->
+<section class="seder-section" id="tzafun" data-step="11" data-cup="2">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 11 of 15</div>
+  <h2 class="section-title-he shimmer-text">צָפוּן</h2>
+  <div class="section-title-en">Tzafun — The Hidden</div>
+
+  <div class="instruction">🔍 Find the Afikoman! The children search for the hidden matzah. Once found, everyone eats a piece — it is the last food eaten tonight.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he">אוֹכְלִים אֶת הָאֲפִיקוֹמָן. זוֹהִי הַמַּצָּה הָאַחֲרוֹנָה שֶׁנֹּאכַל הַלַּיְלָה — כְּדֵי שֶׁטַּעַם הַמַּצָּה יִשָּׁאֵר בְּפִינוּ.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en">We eat the Afikoman. This is the last matzah we will eat tonight — so that the taste of matzah, the taste of freedom, lingers on our lips. Nothing should erase this taste.</div>
+    <div class="text-en">The word "Afikoman" may come from the Greek <em>epikomion</em> — "that which comes after," or perhaps "dessert." It is the hidden piece, sought after and found, the sweet conclusion of the evening's story.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl">Wij eten de Afikoman. Dit is de laatste matze die wij vanavond zullen eten — zodat de smaak van matze, de smaak van vrijheid, op onze lippen blijft hangen. Niets mag deze smaak uitwissen.</div>
+    <div class="text-nl">Het woord "Afikoman" komt mogelijk van het Griekse <em>epikomion</em> — "dat wat daarna komt," of wellicht "dessert." Het is het verborgen stuk, gezocht en gevonden, de zoete conclusie van het verhaal van de avond.</div>
+  </div>
+</section>
+
+<!-- ===================== 12. BARECH ===================== -->
+<section class="seder-section" id="barech" data-step="12" data-cup="3">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 12 of 15</div>
+  <h2 class="section-title-he shimmer-text">בָּרֵךְ</h2>
+  <div class="section-title-en">Barech — Grace After Meals</div>
+
+  <div class="instruction">🍷 Fill the third cup. Recite Birkat Hamazon (Grace After Meals).</div>
+
+  <div data-langcontent="he">
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַזָּן אֶת הָעוֹלָם כֻּלּוֹ בְּטוּבוֹ, בְּחֵן בְּחֶסֶד וּבְרַחֲמִים. הוּא נוֹתֵן לֶחֶם לְכָל בָּשָׂר, כִּי לְעוֹלָם חַסְדּוֹ.</div>
+    <div class="text-he">נוֹדֶה לְּךָ יְיָ אֱלֹהֵינוּ עַל שֶׁהִנְחַלְתָּ לַאֲבוֹתֵינוּ אֶרֶץ חֶמְדָּה טוֹבָה וּרְחָבָה, וְעַל שֶׁהוֹצֵאתָנוּ יְיָ אֱלֹהֵינוּ מֵאֶרֶץ מִצְרַיִם, וּפְדִיתָנוּ מִבֵּית עֲבָדִים.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en"><strong>Blessed are You, Lord our God, King of the universe, who feeds the whole world with goodness, grace, kindness and mercy. He gives food to all flesh, for His kindness endures forever.</strong></div>
+    <div class="text-en">We thank You, Lord our God, for the desirable, good and spacious land that You gave to our ancestors, and for bringing us out of the land of Egypt and redeeming us from the house of slavery.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl"><strong>Gezegend bent U, Heer onze God, Koning van het heelal, die de hele wereld voedt met goedheid, genade, vriendelijkheid en barmhartigheid. Hij geeft voedsel aan alle vlees, want Zijn goedheid duurt eeuwig.</strong></div>
+    <div class="text-nl">Wij danken U, Heer onze God, voor het begeerlijke, goede en ruime land dat U aan onze voorouders heeft gegeven, en voor het uitleiden uit het land Egypte en het verlossen uit het huis der slavernij.</div>
+  </div>
+
+  <div class="instruction">🍷 Drink the third cup of wine while leaning to the left.</div>
+  <div data-langcontent="he">
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגָּפֶן.</div>
+  </div>
+
+  <!-- Elijah's Cup -->
+  <div class="special-moment">
+    <div class="candle">🕯️</div>
+    <div class="maggid-sub-title" style="margin-top: 1rem;">כּוֹס אֵלִיָּהוּ — Elijah's Cup</div>
+    <div class="instruction">🚪 Fill the Cup of Elijah. Open the door for the prophet Elijah.</div>
+    <div data-langcontent="he">
+      <div class="text-he" style="text-align: center;">שְׁפוֹךְ חֲמָתְךָ אֶל הַגּוֹיִם אֲשֶׁר לֹא יְדָעוּךָ, וְעַל מַמְלָכוֹת אֲשֶׁר בְּשִׁמְךָ לֹא קָרָאוּ. כִּי אָכַל אֶת יַעֲקֹב, וְאֶת נָוֵהוּ הֵשַׁמּוּ.</div>
+    </div>
+    <div data-langcontent="en">
+      <div class="text-en">We open the door and invite Elijah the Prophet — herald of the Messiah, herald of peace. His cup stands full on every Seder table around the world, a symbol of hope that one day all the world will know justice and freedom.</div>
+      <div class="text-en"><em>Pour out Your wrath upon the nations that do not know You, and upon the kingdoms that do not call upon Your name. For they have consumed Jacob and laid waste his dwelling.</em></div>
+    </div>
+    <div data-langcontent="nl">
+      <div class="text-nl">Wij openen de deur en nodigen de profeet Elia uit — heraut van de Messias, heraut van vrede. Zijn beker staat vol op elke Sedertafel over de hele wereld, een symbool van hoop dat op een dag de hele wereld gerechtigheid en vrijheid zal kennen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 13. HALLEL ===================== -->
+<section class="seder-section" id="hallel" data-step="13" data-cup="4">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 13 of 15</div>
+  <h2 class="section-title-he shimmer-text">הַלֵּל</h2>
+  <div class="section-title-en">Hallel — Songs of Praise</div>
+
+  <div class="instruction">🎵 Fill the fourth cup. Sing Psalms of praise and thanksgiving.</div>
+
+  <div data-langcontent="he">
+    <div class="text-he large" style="text-align: center;">הַלְלוּיָהּ!</div>
+    <div class="text-he">
+      לֹא לָנוּ יְיָ, לֹא לָנוּ, כִּי לְשִׁמְךָ תֵּן כָּבוֹד, עַל חַסְדְּךָ עַל אֲמִתֶּךָ.
+    </div>
+    <div class="text-he">
+      הוֹדוּ לַיְיָ כִּי טוֹב, כִּי לְעוֹלָם חַסְדּוֹ. יֹאמַר נָא יִשְׂרָאֵל, כִּי לְעוֹלָם חַסְדּוֹ. יֹאמְרוּ נָא בֵית אַהֲרֹן, כִּי לְעוֹלָם חַסְדּוֹ. יֹאמְרוּ נָא יִרְאֵי יְיָ, כִּי לְעוֹלָם חַסְדּוֹ.
+    </div>
+    <div class="text-he">
+      מִן הַמֵּצַר קָרָאתִי יָּהּ, עָנָנִי בַּמֶּרְחָב יָהּ. יְיָ לִי לֹא אִירָא, מַה יַּעֲשֶׂה לִי אָדָם.
+    </div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en" style="text-align: center; font-size: calc(1.3rem * var(--font-scale)); font-weight: 700;">Halleluyah!</div>
+    <div class="text-en">Not to us, Lord, not to us, but to Your name give glory, for Your kindness and Your truth.</div>
+    <div class="text-en">Give thanks to the Lord for He is good, for His kindness endures forever. Let Israel say: His kindness endures forever. Let the house of Aaron say: His kindness endures forever. Let those who revere the Lord say: His kindness endures forever.</div>
+    <div class="text-en"><em>From the narrow straits I called to God; He answered me with the breadth of Divine relief. The Lord is with me, I shall not fear — what can any person do to me?</em></div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl" style="text-align: center; font-size: calc(1.1rem * var(--font-scale)); font-weight: 700;">Halleluja!</div>
+    <div class="text-nl">Niet aan ons, Heer, niet aan ons, maar aan Uw naam geef eer, om Uw goedheid en Uw trouw.</div>
+    <div class="text-nl">Looft de Heer want Hij is goed, want Zijn goedheid duurt eeuwig. Laat Israël zeggen: Zijn goedheid duurt eeuwig. Laat het huis van Aäron zeggen: Zijn goedheid duurt eeuwig. Laat hen die de Heer vrezen zeggen: Zijn goedheid duurt eeuwig.</div>
+    <div class="text-nl"><em>Uit de benauwdheid riep ik tot God; Hij antwoordde mij met de ruimte van Goddelijke verlichting. De Heer is met mij, ik zal niet vrezen — wat kan een mens mij aandoen?</em></div>
+  </div>
+
+  <!-- Chad Gadya -->
+  <div class="maggid-sub">
+    <div class="maggid-sub-title">חַד גַּדְיָא — Chad Gadya</div>
+    <div class="instruction">🎶 Sing Chad Gadya — a playful cumulative song, yet beneath its surface lies the story of empires that rise and fall, until the Holy One prevails.</div>
+
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">חַד גַּדְיָא, חַד גַּדְיָא, דְּזַבִּין אַבָּא בִּתְרֵי זוּזֵי. חַד גַּדְיָא, חַד גַּדְיָא.</div></div>
+      <div data-langcontent="en"><div class="text-en">One little goat, one little goat, that father bought for two zuzim. One little goat, one little goat.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Eén geitje, één geitje, dat vader kocht voor twee munten. Eén geitje, één geitje.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">וְאָתָא שׁוּנְרָא וְאָכְלָה לְגַדְיָא, דְּזַבִּין אַבָּא בִּתְרֵי זוּזֵי.</div></div>
+      <div data-langcontent="en"><div class="text-en">Then came the cat and ate the goat that father bought for two zuzim.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Toen kwam de kat en at het geitje dat vader kocht voor twee munten.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">וְאָתָא כַלְבָּא וְנָשַׁךְ לְשׁוּנְרָא, דְּאָכְלָה לְגַדְיָא.</div></div>
+      <div data-langcontent="en"><div class="text-en">Then came the dog and bit the cat that ate the goat.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Toen kwam de hond en beet de kat die het geitje at.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">וְאָתָא חוּטְרָא וְהִכָּה לְכַלְבָּא. וְאָתָא נוּרָא וְשָׂרַף לְחוּטְרָא. וְאָתָא מַיָּא וְכָבָה לְנוּרָא. וְאָתָא תוֹרָא וְשָׁתָה לְמַיָּא. וְאָתָא הַשּׁוֹחֵט וְשָׁחַט לְתוֹרָא. וְאָתָא מַלְאַךְ הַמָּוֶת וְשָׁחַט לְשׁוֹחֵט.</div></div>
+      <div data-langcontent="en"><div class="text-en">Then came the stick and beat the dog. Then came the fire and burned the stick. Then came the water and quenched the fire. Then came the ox and drank the water. Then came the slaughterer and slaughtered the ox. Then came the Angel of Death and slew the slaughterer.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Toen kwam de stok en sloeg de hond. Toen kwam het vuur en verbrandde de stok. Toen kwam het water en doofde het vuur. Toen kwam de os en dronk het water. Toen kwam de slachter en slachtte de os. Toen kwam de Engel des Doods en doodde de slachter.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he large" style="text-align: center;">וְאָתָא הַקָּדוֹשׁ בָּרוּךְ הוּא וְשָׁחַט לְמַלְאַךְ הַמָּוֶת.<br>חַד גַּדְיָא, חַד גַּדְיָא!</div></div>
+      <div data-langcontent="en"><div class="text-en" style="text-align: center; font-weight: 600;">Then came the Holy One, Blessed be He, and slew the Angel of Death.<br>One little goat, one little goat!</div></div>
+      <div data-langcontent="nl"><div class="text-nl" style="text-align: center; font-weight: 600;">Toen kwam de Heilige, Gezegend zij Hij, en doodde de Engel des Doods.<br>Eén geitje, één geitje!</div></div>
+    </div>
+  </div>
+
+  <div class="instruction">🍷 Drink the fourth and final cup of wine while leaning to the left.</div>
+  <div data-langcontent="he">
+    <div class="text-he blessing">בָּרוּךְ אַתָּה יְיָ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגָּפֶן.</div>
+  </div>
+</section>
+
+<!-- ===================== 14. NIRTZAH ===================== -->
+<section class="seder-section" id="nirtzah" data-step="14" data-cup="4">
+  <svg class="section-divider" viewBox="0 0 300 20"><path d="M0,10 Q75,0 150,10 Q225,20 300,10" stroke="var(--gold)" stroke-width="0.5" fill="none"/><circle cx="150" cy="10" r="3" fill="var(--gold)" opacity="0.5"/></svg>
+  <div class="section-step-number">Step 15 of 15</div>
+  <h2 class="section-title-he shimmer-text">נִרְצָה</h2>
+  <div class="section-title-en">Nirtzah — Acceptance &amp; Conclusion</div>
+
+  <div data-langcontent="he">
+    <div class="text-he" style="text-align: center;">חֲסַל סִדּוּר פֶּסַח כְּהִלְכָתוֹ, כְּכָל מִשְׁפָּטוֹ וְחֻקָּתוֹ. כַּאֲשֶׁר זָכִינוּ לְסַדֵּר אוֹתוֹ, כֵּן נִזְכֶּה לַעֲשׂוֹתוֹ.</div>
+  </div>
+  <div data-langcontent="en">
+    <div class="text-en" style="text-align: center;">The Passover Seder is now complete, according to its law, its ordinance and statute. Just as we have been privileged to celebrate it this year, so may we be worthy to perform it again.</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl" style="text-align: center;">De Pesach-Seder is nu voltooid, volgens zijn wet, zijn verordening en voorschrift. Zoals wij het voorrecht hadden het dit jaar te vieren, zo mogen wij het waardig zijn het opnieuw te verrichten.</div>
+  </div>
+
+  <div style="height: 2rem;"></div>
+
+  <div class="closing-text shimmer-text">
+    לְשָׁנָה הַבָּאָה<br>בִּירוּשָׁלָיִם!
+  </div>
+
+  <div data-langcontent="en">
+    <div class="text-en" style="text-align: center; font-size: calc(1.4rem * var(--font-scale)); font-weight: 600; margin: 1rem 0;">Next Year in Jerusalem!</div>
+  </div>
+  <div data-langcontent="nl">
+    <div class="text-nl" style="text-align: center; font-size: calc(1.2rem * var(--font-scale)); font-weight: 600; margin: 1rem 0;">Volgend Jaar in Jeruzalem!</div>
+  </div>
+
+  <div style="height: 2rem;"></div>
+
+  <!-- Star of David closing -->
+  <div style="text-align: center;">
+    <svg width="60" height="60" viewBox="0 0 100 100" fill="none" style="animation: starGlow 3s ease-in-out infinite;">
+      <polygon points="50,10 61,38 95,38 68,55 78,85 50,67 22,85 32,55 5,38 39,38" stroke="var(--gold)" stroke-width="1.5" fill="none"/>
+    </svg>
+  </div>
+
+  <div style="text-align: center; margin-top: 2rem; opacity: 0.4; font-size: 0.85rem;">
+    חַג פֶּסַח שָׂמֵחַ · Happy Passover · Vrolijk Pesach<br>
+    <span style="font-size: 0.75rem; margin-top: 0.5rem; display: inline-block;">5786 / 2026 · Amsterdam</span>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================
+     BOTTOM NAVIGATION
+     ============================================ -->
+<nav class="bottom-nav" id="bottomNav">
+  <div class="nav-progress"><div class="nav-progress-bar" id="navProgressBar"></div></div>
+  <div class="nav-scroll" id="navScroll"></div>
+</nav>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+// ==========================================
+// SEDER STEPS DATA
+// ==========================================
+const sederSteps = [
+  { id: 'cover', he: 'הַגָּדָה', en: 'Cover', num: '', cup: 0 },
+  { id: 'kadesh', he: 'קַדֵּשׁ', en: 'Kadesh', num: '1', cup: 1 },
+  { id: 'urchatz', he: 'וּרְחַץ', en: 'Urchatz', num: '2', cup: 1 },
+  { id: 'karpas', he: 'כַּרְפַּס', en: 'Karpas', num: '3', cup: 1 },
+  { id: 'yachatz', he: 'יַחַץ', en: 'Yachatz', num: '4', cup: 1 },
+  { id: 'maggid', he: 'מַגִּיד', en: 'Maggid', num: '5', cup: 2 },
+  { id: 'rachtzah', he: 'רָחְצָה', en: 'Rachtzah', num: '6', cup: 2 },
+  { id: 'motzi', he: 'מוֹצִיא', en: 'Motzi', num: '7', cup: 2 },
+  { id: 'maror', he: 'מָרוֹר', en: 'Maror', num: '8', cup: 2 },
+  { id: 'korech', he: 'כּוֹרֵךְ', en: 'Korech', num: '9', cup: 2 },
+  { id: 'shulchan', he: 'שֻׁלְחָן', en: 'Meal', num: '10', cup: 2 },
+  { id: 'tzafun', he: 'צָפוּן', en: 'Tzafun', num: '11', cup: 2 },
+  { id: 'barech', he: 'בָּרֵךְ', en: 'Barech', num: '12', cup: 3 },
+  { id: 'hallel', he: 'הַלֵּל', en: 'Hallel', num: '13', cup: 4 },
+  { id: 'nirtzah', he: 'נִרְצָה', en: 'Nirtzah', num: '14', cup: 4 }
+];
+
+// ==========================================
+// BUILD NAVIGATION
+// ==========================================
+function buildNavigation() {
+  const navScroll = document.getElementById('navScroll');
+  const sidebar = document.getElementById('desktopSidebar');
+
+  sederSteps.forEach((step, i) => {
+    // Bottom nav
+    const navItem = document.createElement('div');
+    navItem.className = 'nav-item' + (i === 0 ? ' active' : '');
+    navItem.dataset.index = i;
+    navItem.innerHTML = `<span class="nav-num">${step.num || '✡'}</span><span class="nav-he">${step.he}</span>`;
+    navItem.addEventListener('click', () => scrollToSection(i));
+    navScroll.appendChild(navItem);
+
+    // Desktop sidebar
+    const sideItem = document.createElement('div');
+    sideItem.className = 'desktop-nav-item' + (i === 0 ? ' active' : '');
+    sideItem.dataset.index = i;
+    sideItem.innerHTML = `<span class="dn-num">${step.num || '✡'}</span><span class="dn-he">${step.he}</span><span class="dn-en">${step.en}</span>`;
+    sideItem.addEventListener('click', () => scrollToSection(i));
+    sidebar.appendChild(sideItem);
+  });
+}
+
+// ==========================================
+// SCROLL & SECTION TRACKING
+// ==========================================
+let currentStep = 0;
+
+function scrollToSection(index) {
+  const step = sederSteps[index];
+  const el = document.getElementById(step.id);
+  if (el) {
+    const topBarH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--top-bar-height'));
+    const y = el.getBoundingClientRect().top + window.pageYOffset - topBarH - 10;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+
+function updateActiveNav(index) {
+  if (index === currentStep) return;
+  currentStep = index;
+
+  // Update bottom nav
+  document.querySelectorAll('.nav-item').forEach((item, i) => {
+    item.classList.toggle('active', i === index);
+    if (i <= index) item.classList.add('visited');
+  });
+
+  // Scroll active nav item into view
+  const activeNav = document.querySelector('.nav-item.active');
+  if (activeNav) {
+    activeNav.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  // Update desktop sidebar
+  document.querySelectorAll('.desktop-nav-item').forEach((item, i) => {
+    item.classList.toggle('active', i === index);
+  });
+
+  // Update progress bar
+  const progress = ((index) / (sederSteps.length - 1)) * 100;
+  document.getElementById('navProgressBar').style.width = progress + '%';
+
+  // Update cups
+  updateCups(sederSteps[index].cup);
+}
+
+function updateCups(cupNum) {
+  const cups = document.querySelectorAll('.cups-indicator .cup');
+  cups.forEach((cup, i) => {
+    const fill = cup.querySelector('.cup-fill');
+    if (i < cupNum) {
+      cup.classList.add('filled');
+      if (fill) fill.setAttribute('opacity', '1');
+    } else {
+      cup.classList.remove('filled');
+      if (fill) fill.setAttribute('opacity', '0');
+    }
+  });
+}
+
+// Intersection Observer for section tracking
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const step = parseInt(entry.target.dataset.step);
+      if (!isNaN(step)) updateActiveNav(step);
+    }
+  });
+}, {
+  rootMargin: '-30% 0px -60% 0px',
+  threshold: 0
+});
+
+// ==========================================
+// LANGUAGE SWITCHING
+// ==========================================
+function setLang(lang) {
+  document.body.className = document.body.className.replace(/lang-\S+/g, '').trim();
+  document.body.classList.add('lang-' + lang);
+
+  document.querySelectorAll('.lang-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.lang === lang);
+  });
+
+  // Store preference
+  try { localStorage.setItem('haggadah-lang', lang); } catch(e) {}
+}
+
+// ==========================================
+// FONT SIZE CONTROLS
+// ==========================================
+let fontScale = 1;
+
+function changeFontSize(delta) {
+  fontScale = Math.max(0.7, Math.min(1.6, fontScale + delta * 0.1));
+  document.documentElement.style.setProperty('--font-scale', fontScale);
+  try { localStorage.setItem('haggadah-font-scale', fontScale); } catch(e) {}
+}
+
+// ==========================================
+// WAKE LOCK
+// ==========================================
+let wakeLock = null;
+
+async function toggleWakeLock() {
+  const btn = document.getElementById('wakeLockBtn');
+  if (wakeLock) {
+    await wakeLock.release();
+    wakeLock = null;
+    btn.classList.remove('wake-active');
+    btn.textContent = '☀';
+  } else {
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      btn.classList.add('wake-active');
+      btn.textContent = '🔆';
+      wakeLock.addEventListener('release', () => {
+        wakeLock = null;
+        btn.classList.remove('wake-active');
+        btn.textContent = '☀';
+      });
+    } catch (err) {
+      // Wake Lock not supported or permission denied
+      btn.textContent = '⚠';
+      setTimeout(() => { btn.textContent = '☀'; }, 2000);
+    }
+  }
+}
+
+// ==========================================
+// TEN PLAGUES INTERACTION
+// ==========================================
+function strikePlague(el) {
+  if (el.classList.contains('struck')) return;
+  el.classList.add('struck');
+
+  // Animate wine drop
+  const drop = document.createElement('div');
+  drop.className = 'wine-drop';
+  drop.style.left = '50%';
+  drop.style.transform = 'translateX(-50%)';
+  el.appendChild(drop);
+  setTimeout(() => drop.remove(), 900);
+
+  // Haptic feedback
+  if (navigator.vibrate) navigator.vibrate(30);
+}
+
+// ==========================================
+// SWIPE NAVIGATION
+// ==========================================
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+
+  // Only handle horizontal swipes (more horizontal than vertical)
+  if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (dx < 0 && currentStep < sederSteps.length - 1) {
+      scrollToSection(currentStep + 1);
+    } else if (dx > 0 && currentStep > 0) {
+      scrollToSection(currentStep - 1);
+    }
+  }
+}, { passive: true });
+
+// ==========================================
+// KEYBOARD NAVIGATION
+// ==========================================
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (currentStep < sederSteps.length - 1) scrollToSection(currentStep + 1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (currentStep > 0) scrollToSection(currentStep - 1);
+  }
+});
+
+// ==========================================
+// INITIALIZATION
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  buildNavigation();
+
+  // Observe all sections
+  document.querySelectorAll('.seder-section').forEach(section => {
+    observer.observe(section);
+  });
+
+  // Restore preferences
+  try {
+    const savedLang = localStorage.getItem('haggadah-lang');
+    if (savedLang) setLang(savedLang);
+
+    const savedScale = localStorage.getItem('haggadah-font-scale');
+    if (savedScale) {
+      fontScale = parseFloat(savedScale);
+      document.documentElement.style.setProperty('--font-scale', fontScale);
+    }
+  } catch(e) {}
+
+  // Auto-activate wake lock on mobile
+  if ('wakeLock' in navigator && /Mobi|Android/i.test(navigator.userAgent)) {
+    toggleWakeLock();
+  }
+});
+
+// Re-acquire wake lock on visibility change
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState === 'visible' && wakeLock === null) {
+    const btn = document.getElementById('wakeLockBtn');
+    if (btn.classList.contains('wake-active')) {
+      try {
+        wakeLock = await navigator.wakeLock.request('screen');
+      } catch(e) {}
+    }
+  }
+});
+</script>
+</body>
+</html>
