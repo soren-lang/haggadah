@@ -1320,6 +1320,15 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   animation: confettiFall 3s ease-in forwards;
 }
 
+/* ============================================
+   LYRICS PANELS
+   ============================================ */
+.lyrics-wrapper { padding: 1rem 1.2rem !important; height: auto !important; position: static !important; font-size: 0.95rem; line-height: 1.8; }
+.lyrics-wrapper .lyrics-lang { margin-bottom: 1rem; }
+.lyrics-wrapper .lyrics-lang h4 { color: #c9a84c; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+.lyrics-wrapper .lyrics-lang p { color: #e8dcc8; margin: 0; white-space: pre-line; }
+.lyrics-wrapper .lyrics-heb { direction: rtl; text-align: right; font-size: 1.1rem; font-family: 'Frank Ruhl Libre', serif; }
+
 @media print {
   .player-registration, .quiz-popup, .quiz-leaderboard, .video-section { display: none !important; }
 }
@@ -1587,12 +1596,62 @@ body.lang-nl [data-langcontent="en"] { display: none; }
       <div class="text-nl" style="text-align: center; font-size: calc(1.05rem * var(--font-scale)); font-weight: 600;">Waarom is deze nacht anders dan alle andere nachten?</div>
     </div>
 
-    <!-- Video: Mah Nishtanah for kids -->
+    <!-- Mah Nishtanah: Lyrics + Video -->
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Mah Nishtanah for Kids (Animated)</button>
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/aFuHwdKkj-s" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">📜 Lyrics: Mah Nishtanah (Hebrew · English · Dutch)</button>
+      <div class="video-wrapper lyrics-wrapper">
+        <div class="lyrics-lang lyrics-heb">
+          <h4>עברית</h4>
+          <p>מַה נִּשְׁתַּנָּה הַלַּיְלָה הַזֶּה מִכָּל הַלֵּילוֹת?
+
+שֶׁבְּכָל הַלֵּילוֹת אָנוּ אוֹכְלִין חָמֵץ וּמַצָּה,
+הַלַּיְלָה הַזֶּה — כֻּלּוֹ מַצָּה.
+
+שֶׁבְּכָל הַלֵּילוֹת אָנוּ אוֹכְלִין שְׁאָר יְרָקוֹת,
+הַלַּיְלָה הַזֶּה — מָרוֹר.
+
+שֶׁבְּכָל הַלֵּילוֹת אֵין אָנוּ מַטְבִּילִין אֲפִילוּ פַּעַם אֶחָת,
+הַלַּיְלָה הַזֶּה — שְׁתֵּי פְעָמִים.
+
+שֶׁבְּכָל הַלֵּילוֹת אָנוּ אוֹכְלִין בֵּין יוֹשְׁבִין וּבֵין מְסֻבִּין,
+הַלַּיְלָה הַזֶּה — כֻּלָּנוּ מְסֻבִּין.</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>English</h4>
+          <p>Why is this night different from all other nights?
+
+On all other nights we eat leavened bread or matzah —
+on this night, only matzah.
+
+On all other nights we eat all kinds of vegetables —
+on this night, bitter herbs.
+
+On all other nights we do not dip even once —
+on this night, we dip twice.
+
+On all other nights we eat sitting upright or reclining —
+on this night, we all recline.</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>Nederlands</h4>
+          <p>Waarom is deze nacht anders dan alle andere nachten?
+
+Op alle andere nachten eten wij gerezen brood of matze —
+op deze nacht alleen matze.
+
+Op alle andere nachten eten wij allerlei groenten —
+op deze nacht bittere kruiden.
+
+Op alle andere nachten dopen wij niet eens één keer —
+op deze nacht twee keer.
+
+Op alle andere nachten eten wij zittend of liggend —
+op deze nacht liggen wij allen aan.</p>
+        </div>
       </div>
+    </div>
+    <div class="video-section">
+      <a class="video-toggle-btn" href="https://www.youtube.com/results?search_query=Mah+Nishtanah+four+questions+passover" target="_blank" rel="noopener">🎵 Watch: Mah Nishtanah on YouTube</a>
     </div>
 
     <div class="question-block">
@@ -1637,17 +1696,17 @@ body.lang-nl [data-langcontent="en"] { display: none; }
       <div class="text-en">Even if all of us were wise, all understanding, all elders, all knowledgeable in Torah — we would still be obligated to tell the story of the Exodus from Egypt. And whoever expands upon the story deserves praise.</div>
     </div>
 
-    <!-- Videos: Exodus Story for Kids -->
+    <!-- Videos: Exodus Story -->
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: The Passover Story for Kids (Animated)</button>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: The Passover Story for Seder</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/HMCP3wPiQ2s" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/UFU5NrPgutA" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="no-referrer-when-downgrade" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
       </div>
     </div>
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Moses and the Burning Bush for Kids</button>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: God Speaks To Moses (Burning Bush)</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/gMw-_mP4Zxg" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/3829oXRaIAY" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="no-referrer-when-downgrade" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
       </div>
     </div>
 
@@ -1850,17 +1909,70 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 
     <div class="dayenu-refrain shimmer-text" data-langcontent="he" style="font-size: calc(2.2rem * var(--font-scale));">דַּיֵּנוּ! דַּיֵּנוּ!</div>
 
-    <!-- Videos: Dayenu -->
+    <!-- Dayenu: Lyrics + Video -->
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Dayenu (Maccabeats)</button>
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/04DhBtGcCVs" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">📜 Lyrics: Dayenu (Hebrew · English · Dutch)</button>
+      <div class="video-wrapper lyrics-wrapper">
+        <div class="lyrics-lang lyrics-heb">
+          <h4>עברית</h4>
+          <p>אִלּוּ הוֹצִיאָנוּ מִמִּצְרַיִם — דַּיֵּנוּ!
+אִלּוּ עָשָׂה בָהֶם שְׁפָטִים — דַּיֵּנוּ!
+אִלּוּ עָשָׂה בֵאלֹהֵיהֶם — דַּיֵּנוּ!
+אִלּוּ הָרַג אֶת בְּכוֹרֵיהֶם — דַּיֵּנוּ!
+אִלּוּ נָתַן לָנוּ אֶת מָמוֹנָם — דַּיֵּנוּ!
+אִלּוּ קָרַע לָנוּ אֶת הַיָּם — דַּיֵּנוּ!
+אִלּוּ הֶעֱבִירָנוּ בְתוֹכוֹ בֶּחָרָבָה — דַּיֵּנוּ!
+אִלּוּ שִׁקַּע צָרֵינוּ בְּתוֹכוֹ — דַּיֵּנוּ!
+אִלּוּ סִפֵּק צָרְכֵּנוּ בַּמִּדְבָּר אַרְבָּעִים שָׁנָה — דַּיֵּנוּ!
+אִלּוּ הֶאֱכִילָנוּ אֶת הַמָּן — דַּיֵּנוּ!
+אִלּוּ נָתַן לָנוּ אֶת הַשַּׁבָּת — דַּיֵּנוּ!
+אִלּוּ קֵרְבָנוּ לִפְנֵי הַר סִינַי — דַּיֵּנוּ!
+אִלּוּ נָתַן לָנוּ אֶת הַתּוֹרָה — דַּיֵּנוּ!
+אִלּוּ הִכְנִיסָנוּ לְאֶרֶץ יִשְׂרָאֵל — דַּיֵּנוּ!
+אִלּוּ בָנָה לָנוּ אֶת בֵּית הַבְּחִירָה — דַּיֵּנוּ!</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>English</h4>
+          <p>Had He brought us out of Egypt — Dayenu!
+Had He executed judgments against them — Dayenu!
+Had He executed judgments against their gods — Dayenu!
+Had He slain their firstborn — Dayenu!
+Had He given us their wealth — Dayenu!
+Had He split the sea for us — Dayenu!
+Had He led us through on dry land — Dayenu!
+Had He drowned our oppressors in it — Dayenu!
+Had He sustained us in the desert for forty years — Dayenu!
+Had He fed us the manna — Dayenu!
+Had He given us the Shabbat — Dayenu!
+Had He brought us before Mount Sinai — Dayenu!
+Had He given us the Torah — Dayenu!
+Had He brought us into the Land of Israel — Dayenu!
+Had He built for us the Temple — Dayenu!</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>Nederlands</h4>
+          <p>Had Hij ons uit Egypte geleid — Dayenu!
+Had Hij oordelen over hen voltrokken — Dayenu!
+Had Hij oordelen over hun goden voltrokken — Dayenu!
+Had Hij hun eerstgeborenen gedood — Dayenu!
+Had Hij ons hun rijkdom gegeven — Dayenu!
+Had Hij de zee voor ons gespleten — Dayenu!
+Had Hij ons erdoorheen geleid over droog land — Dayenu!
+Had Hij onze onderdrukkers erin verdronken — Dayenu!
+Had Hij ons veertig jaar in de woestijn onderhouden — Dayenu!
+Had Hij ons het manna gevoed — Dayenu!
+Had Hij ons de Sjabbat gegeven — Dayenu!
+Had Hij ons voor de berg Sinaï gebracht — Dayenu!
+Had Hij ons de Tora gegeven — Dayenu!
+Had Hij ons het Land Israël binnengebracht — Dayenu!
+Had Hij de Tempel voor ons gebouwd — Dayenu!</p>
+        </div>
       </div>
     </div>
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Dayenu Kids Singalong</button>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Dayenu — Learn the words to the Passover Seder song</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/vYsHnwBbKcA" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/8p1pabOX3fc" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="no-referrer-when-downgrade" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
       </div>
     </div>
   </div>
@@ -2053,6 +2165,52 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     <div data-langcontent="nl">
       <div class="text-nl">Wij openen de deur en nodigen de profeet Elia uit — heraut van de Messias, heraut van vrede. Zijn beker staat vol op elke Sedertafel over de hele wereld, een symbool van hoop dat op een dag de hele wereld gerechtigheid en vrijheid zal kennen.</div>
     </div>
+
+    <!-- Eliyahu HaNavi: Lyrics + Video -->
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">📜 Lyrics: Eliyahu HaNavi (Hebrew · English · Dutch)</button>
+      <div class="video-wrapper lyrics-wrapper">
+        <div class="lyrics-lang lyrics-heb">
+          <h4>עברית</h4>
+          <p>אֵלִיָּהוּ הַנָּבִיא, אֵלִיָּהוּ הַתִּשְׁבִּי,
+אֵלִיָּהוּ, אֵלִיָּהוּ, אֵלִיָּהוּ הַגִּלְעָדִי.
+
+בִּמְהֵרָה בְיָמֵינוּ, יָבוֹא אֵלֵינוּ,
+עִם מָשִׁיחַ בֶּן דָּוִד, עִם מָשִׁיחַ בֶּן דָּוִד.
+
+אֵלִיָּהוּ הַנָּבִיא, אֵלִיָּהוּ הַתִּשְׁבִּי,
+אֵלִיָּהוּ, אֵלִיָּהוּ, אֵלִיָּהוּ הַגִּלְעָדִי.</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>English</h4>
+          <p>Elijah the Prophet, Elijah the Tishbite,
+Elijah, Elijah, Elijah the Gileadite.
+
+Speedily in our days, may he come to us,
+with the Messiah, son of David, with the Messiah, son of David.
+
+Elijah the Prophet, Elijah the Tishbite,
+Elijah, Elijah, Elijah the Gileadite.</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>Nederlands</h4>
+          <p>Elia de Profeet, Elia de Tisbiet,
+Elia, Elia, Elia de Gileadiet.
+
+Spoedig in onze dagen, moge hij tot ons komen,
+met de Messias, zoon van David, met de Messias, zoon van David.
+
+Elia de Profeet, Elia de Tisbiet,
+Elia, Elia, Elia de Gileadiet.</p>
+        </div>
+      </div>
+    </div>
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Eliyahu HaNavi — Passover Songs</button>
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/FX3MHs7rEFA" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="no-referrer-when-downgrade" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2090,6 +2248,153 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     <div class="text-nl"><em>Uit de benauwdheid riep ik tot God; Hij antwoordde mij met de ruimte van Goddelijke verlichting. De Heer is met mij, ik zal niet vrezen — wat kan een mens mij aandoen?</em></div>
   </div>
 
+  <!-- Echad Mi Yodea -->
+  <div class="maggid-sub">
+    <div class="maggid-sub-title">אֶחָד מִי יוֹדֵעַ — Echad Mi Yodea</div>
+    <div class="instruction">🎶 Sing Echad Mi Yodea — a counting song that builds from one to thirteen, connecting numbers to Jewish faith.</div>
+
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">אֶחָד מִי יוֹדֵעַ? אֶחָד אֲנִי יוֹדֵעַ: אֶחָד אֱלֹהֵינוּ שֶׁבַּשָּׁמַיִם וּבָאָרֶץ.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows one? I know one! One is our God in heaven and on earth.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent één? Ik ken één! Eén is onze God in de hemel en op aarde.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">שְׁנַיִם מִי יוֹדֵעַ? שְׁנֵי לֻחוֹת הַבְּרִית.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows two? Two are the tablets of the covenant.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent twee? Twee zijn de stenen tafelen van het verbond.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">שְׁלוֹשָׁה מִי יוֹדֵעַ? שְׁלוֹשָׁה אָבוֹת.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows three? Three are the patriarchs.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent drie? Drie zijn de aartsvaders.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">אַרְבַּע מִי יוֹדֵעַ? אַרְבַּע אִמָּהוֹת.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows four? Four are the matriarchs.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent vier? Vier zijn de aartsmoeders.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">חֲמִשָּׁה מִי יוֹדֵעַ? חֲמִשָּׁה חוּמְשֵׁי תוֹרָה.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows five? Five are the books of the Torah.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent vijf? Vijf zijn de boeken van de Tora.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">שִׁשָּׁה מִי יוֹדֵעַ? שִׁשָּׁה סִדְרֵי מִשְׁנָה.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows six? Six are the orders of the Mishnah.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent zes? Zes zijn de delen van de Misjna.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">שִׁבְעָה מִי יוֹדֵעַ? שִׁבְעָה יְמֵי שַׁבָּתָא.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows seven? Seven are the days of the week.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent zeven? Zeven zijn de dagen van de week.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">שְׁמוֹנָה מִי יוֹדֵעַ? שְׁמוֹנָה יְמֵי מִילָה.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows eight? Eight are the days before circumcision.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent acht? Acht zijn de dagen tot de besnijdenis.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">תִּשְׁעָה מִי יוֹדֵעַ? תִּשְׁעָה יַרְחֵי לֵידָה.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows nine? Nine are the months of pregnancy.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent negen? Negen zijn de maanden van zwangerschap.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">עֲשָׂרָה מִי יוֹדֵעַ? עֲשָׂרָה דִבְּרַיָּא.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows ten? Ten are the commandments.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent tien? Tien zijn de geboden.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">אַחַד עָשָׂר מִי יוֹדֵעַ? אַחַד עָשָׂר כּוֹכְבַיָּא.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows eleven? Eleven are the stars (in Joseph's dream).</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent elf? Elf zijn de sterren (in Jozefs droom).</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he">שְׁנֵים עָשָׂר מִי יוֹדֵעַ? שְׁנֵים עָשָׂר שִׁבְטַיָּא.</div></div>
+      <div data-langcontent="en"><div class="text-en">Who knows twelve? Twelve are the tribes of Israel.</div></div>
+      <div data-langcontent="nl"><div class="text-nl">Wie kent twaalf? Twaalf zijn de stammen van Israël.</div></div>
+    </div>
+    <div class="song-verse">
+      <div data-langcontent="he"><div class="text-he large" style="text-align: center;">שְׁלוֹשָׁה עָשָׂר מִי יוֹדֵעַ? שְׁלוֹשָׁה עָשָׂר מִדַּיָּא.</div></div>
+      <div data-langcontent="en"><div class="text-en" style="text-align: center; font-weight: 600;">Who knows thirteen? Thirteen are the attributes of God.</div></div>
+      <div data-langcontent="nl"><div class="text-nl" style="text-align: center; font-weight: 600;">Wie kent dertien? Dertien zijn de eigenschappen van God.</div></div>
+    </div>
+
+    <!-- Echad Mi Yodea: Lyrics panel -->
+    <div class="video-section">
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">📜 Full Lyrics: Echad Mi Yodea (Hebrew · English · Dutch)</button>
+      <div class="video-wrapper lyrics-wrapper">
+        <div class="lyrics-lang lyrics-heb">
+          <h4>עברית</h4>
+          <p>אֶחָד מִי יוֹדֵעַ? אֶחָד אֲנִי יוֹדֵעַ:
+אֶחָד אֱלֹהֵינוּ שֶׁבַּשָּׁמַיִם וּבָאָרֶץ.
+
+שְׁנַיִם מִי יוֹדֵעַ? שְׁנַיִם אֲנִי יוֹדֵעַ:
+שְׁנֵי לֻחוֹת הַבְּרִית, אֶחָד אֱלֹהֵינוּ שֶׁבַּשָּׁמַיִם וּבָאָרֶץ.
+
+שְׁלוֹשָׁה מִי יוֹדֵעַ? שְׁלוֹשָׁה אֲנִי יוֹדֵעַ:
+שְׁלוֹשָׁה אָבוֹת, שְׁנֵי לֻחוֹת הַבְּרִית, אֶחָד אֱלֹהֵינוּ שֶׁבַּשָּׁמַיִם וּבָאָרֶץ.
+
+…
+
+שְׁלוֹשָׁה עָשָׂר מִי יוֹדֵעַ? שְׁלוֹשָׁה עָשָׂר אֲנִי יוֹדֵעַ:
+שְׁלוֹשָׁה עָשָׂר מִדַּיָּא, שְׁנֵים עָשָׂר שִׁבְטַיָּא,
+אַחַד עָשָׂר כּוֹכְבַיָּא, עֲשָׂרָה דִבְּרַיָּא,
+תִּשְׁעָה יַרְחֵי לֵידָה, שְׁמוֹנָה יְמֵי מִילָה,
+שִׁבְעָה יְמֵי שַׁבָּתָא, שִׁשָּׁה סִדְרֵי מִשְׁנָה,
+חֲמִשָּׁה חוּמְשֵׁי תוֹרָה, אַרְבַּע אִמָּהוֹת,
+שְׁלוֹשָׁה אָבוֹת, שְׁנֵי לֻחוֹת הַבְּרִית,
+אֶחָד אֱלֹהֵינוּ שֶׁבַּשָּׁמַיִם וּבָאָרֶץ.</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>English</h4>
+          <p>Who knows one? I know one!
+One is our God in heaven and on earth.
+
+Who knows two? I know two!
+Two are the tablets of the covenant, one is our God in heaven and on earth.
+
+Who knows three? I know three!
+Three are the patriarchs, two are the tablets, one is our God.
+
+…
+
+Who knows thirteen? I know thirteen!
+Thirteen are the attributes of God,
+twelve are the tribes, eleven are the stars,
+ten are the commandments, nine are the months of pregnancy,
+eight are the days to circumcision, seven are the days of the week,
+six are the orders of the Mishnah, five are the books of the Torah,
+four are the matriarchs, three are the patriarchs,
+two are the tablets of the covenant,
+one is our God in heaven and on earth.</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>Nederlands</h4>
+          <p>Wie kent één? Ik ken één!
+Eén is onze God in de hemel en op aarde.
+
+Wie kent twee? Ik ken twee!
+Twee zijn de stenen tafelen, één is onze God in de hemel en op aarde.
+
+Wie kent drie? Ik ken drie!
+Drie zijn de aartsvaders, twee zijn de tafelen, één is onze God.
+
+…
+
+Wie kent dertien? Ik ken dertien!
+Dertien zijn de eigenschappen van God,
+twaalf zijn de stammen, elf zijn de sterren,
+tien zijn de geboden, negen zijn de maanden van zwangerschap,
+acht zijn de dagen tot de besnijdenis, zeven zijn de dagen van de week,
+zes zijn de delen van de Misjna, vijf zijn de boeken van de Tora,
+vier zijn de aartsmoeders, drie zijn de aartsvaders,
+twee zijn de stenen tafelen van het verbond,
+één is onze God in de hemel en op aarde.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Chad Gadya -->
   <div class="maggid-sub">
     <div class="maggid-sub-title">חַד גַּדְיָא — Chad Gadya</div>
@@ -2121,12 +2426,91 @@ body.lang-nl [data-langcontent="en"] { display: none; }
       <div data-langcontent="nl"><div class="text-nl" style="text-align: center; font-weight: 600;">Toen kwam de Heilige, Gezegend zij Hij, en doodde de Engel des Doods.<br>Eén geitje, één geitje!</div></div>
     </div>
 
-    <!-- Video: Chad Gadya -->
+    <!-- Chad Gadya: Lyrics + Video -->
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Chad Gadya (Rugrats Passover)</button>
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/RjbCFGE8GrE" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">📜 Lyrics: Chad Gadya (Hebrew · English · Dutch)</button>
+      <div class="video-wrapper lyrics-wrapper">
+        <div class="lyrics-lang lyrics-heb">
+          <h4>עברית</h4>
+          <p>חַד גַּדְיָא, חַד גַּדְיָא,
+דְּזַבִּין אַבָּא בִּתְרֵי זוּזֵי,
+חַד גַּדְיָא, חַד גַּדְיָא.
+
+וְאָתָא שׁוּנְרָא וְאָכְלָה לְגַדְיָא,
+דְּזַבִּין אַבָּא בִּתְרֵי זוּזֵי.
+
+וְאָתָא כַלְבָּא וְנָשַׁךְ לְשׁוּנְרָא,
+דְּאָכְלָה לְגַדְיָא.
+
+וְאָתָא חוּטְרָא וְהִכָּה לְכַלְבָּא.
+וְאָתָא נוּרָא וְשָׂרַף לְחוּטְרָא.
+וְאָתָא מַיָּא וְכָבָה לְנוּרָא.
+וְאָתָא תוֹרָא וְשָׁתָה לְמַיָּא.
+וְאָתָא הַשּׁוֹחֵט וְשָׁחַט לְתוֹרָא.
+וְאָתָא מַלְאַךְ הַמָּוֶת וְשָׁחַט לְשׁוֹחֵט.
+
+וְאָתָא הַקָּדוֹשׁ בָּרוּךְ הוּא
+וְשָׁחַט לְמַלְאַךְ הַמָּוֶת.
+חַד גַּדְיָא, חַד גַּדְיָא!</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>English</h4>
+          <p>One little goat, one little goat,
+that father bought for two zuzim,
+one little goat, one little goat.
+
+Then came the cat and ate the goat
+that father bought for two zuzim.
+
+Then came the dog and bit the cat
+that ate the goat.
+
+Then came the stick and beat the dog.
+Then came the fire and burned the stick.
+Then came the water and quenched the fire.
+Then came the ox and drank the water.
+Then came the slaughterer and slaughtered the ox.
+Then came the Angel of Death and slew the slaughterer.
+
+Then came the Holy One, Blessed be He,
+and slew the Angel of Death.
+One little goat, one little goat!</p>
+        </div>
+        <div class="lyrics-lang">
+          <h4>Nederlands</h4>
+          <p>Eén geitje, één geitje,
+dat vader kocht voor twee munten,
+één geitje, één geitje.
+
+Toen kwam de kat en at het geitje
+dat vader kocht voor twee munten.
+
+Toen kwam de hond en beet de kat
+die het geitje at.
+
+Toen kwam de stok en sloeg de hond.
+Toen kwam het vuur en verbrandde de stok.
+Toen kwam het water en doofde het vuur.
+Toen kwam de os en dronk het water.
+Toen kwam de slachter en slachtte de os.
+Toen kwam de Engel des Doods en doodde de slachter.
+
+Toen kwam de Heilige, Gezegend zij Hij,
+en doodde de Engel des Doods.
+Eén geitje, één geitje!</p>
+        </div>
       </div>
+    </div>
+    <div class="video-section">
+      <a class="video-toggle-btn" href="https://www.youtube.com/results?search_query=Chad+Gadya+animated+passover" target="_blank" rel="noopener">🎵 Watch: Chad Gadya on YouTube</a>
+    </div>
+  </div>
+
+  <!-- Video: Passover Songs Playlist -->
+  <div class="video-section">
+    <button class="video-toggle-btn" onclick="toggleVideo(this)">🎵 Passover Songs Playlist</button>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/videoseries?list=PLLNH6UBMCX_66HaIRtTX3astEua8_L3Ba" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="no-referrer-when-downgrade" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
     </div>
   </div>
 
@@ -2166,12 +2550,38 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     <div class="text-nl" style="text-align: center; font-size: calc(1.2rem * var(--font-scale)); font-weight: 600; margin: 1rem 0;">Volgend Jaar in Jeruzalem!</div>
   </div>
 
-  <!-- Video: Next Year in Jerusalem -->
+  <!-- L'Shana Haba'ah: Lyrics + Video -->
   <div class="video-section">
-    <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Next Year in Jerusalem</button>
-    <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/McO7EH4_5PA" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <button class="video-toggle-btn" onclick="toggleVideo(this)">📜 Lyrics: L'Shana Haba'ah (Hebrew · English · Dutch)</button>
+    <div class="video-wrapper lyrics-wrapper">
+      <div class="lyrics-lang lyrics-heb">
+        <h4>עברית</h4>
+        <p>לְשָׁנָה הַבָּאָה בִּירוּשָׁלָיִם,
+לְשָׁנָה הַבָּאָה בִּירוּשָׁלָיִם הַבְּנוּיָה.
+
+לְשָׁנָה הַבָּאָה בִּירוּשָׁלָיִם,
+לְשָׁנָה הַבָּאָה בִּירוּשָׁלָיִם הַבְּנוּיָה.</p>
+      </div>
+      <div class="lyrics-lang">
+        <h4>English</h4>
+        <p>Next year in Jerusalem,
+next year in Jerusalem rebuilt.
+
+Next year in Jerusalem,
+next year in Jerusalem rebuilt.</p>
+      </div>
+      <div class="lyrics-lang">
+        <h4>Nederlands</h4>
+        <p>Volgend jaar in Jeruzalem,
+volgend jaar in het herbouwde Jeruzalem.
+
+Volgend jaar in Jeruzalem,
+volgend jaar in het herbouwde Jeruzalem.</p>
+      </div>
     </div>
+  </div>
+  <div class="video-section">
+    <a class="video-toggle-btn" href="https://www.youtube.com/results?search_query=Leshana+Haba+Jerusalem+passover+song" target="_blank" rel="noopener">🎵 Watch: L'Shana Haba'ah on YouTube</a>
   </div>
 
   <div style="height: 2rem;"></div>
