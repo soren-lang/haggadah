@@ -1846,6 +1846,56 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     padding: 0.5rem 0;
   }
 }
+
+/* ============================================
+   FUN ACTIVITY CARDS
+   ============================================ */
+.fun-activity-card {
+  background: linear-gradient(135deg, rgba(123,28,60,0.25), rgba(201,168,76,0.1));
+  border: 2px solid rgba(201,168,76,0.4);
+  border-left: 4px solid #c9a84c;
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+  margin: 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.fun-activity-card::before {
+  content: '✨';
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  font-size: 2rem;
+  opacity: 0.3;
+}
+.fun-activity-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+.fun-activity-icon {
+  font-size: 1.5rem;
+}
+.fun-activity-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #c9a84c;
+  font-family: var(--font-latin);
+}
+.fun-activity-body {
+  color: #e8dcc8;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-family: var(--font-latin);
+}
+.fun-activity-photo {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #f5d77a;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
 </style>
 </head>
 <body class="lang-all">
@@ -1986,6 +2036,17 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   <h2 class="section-title-he shimmer-text">קַדֵּשׁ</h2>
   <div class="section-title-en">Kadesh — Sanctification</div>
 
+  <div class="fun-activity-card">
+    <div class="fun-activity-header">
+      <span class="fun-activity-icon">🍷</span>
+      <span class="fun-activity-title">Silly Toast Challenge!</span>
+    </div>
+    <div class="fun-activity-body">
+      Everyone raise your cup and make your BEST "ancient Egyptian" face.<br>
+      <span class="fun-activity-photo">📸 Take a family photo before drinking!</span>
+    </div>
+  </div>
+
   <div class="instruction">🍷 Fill the first cup of wine. Rise and recite the Kiddush.</div>
 
   <div class="trilingual">
@@ -2089,6 +2150,17 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   <div class="section-step-number">Step 5 of 15</div>
   <h2 class="section-title-he shimmer-text">מַגִּיד</h2>
   <div class="section-title-en">Maggid — The Telling</div>
+
+  <div class="fun-activity-card">
+    <div class="fun-activity-header">
+      <span class="fun-activity-icon">🎭</span>
+      <span class="fun-activity-title">Mini Reenactment!</span>
+    </div>
+    <div class="fun-activity-body">
+      The youngest person must stand up and say "Let my people go!" in their deepest voice.<br>
+      Everyone else plays Pharaoh and says "NO!" three times.
+    </div>
+  </div>
 
   <div class="instruction">📖 Uncover the matzah. This is the heart of the Seder — the telling of the Exodus story.</div>
 
@@ -2343,6 +2415,17 @@ op deze nacht liggen wij allen aan.</p>
         <div class="plague-en">Death of Firstborn</div>
       </div>
     </div>
+
+    <div class="fun-activity-card">
+      <div class="fun-activity-header">
+        <span class="fun-activity-icon">🐸</span>
+        <span class="fun-activity-title">Plague Impersonation Contest!</span>
+      </div>
+      <div class="fun-activity-body">
+        Each person picks a plague and acts it out silently. Others guess which plague it is.<br>
+        <span class="fun-activity-photo">📸 Snap the best plague actor!</span>
+      </div>
+    </div>
   </div>
 
   <!-- DAYENU -->
@@ -2566,6 +2649,17 @@ Had Hij de Tempel voor ons gebouwd — Dayenu!</p>
   <h2 class="section-title-he shimmer-text">מָרוֹר</h2>
   <div class="section-title-en">Maror — Bitter Herbs</div>
 
+  <div class="fun-activity-card">
+    <div class="fun-activity-header">
+      <span class="fun-activity-icon">😖</span>
+      <span class="fun-activity-title">Bitter Face Contest!</span>
+    </div>
+    <div class="fun-activity-body">
+      Everyone eats a piece of maror at the same time.<br>
+      <span class="fun-activity-photo">📸 Take a photo of everyone's reaction face — the best bitter face wins!</span>
+    </div>
+  </div>
+
   <div class="instruction">🌿 Dip the bitter herbs in charoset and recite:</div>
 
   <div data-langcontent="he">
@@ -2611,6 +2705,17 @@ Had Hij de Tempel voor ons gebouwd — Dayenu!</p>
   <h2 class="section-title-he shimmer-text">שֻׁלְחָן עוֹרֵךְ</h2>
   <div class="section-title-en">Shulchan Orech — The Festive Meal</div>
 
+  <div class="fun-activity-card">
+    <div class="fun-activity-header">
+      <span class="fun-activity-icon">🥙</span>
+      <span class="fun-activity-title">Matzah Sandwich Speed Round!</span>
+    </div>
+    <div class="fun-activity-body">
+      Who can build the tallest matzah sandwich in 60 seconds? Stack whatever's on the table.<br>
+      <span class="fun-activity-photo">📸 Photograph your masterpiece before eating it!</span>
+    </div>
+  </div>
+
   <div class="instruction">🍽️ Enjoy the festive meal! It is customary to begin with a hard-boiled egg dipped in salt water.</div>
 
   <div data-langcontent="he">
@@ -2634,6 +2739,18 @@ Had Hij de Tempel voor ons gebouwd — Dayenu!</p>
   <div class="section-step-number">Step 11 of 15</div>
   <h2 class="section-title-he shimmer-text">צָפוּן</h2>
   <div class="section-title-en">Tzafun — The Hidden</div>
+
+  <div class="fun-activity-card">
+    <div class="fun-activity-header">
+      <span class="fun-activity-icon">🔍</span>
+      <span class="fun-activity-title">Afikomen Hunt Rules:</span>
+    </div>
+    <div class="fun-activity-body">
+      The finder gets to DEMAND one wish from the adults — anything reasonable!<br>
+      All kids search together. Adults must stay seated.<br>
+      <span class="fun-activity-photo">⏱ 60-second hunt — GO!</span>
+    </div>
+  </div>
 
   <div class="instruction">🔍 Find the Afikoman! The children search for the hidden matzah. Once found, everyone eats a piece — it is the last food eaten tonight.</div>
 
@@ -2747,6 +2864,17 @@ Elia, Elia, Elia de Gileadiet.</p>
   <div class="section-step-number">Step 13 of 15</div>
   <h2 class="section-title-he shimmer-text">הַלֵּל</h2>
   <div class="section-title-en">Hallel — Songs of Praise</div>
+
+  <div class="fun-activity-card">
+    <div class="fun-activity-header">
+      <span class="fun-activity-icon">🎤</span>
+      <span class="fun-activity-title">Dayenu Karaoke Challenge!</span>
+    </div>
+    <div class="fun-activity-body">
+      Sing one verse of Dayenu in a character voice: opera singer, robot, or baby.<br>
+      Audience votes with thumbs up/down. The winner picks the next song.
+    </div>
+  </div>
 
   <div class="instruction">🎵 Fill the fourth cup. Sing Psalms of praise and thanksgiving.</div>
 
@@ -3076,6 +3204,18 @@ Eén geitje, één geitje!</p>
   <div class="section-step-number">Step 15 of 15</div>
   <h2 class="section-title-he shimmer-text">נִרְצָה</h2>
   <div class="section-title-en">Nirtzah — Acceptance &amp; Conclusion</div>
+
+  <div class="fun-activity-card">
+    <div class="fun-activity-header">
+      <span class="fun-activity-icon">📸</span>
+      <span class="fun-activity-title">Seder Family Portrait!</span>
+    </div>
+    <div class="fun-activity-body">
+      Before everyone leaves the table — gather everyone together.<br>
+      This is the official Pesach 5786 family photo moment!<br>
+      <span class="fun-activity-photo">"L'shana haba'ah b'Yerushalayim!" 🕍</span>
+    </div>
+  </div>
 
   <div data-langcontent="he">
     <div class="text-he" style="text-align: center;">חֲסַל סִדּוּר פֶּסַח כְּהִלְכָתוֹ, כְּכָל מִשְׁפָּטוֹ וְחֻקָּתוֹ. כַּאֲשֶׁר זָכִינוּ לְסַדֵּר אוֹתוֹ, כֵּן נִזְכֶּה לַעֲשׂוֹתוֹ.</div>
