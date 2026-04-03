@@ -991,11 +991,14 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 }
 .player-input-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 1rem;
+  align-items: center;
 }
 .player-input-row input {
-  flex: 1;
+  flex: 1 1 160px;
+  min-width: 0;
   padding: 12px 16px;
   border: 2px solid rgba(201,168,76,0.3);
   background: rgba(201,168,76,0.05);
