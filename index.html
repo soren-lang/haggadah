@@ -1290,6 +1290,117 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Difficulty pill buttons */
+.difficulty-pills {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.diff-pill {
+  padding: 6px 10px;
+  border: 2px solid rgba(201,168,76,0.25);
+  background: transparent;
+  color: var(--cream);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  min-width: 32px;
+  text-align: center;
+}
+.diff-pill.selected {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.2);
+  color: var(--gold);
+}
+.diff-pill:hover:not(.selected) {
+  border-color: rgba(201,168,76,0.5);
+}
+.player-list .diff-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 6px;
+  text-transform: capitalize;
+}
+.diff-badge.easy { background: rgba(46,204,113,0.2); color: #2ecc71; }
+.diff-badge.medium { background: rgba(243,156,18,0.2); color: #f39c12; }
+.diff-badge.hard { background: rgba(231,76,60,0.2); color: #e74c3c; }
+
+/* Questions per player stepper */
+.qpp-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 1rem 0 1.25rem;
+}
+.qpp-label {
+  font-size: 0.95rem;
+  color: var(--cream);
+  opacity: 0.7;
+  font-family: var(--font-latin);
+}
+.qpp-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 2px solid rgba(201,168,76,0.3);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.qpp-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(201,168,76,0.1);
+  color: var(--gold);
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  transition: background 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.qpp-btn:hover { background: rgba(201,168,76,0.2); }
+.qpp-value {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cream);
+  font-family: var(--font-latin);
+  background: rgba(201,168,76,0.05);
+}
+
+/* Skip remaining button */
+.quiz-skip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  border: 1px solid rgba(201,168,76,0.3);
+  background: transparent;
+  color: var(--cream);
+  opacity: 0.7;
+  font-size: 0.9rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  margin-top: 0.5rem;
+  transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.quiz-skip-btn:hover { opacity: 1; border-color: var(--gold); }
+
 /* Flash overlays */
 @keyframes flashGreen {
   0% { background: rgba(46,204,113,0.25); }
@@ -1467,13 +1578,22 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   }
   .player-input-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
   }
   .player-input-row input {
-    flex: 1;
+    flex: 1 1 100%;
     min-width: 0;
     font-size: 1rem;
     padding: 10px 12px;
+  }
+  .player-input-row .difficulty-pills {
+    flex: 1;
+  }
+  .diff-pill {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+    min-width: 28px;
   }
   .player-add-btn {
     flex-shrink: 0;
@@ -1820,9 +1940,22 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     <div class="player-reg-title">👨‍👩‍👧‍👦 Who's at the Seder?</div>
     <div class="player-input-row">
       <input type="text" id="playerNameInput" placeholder="Enter a name..." maxlength="20">
+      <div class="difficulty-pills" id="difficultyPills">
+        <button class="diff-pill selected" data-diff="easy" onclick="selectDifficulty(this)">E</button>
+        <button class="diff-pill" data-diff="medium" onclick="selectDifficulty(this)">M</button>
+        <button class="diff-pill" data-diff="hard" onclick="selectDifficulty(this)">H</button>
+      </div>
       <button class="player-add-btn" id="addPlayerBtn" onclick="addPlayer()">+ Add</button>
     </div>
     <ul class="player-list" id="playerList"></ul>
+    <div class="qpp-row">
+      <span class="qpp-label">📊 Questions per player:</span>
+      <div class="qpp-stepper">
+        <button class="qpp-btn" onclick="changeQPP(-1)">−</button>
+        <div class="qpp-value" id="qppValue">3</div>
+        <button class="qpp-btn" onclick="changeQPP(1)">+</button>
+      </div>
+    </div>
     <div class="timer-selector">
       <div class="timer-selector-label">⏱ Time per question:</div>
       <div class="timer-options">
@@ -3336,35 +3469,56 @@ function toggleVideo(btn) {
 }
 
 // ==========================================
-// KIDS QUIZ — INLINE SYSTEM
+// KIDS QUIZ — INLINE SYSTEM (Per-Player Difficulty)
 // ==========================================
-const quizQuestions = [
-  { q: "What do we eat instead of bread at Passover?", a: ["🫓 Matzah", "🫓 Pita", "🥯 Bagel", "🍘 Crackers"], c: 0 },
-  { q: "How many cups of wine do we drink?", a: ["2️⃣ Two", "3️⃣ Three", "4️⃣ Four", "5️⃣ Five"], c: 2 },
-  { q: "What do we dip in salt water?", a: ["🥕 Carrots", "🌿 Karpas/Parsley", "🥒 Cucumber", "🥬 Celery"], c: 1 },
-  { q: "Who led the Jewish people out of Egypt?", a: ["🧔 Abraham", "👑 David", "📜 Moses", "🚢 Noah"], c: 2 },
-  { q: "Whose heart did God harden?", a: ["🤴 The King", "👑 Pharaoh", "🤴 The Prince", "⚔️ The General"], c: 1 },
-  { q: "How many plagues did God send?", a: ["7️⃣ Seven", "8️⃣ Eight", "9️⃣ Nine", "🔟 Ten"], c: 3 },
-  { q: "What is the name of the hidden matzah?", a: ["🌿 Maror", "🥬 Karpas", "🫓 Afikomen", "🥪 Korech"], c: 2 },
-  { q: "What does 'Dayenu' mean?", a: ["🗣️ Let my people go", "✅ It would have been enough", "🙏 Thank you God", "🏙️ Next year in Jerusalem"], c: 1 },
-  { q: "Which plague came first?", a: ["🦗 Locusts", "🐸 Frogs", "🩸 Blood", "🌑 Darkness"], c: 2 },
-  { q: "What is the bitter herb called?", a: ["🥬 Karpas", "🌿 Maror", "🍎 Charoset", "🫓 Matzah"], c: 1 },
-  { q: "What does Ha Lachma Anya mean?", a: ["🍞 Bread of affliction", "🌿 The bitter herb", "🐑 Passover offering", "🫓 Matzah of freedom"], c: 0 },
-  { q: "How many stanzas does Dayenu have?", a: ["🔢 10", "🔢 12", "🔢 14", "🔢 15"], c: 2 },
-  { q: "What do the four sons represent?", a: ["📚 Four types of learners", "👨‍👦 Four brothers", "💀 Four plagues", "🍷 Four cups"], c: 0 },
-  { q: "What is Korech?", a: ["🙏 A prayer", "🎵 A song", "🥪 The Hillel sandwich", "💧 Washing hands"], c: 2 },
-  { q: "When do we open the door for Elijah?", a: ["🍽️ Before the meal", "🎵 After Hallel", "🕯️ At the start", "🫓 After Afikomen"], c: 1 }
-];
+const questionBank = {
+  easy: [
+    { q: "What do we eat instead of bread at Passover?", a: ["🫓 Matzah", "🫓 Pita", "🥯 Bagel", "🍘 Crackers"], c: 0 },
+    { q: "How many cups of wine do we drink?", a: ["2️⃣ Two", "3️⃣ Three", "4️⃣ Four", "5️⃣ Five"], c: 2 },
+    { q: "What do we dip in salt water?", a: ["🥕 Carrots", "🌿 Karpas/Parsley", "🥒 Cucumber", "🥬 Celery"], c: 1 },
+    { q: "Who led the Jewish people out of Egypt?", a: ["🧔 Abraham", "👑 David", "📜 Moses", "🚢 Noah"], c: 2 },
+    { q: "What animal did God send the plagues against?", a: ["🤴 The King", "👑 Pharaoh", "🤴 The Prince", "⚔️ The General"], c: 1 }
+  ],
+  medium: [
+    { q: "How many plagues did God send?", a: ["7️⃣ Seven", "8️⃣ Eight", "9️⃣ Nine", "🔟 Ten"], c: 3 },
+    { q: "What is the name of the hidden matzah?", a: ["🌿 Maror", "🥬 Karpas", "🫓 Afikomen", "🥪 Korech"], c: 2 },
+    { q: "What does 'Dayenu' mean?", a: ["🗣️ Let my people go", "✅ It would have been enough", "🙏 Thank you God", "🏙️ Next year in Jerusalem"], c: 1 },
+    { q: "Which plague came first?", a: ["🦗 Locusts", "🐸 Frogs", "🩸 Blood", "🌑 Darkness"], c: 2 },
+    { q: "What is the bitter herb called?", a: ["🥬 Karpas", "🌿 Maror", "🍎 Charoset", "🫓 Matzah"], c: 1 }
+  ],
+  hard: [
+    { q: "What does Ha Lachma Anya mean?", a: ["🍞 This is the bread of affliction", "🌿 This is the bitter herb", "🐑 This is the Passover offering", "🫓 This is the matzah of freedom"], c: 0 },
+    { q: "How many stanzas does Dayenu have?", a: ["🔢 10", "🔢 12", "🔢 14", "🔢 15"], c: 2 },
+    { q: "What do the four sons represent?", a: ["📚 Four types of students", "👨‍👦 Four brothers of Moses", "💀 Four plagues", "🍷 Four cups"], c: 0 },
+    { q: "What is Korech?", a: ["🙏 A prayer", "🎵 A song", "🥪 The Hillel sandwich", "💧 Washing hands"], c: 2 },
+    { q: "When do we open the door for Elijah?", a: ["🍽️ Before the meal", "🎵 After Hallel", "🕯️ At the start", "🫓 After Afikomen"], c: 1 }
+  ]
+};
+
+const difficultyPoints = { easy: 5, medium: 10, hard: 15 };
+const speedBonus = 5;
 
 const quizState = {
   players: [],
-  currentPlayerIndex: 0,
-  questionsAsked: new Set(),
+  questionsAskedPerDifficulty: { easy: new Set(), medium: new Set(), hard: new Set() },
   sectionQuizShown: new Set(),
   active: false,
   timerInterval: null,
-  timerSeconds: 30
+  timerSeconds: 30,
+  questionsPerPlayer: 3,
+  selectedDifficulty: 'easy'
 };
+
+function selectDifficulty(btn) {
+  document.querySelectorAll('#difficultyPills .diff-pill').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  quizState.selectedDifficulty = btn.dataset.diff;
+}
+
+function changeQPP(delta) {
+  quizState.questionsPerPlayer = Math.max(1, Math.min(10, quizState.questionsPerPlayer + delta));
+  document.getElementById('qppValue').textContent = quizState.questionsPerPlayer;
+}
 
 function selectTimer(btn) {
   document.querySelectorAll('.timer-option').forEach(b => b.classList.remove('selected'));
@@ -3378,7 +3532,7 @@ function renderPlayerList() {
   const list = document.getElementById('playerList');
   const btn = document.getElementById('startSederBtn');
   list.innerHTML = quizState.players.map((p, i) =>
-    `<li><span>🎯 ${p.name}</span><button class="remove-player" onclick="removePlayer(${i})">×</button></li>`
+    `<li><span>• ${p.name} <span class="diff-badge ${p.difficulty}">${p.difficulty.charAt(0).toUpperCase() + p.difficulty.slice(1)}</span></span><button class="remove-player" onclick="removePlayer(${i})">×</button></li>`
   ).join('');
   btn.disabled = quizState.players.length === 0;
 }
@@ -3391,9 +3545,14 @@ function addPlayer() {
     input.value = '';
     return;
   }
-  quizState.players.push({ name, score: 0 });
+  quizState.players.push({ name, score: 0, difficulty: quizState.selectedDifficulty, questionsAsked: 0 });
   input.value = '';
   input.focus();
+  // Reset difficulty to Easy for next player
+  quizState.selectedDifficulty = 'easy';
+  document.querySelectorAll('#difficultyPills .diff-pill').forEach(b => {
+    b.classList.toggle('selected', b.dataset.diff === 'easy');
+  });
   renderPlayerList();
 }
 
@@ -3405,9 +3564,9 @@ function removePlayer(index) {
 function startSederQuiz() {
   if (quizState.players.length === 0) return;
   quizState.active = true;
-  quizState.currentPlayerIndex = 0;
-  quizState.questionsAsked.clear();
+  quizState.questionsAskedPerDifficulty = { easy: new Set(), medium: new Set(), hard: new Set() };
   quizState.sectionQuizShown.clear();
+  quizState.players.forEach(p => { p.questionsAsked = 0; p.score = 0; });
   scrollToSection(1);
 }
 
@@ -3431,48 +3590,81 @@ function shuffleArray(arr) {
   return a;
 }
 
-// ---------- Pick a random unused question ----------
-function pickQuestion() {
-  const available = quizQuestions
+// ---------- Pick a random unused question for a player's difficulty ----------
+function pickQuestionForPlayer(player) {
+  const diff = player.difficulty;
+  const pool = questionBank[diff];
+  const asked = quizState.questionsAskedPerDifficulty[diff];
+  const available = pool
     .map((q, i) => ({ ...q, _i: i }))
-    .filter(q => !quizState.questionsAsked.has(q._i));
+    .filter(q => !asked.has(q._i));
   if (available.length === 0) return null;
   const pick = available[Math.floor(Math.random() * available.length)];
-  quizState.questionsAsked.add(pick._i);
+  asked.add(pick._i);
   return pick;
 }
 
 // ---------- Should we show a quiz on this section? ----------
 function shouldShowQuiz(sectionIndex) {
   if (!quizState.active) return false;
-  if (sectionIndex <= 0 || sectionIndex >= sederSteps.length - 1) return false; // not cover, not nirtzah
+  if (sectionIndex <= 0 || sectionIndex >= sederSteps.length - 1) return false;
   if (quizState.sectionQuizShown.has(sectionIndex)) return false;
-  if (quizState.questionsAsked.size >= quizQuestions.length) return false;
-  // ~1 in 3 chance
-  return Math.random() < 0.35;
+  // Check if any player still has questions remaining
+  const pendingPlayers = quizState.players.filter(p => p.questionsAsked < quizState.questionsPerPlayer);
+  if (pendingPlayers.length === 0) return false;
+  return true;
 }
 
-// ---------- Inject quiz card into section ----------
-function injectQuizCard(sectionIndex) {
+// ---------- Multi-question section: ask each pending player one question ----------
+let sectionPendingPlayers = [];
+let sectionPendingIndex = 0;
+let currentSectionIndex = -1;
+
+function injectQuizCardForSection(sectionIndex) {
   // Remove any existing popup first
   const existing = document.querySelector('.quiz-popup');
   if (existing) existing.remove();
 
-  const question = pickQuestion();
-  if (!question) return;
-
-  const player = quizState.players[quizState.currentPlayerIndex];
   quizState.sectionQuizShown.add(sectionIndex);
+  currentSectionIndex = sectionIndex;
 
-  const sectionEl = document.getElementById(sederSteps[sectionIndex].id);
+  // Gather players who still need questions
+  sectionPendingPlayers = quizState.players.filter(p => p.questionsAsked < quizState.questionsPerPlayer);
+  if (sectionPendingPlayers.length === 0) return;
+
+  sectionPendingIndex = 0;
+  showNextQuestionInSection();
+}
+
+function showNextQuestionInSection() {
+  if (sectionPendingIndex >= sectionPendingPlayers.length) return; // done for this section
+
+  const player = sectionPendingPlayers[sectionPendingIndex];
+  const question = pickQuestionForPlayer(player);
+  if (!question) {
+    // No more questions available for this player's difficulty
+    sectionPendingIndex++;
+    showNextQuestionInSection();
+    return;
+  }
+
+  const sectionEl = document.getElementById(sederSteps[currentSectionIndex].id);
   if (!sectionEl) return;
 
+  // Remove any existing popup
+  const existing = document.querySelector('.quiz-popup');
+  if (existing) existing.remove();
+
+  const pts = difficultyPoints[player.difficulty];
   const card = document.createElement('div');
   card.className = 'quiz-popup';
   card.id = 'activeQuizCard';
+
+  const remainingForSection = sectionPendingPlayers.length - sectionPendingIndex;
   card.innerHTML = `
-    <div class="quiz-popup-player">${player.name}'s turn! 🎯</div>
+    <div class="quiz-popup-player">${player.name}'s turn! 🎯 <span class="diff-badge ${player.difficulty}">${player.difficulty.charAt(0).toUpperCase() + player.difficulty.slice(1)}</span></div>
     <div class="quiz-popup-question">${question.q}</div>
+    <div style="font-size:0.85rem;color:var(--cream);opacity:0.6;margin-bottom:0.5rem;">Worth ${pts} pts${quizState.timerSeconds !== null ? ' + ' + speedBonus + ' speed bonus' : ''}</div>
     <div class="quiz-timer-bar"><div class="quiz-timer-fill" id="quizTimerFill"></div></div>
     <div class="quiz-answers">
       ${question.a.map((a, i) => `<button class="quiz-answer-btn" data-idx="${i}">${a}</button>`).join('')}
@@ -3480,10 +3672,7 @@ function injectQuizCard(sectionIndex) {
     <div class="quiz-popup-feedback" id="quizPopupFeedback"></div>
   `;
 
-  // Insert quiz card at the END of the section (after all content)
   sectionEl.appendChild(card);
-
-  // Scroll card into view
   setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
 
   // Wire up answer buttons
@@ -3492,8 +3681,12 @@ function injectQuizCard(sectionIndex) {
     btn.addEventListener('click', () => handleQuizAnswer(btn, parseInt(btn.dataset.idx), question, player, card, btns));
   });
 
-  // Start 10s timer
   startQuizTimer(question, player, card, btns);
+}
+
+// ---------- Inject quiz card (called from section change) ----------
+function injectQuizCard(sectionIndex) {
+  injectQuizCardForSection(sectionIndex);
 }
 
 function startQuizTimer(question, player, card, btns) {
@@ -3524,7 +3717,6 @@ function startQuizTimer(question, player, card, btns) {
     if (elapsed > warningAt && fill) fill.classList.add('warning');
     if (elapsed >= duration) {
       clearInterval(quizState.timerInterval);
-      // Timeout
       btns.forEach((b, i) => {
         b.disabled = true;
         if (i === question.c) b.classList.add('correct');
@@ -3532,8 +3724,8 @@ function startQuizTimer(question, player, card, btns) {
       const fb = document.getElementById('quizPopupFeedback');
       if (fb) fb.innerHTML = '⏰ Time\'s up! +0';
       card.classList.add('flash-wrong');
-      // Advance to next player
-      quizState.currentPlayerIndex = (quizState.currentPlayerIndex + 1) % quizState.players.length;
+      player.questionsAsked++;
+      sectionPendingIndex++;
       showContinueButton(card);
     }
   }, 250);
@@ -3541,16 +3733,23 @@ function startQuizTimer(question, player, card, btns) {
 
 function handleQuizAnswer(btn, index, question, player, card, btns) {
   clearInterval(quizState.timerInterval);
+  const answerTime = Date.now();
   btns.forEach((b, i) => {
     b.disabled = true;
     if (i === question.c) b.classList.add('correct');
   });
 
   const fb = document.getElementById('quizPopupFeedback');
+  const pts = difficultyPoints[player.difficulty];
 
   if (index === question.c) {
-    player.score += 10;
-    if (fb) fb.innerHTML = '✅ Correct! +10 🎉';
+    let earned = pts;
+    // Speed bonus only if timer is not "No limit"
+    if (quizState.timerSeconds !== null) {
+      earned += speedBonus;
+    }
+    player.score += earned;
+    if (fb) fb.innerHTML = `✅ Correct! +${earned} 🎉`;
     card.classList.add('flash-correct');
     if (navigator.vibrate) navigator.vibrate(50);
   } else {
@@ -3560,25 +3759,53 @@ function handleQuizAnswer(btn, index, question, player, card, btns) {
     if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
   }
 
-  // Advance to next player (round-robin)
-  quizState.currentPlayerIndex = (quizState.currentPlayerIndex + 1) % quizState.players.length;
+  player.questionsAsked++;
+  sectionPendingIndex++;
 
-  // Show Continue button instead of auto-collapsing
   showContinueButton(card);
 }
 
 function showContinueButton(card) {
+  // Check if more players pending in this section
+  const hasMore = sectionPendingIndex < sectionPendingPlayers.length;
+
+  const btnContainer = document.createElement('div');
+  btnContainer.style.display = 'flex';
+  btnContainer.style.flexDirection = 'column';
+  btnContainer.style.alignItems = 'center';
+  btnContainer.style.gap = '6px';
+
   const btn = document.createElement('button');
   btn.className = 'quiz-continue-btn';
-  btn.innerHTML = '➡ Continue Seder';
+  btn.innerHTML = hasMore ? '➡ Next Player' : '➡ Continue Seder';
   btn.addEventListener('click', () => {
     card.classList.add('collapse');
     setTimeout(() => {
       card.style.display = 'none';
       card.remove();
-    }, 700);
+      if (hasMore) {
+        showNextQuestionInSection();
+      }
+    }, 500);
   });
-  card.appendChild(btn);
+  btnContainer.appendChild(btn);
+
+  if (hasMore) {
+    const skipBtn = document.createElement('button');
+    skipBtn.className = 'quiz-skip-btn';
+    skipBtn.innerHTML = '⏭ Skip remaining players';
+    skipBtn.addEventListener('click', () => {
+      sectionPendingIndex = sectionPendingPlayers.length; // skip all
+      card.classList.add('collapse');
+      setTimeout(() => {
+        card.style.display = 'none';
+        card.remove();
+      }, 500);
+    });
+    btnContainer.appendChild(skipBtn);
+  }
+
+  card.appendChild(btnContainer);
 }
 
 
@@ -3609,7 +3836,7 @@ function renderLeaderboard() {
         ${sorted.map((p, i) => {
           const medal = i < 3 ? medals[i] : (i + 1) + '.';
           const confetti = i === 0 ? ' 🎉🎉🎉' : '';
-          return `<li><span>${medal} ${p.name}</span><span>${p.score} pts${confetti}</span></li>`;
+          return `<li><span>${medal} ${p.name} <span class="diff-badge ${p.difficulty}">${p.difficulty.charAt(0).toUpperCase() + p.difficulty.slice(1)}</span></span><span>${p.score} pts${confetti}</span></li>`;
         }).join('')}
       </ul>
       <div class="leaderboard-chag">!חַג פֶּסַח שָׂמֵחַ</div>
@@ -3621,10 +3848,9 @@ function renderLeaderboard() {
 }
 
 function resetQuizNextYear() {
-  quizState.players.forEach(p => p.score = 0);
-  quizState.questionsAsked.clear();
+  quizState.players.forEach(p => { p.score = 0; p.questionsAsked = 0; });
+  quizState.questionsAskedPerDifficulty = { easy: new Set(), medium: new Set(), hard: new Set() };
   quizState.sectionQuizShown.clear();
-  quizState.currentPlayerIndex = 0;
   const container = document.getElementById('quizLeaderboardContainer');
   if (container) container.innerHTML = '';
   scrollToSection(0);
