@@ -1063,6 +1063,68 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 .start-seder-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .start-seder-btn:not(:disabled):hover { transform: scale(1.05); }
 
+/* Timer selector */
+.timer-selector {
+  margin: 1rem 0 1.25rem;
+  text-align: center;
+}
+.timer-selector-label {
+  font-size: 0.95rem;
+  color: var(--cream);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-latin);
+}
+.timer-options {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.timer-option {
+  padding: 8px 16px;
+  border: 2px solid rgba(201,168,76,0.25);
+  background: rgba(201,168,76,0.05);
+  color: var(--cream);
+  font-size: 0.95rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.timer-option.selected {
+  background: var(--gold);
+  color: var(--navy);
+  border-color: var(--gold);
+  font-weight: 700;
+}
+.timer-option:hover:not(.selected) {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.12);
+}
+
+/* Continue Seder button */
+.quiz-continue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border: none;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  margin-top: 1rem;
+  transition: transform 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  animation: fadeInUp 0.4s ease both;
+}
+.quiz-continue-btn:hover { transform: scale(1.05); }
+
 /* Inline Quiz Popup Card */
 .quiz-popup {
   max-width: 520px;
@@ -1361,6 +1423,15 @@ body.lang-nl [data-langcontent="en"] { display: none; }
       <button class="player-add-btn" id="addPlayerBtn" onclick="addPlayer()">+ Add</button>
     </div>
     <ul class="player-list" id="playerList"></ul>
+    <div class="timer-selector">
+      <div class="timer-selector-label">⏱ Time per question:</div>
+      <div class="timer-options">
+        <button class="timer-option" data-seconds="10" onclick="selectTimer(this)">10s</button>
+        <button class="timer-option selected" data-seconds="30" onclick="selectTimer(this)">30s</button>
+        <button class="timer-option" data-seconds="60" onclick="selectTimer(this)">60s</button>
+        <button class="timer-option" data-seconds="null" onclick="selectTimer(this)">No limit</button>
+      </div>
+    </div>
     <button class="start-seder-btn" id="startSederBtn" disabled onclick="startSederQuiz()">🎮 Start Seder &amp; Quiz</button>
   </div>
 
@@ -2457,8 +2528,16 @@ const quizState = {
   questionsAsked: new Set(),
   sectionQuizShown: new Set(),
   active: false,
-  timerInterval: null
+  timerInterval: null,
+  timerSeconds: 30
 };
+
+function selectTimer(btn) {
+  document.querySelectorAll('.timer-option').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const val = btn.dataset.seconds;
+  quizState.timerSeconds = val === 'null' ? null : parseInt(val);
+}
 
 // ---------- Player Registration ----------
 function renderPlayerList() {
@@ -2554,10 +2633,6 @@ function injectQuizCard(sectionIndex) {
   const sectionEl = document.getElementById(sederSteps[sectionIndex].id);
   if (!sectionEl) return;
 
-  // Find the first content element after dividers/titles
-  const titleEn = sectionEl.querySelector('.section-title-en');
-  const insertAfter = titleEn || sectionEl.querySelector('.section-title-he') || sectionEl.firstElementChild;
-
   const card = document.createElement('div');
   card.className = 'quiz-popup';
   card.id = 'activeQuizCard';
@@ -2571,11 +2646,8 @@ function injectQuizCard(sectionIndex) {
     <div class="quiz-popup-feedback" id="quizPopupFeedback"></div>
   `;
 
-  if (insertAfter && insertAfter.nextSibling) {
-    sectionEl.insertBefore(card, insertAfter.nextSibling);
-  } else {
-    sectionEl.appendChild(card);
-  }
+  // Insert quiz card at the END of the section (after all content)
+  sectionEl.appendChild(card);
 
   // Scroll card into view
   setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
@@ -2594,7 +2666,15 @@ function startQuizTimer(question, player, card, btns) {
   clearInterval(quizState.timerInterval);
   const fill = document.getElementById('quizTimerFill');
   if (!fill) return;
-  const duration = 10000;
+
+  // No limit mode: hide timer bar entirely
+  if (quizState.timerSeconds === null) {
+    fill.parentElement.style.display = 'none';
+    return;
+  }
+
+  const duration = quizState.timerSeconds * 1000;
+  const warningAt = duration * 0.7;
   const start = Date.now();
   fill.style.transition = 'none';
   fill.style.width = '100%';
@@ -2607,7 +2687,7 @@ function startQuizTimer(question, player, card, btns) {
 
   quizState.timerInterval = setInterval(() => {
     const elapsed = Date.now() - start;
-    if (elapsed > 7000 && fill) fill.classList.add('warning');
+    if (elapsed > warningAt && fill) fill.classList.add('warning');
     if (elapsed >= duration) {
       clearInterval(quizState.timerInterval);
       // Timeout
@@ -2618,7 +2698,9 @@ function startQuizTimer(question, player, card, btns) {
       const fb = document.getElementById('quizPopupFeedback');
       if (fb) fb.innerHTML = '⏰ Time\'s up! +0';
       card.classList.add('flash-wrong');
-      collapseQuizCard(card);
+      // Advance to next player
+      quizState.currentPlayerIndex = (quizState.currentPlayerIndex + 1) % quizState.players.length;
+      showContinueButton(card);
     }
   }, 250);
 }
@@ -2647,15 +2729,22 @@ function handleQuizAnswer(btn, index, question, player, card, btns) {
   // Advance to next player (round-robin)
   quizState.currentPlayerIndex = (quizState.currentPlayerIndex + 1) % quizState.players.length;
 
-  collapseQuizCard(card);
+  // Show Continue button instead of auto-collapsing
+  showContinueButton(card);
 }
 
-function collapseQuizCard(card) {
-  setTimeout(() => {
+function showContinueButton(card) {
+  const btn = document.createElement('button');
+  btn.className = 'quiz-continue-btn';
+  btn.innerHTML = '➡ Continue Seder';
+  btn.addEventListener('click', () => {
     card.classList.add('collapse');
     setTimeout(() => card.remove(), 700);
-  }, 2000);
+  });
+  card.appendChild(btn);
 }
+
+
 
 // ---------- Leaderboard (Nirtzah) ----------
 function renderLeaderboard() {
