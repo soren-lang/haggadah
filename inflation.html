@@ -6,356 +6,390 @@
 <title>Netherlands Inflation Dashboard 2020–2025</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#e2e8f0;min-height:100vh}
+.header{background:linear-gradient(135deg,#0f2744 0%,#1a1040 100%);padding:2rem 2.5rem;border-bottom:2px solid #1e3a5f}
+.header-inner{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem}
+.header h1{font-size:1.75rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:.6rem}
+.header h1 span{font-size:2rem}
+.header-meta p{color:#94a3b8;font-size:.85rem;margin-top:.25rem}
+.header-meta .badge{display:inline-block;background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.3);color:#60a5fa;font-size:.7rem;padding:2px 10px;border-radius:20px;font-weight:600;margin-top:.4rem}
+.main{max-width:1400px;margin:0 auto;padding:2rem 1.5rem}
 
-  .header { background: linear-gradient(135deg, #1e3a5f, #0f2744); padding: 2rem 2.5rem; border-bottom: 1px solid #1e3a5f; }
-  .header h1 { font-size: 1.8rem; font-weight: 700; color: #fff; }
-  .header p { color: #94a3b8; margin-top: 0.4rem; font-size: 0.9rem; }
-  .header .source { font-size: 0.75rem; color: #64748b; margin-top: 0.3rem; }
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem}
+.kpi{background:#161b27;border:1px solid #21283a;border-radius:14px;padding:1.25rem 1.4rem;position:relative;overflow:hidden;transition:border-color .2s}
+.kpi:hover{border-color:#3b4d6b}
+.kpi-accent{position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.kpi-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:#4b5d78;margin-bottom:.5rem}
+.kpi-value{font-size:2rem;font-weight:800;line-height:1;color:#f1f5f9}
+.kpi-note{font-size:.78rem;color:#64748b;margin-top:.4rem}
+.kpi-tag{display:inline-block;font-size:.68rem;padding:2px 8px;border-radius:20px;margin-top:.5rem;font-weight:700}
+.tag-crisis{background:rgba(239,68,68,.15);color:#f87171}
+.tag-ok{background:rgba(16,185,129,.15);color:#34d399}
+.tag-warn{background:rgba(251,191,36,.15);color:#fbbf24}
+.tag-info{background:rgba(148,163,184,.15);color:#94a3b8}
 
-  .dashboard { max-width: 1400px; margin: 0 auto; padding: 2rem 1.5rem; }
+/* Grid */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.span-2{grid-column:1/-1}
+.card{background:#161b27;border:1px solid #21283a;border-radius:14px;padding:1.5rem}
+.card-title{font-size:.9rem;font-weight:700;color:#cbd5e1;margin-bottom:.25rem;display:flex;align-items:center;gap:.5rem}
+.card-sub{font-size:.73rem;color:#4b5d78;margin-bottom:1.2rem}
+canvas{width:100%!important}
 
-  /* KPI cards */
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-  .kpi-card {
-    background: #1a1f2e;
-    border: 1px solid #2d3748;
-    border-radius: 12px;
-    padding: 1.4rem 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .kpi-card.blue::before { background: #3b82f6; }
-  .kpi-card.red::before { background: #ef4444; }
-  .kpi-card.green::before { background: #10b981; }
-  .kpi-card.amber::before { background: #f59e0b; }
-  .kpi-card.purple::before { background: #8b5cf6; }
-  .kpi-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 0.5rem; }
-  .kpi-value { font-size: 2.2rem; font-weight: 700; color: #f1f5f9; line-height: 1; }
-  .kpi-sub { font-size: 0.8rem; color: #94a3b8; margin-top: 0.4rem; }
-  .kpi-badge { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 20px; margin-top: 0.4rem; font-weight: 600; }
-  .badge-up { background: rgba(239,68,68,0.15); color: #f87171; }
-  .badge-down { background: rgba(16,185,129,0.15); color: #34d399; }
-  .badge-neutral { background: rgba(148,163,184,0.15); color: #94a3b8; }
+/* Alert band */
+.alert-band{background:linear-gradient(90deg,rgba(239,68,68,.08),rgba(239,68,68,.03));border:1px solid rgba(239,68,68,.2);border-left:4px solid #ef4444;border-radius:12px;padding:1rem 1.4rem;margin-bottom:1.5rem;display:flex;gap:1rem;align-items:flex-start}
+.alert-icon{font-size:1.4rem;flex-shrink:0}
+.alert-text h3{color:#f87171;font-size:.9rem;margin-bottom:.25rem}
+.alert-text p{color:#94a3b8;font-size:.82rem;line-height:1.5}
 
-  /* Charts grid */
-  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
-  .chart-full { grid-column: 1 / -1; }
-  .chart-card {
-    background: #1a1f2e;
-    border: 1px solid #2d3748;
-    border-radius: 12px;
-    padding: 1.5rem;
-  }
-  .chart-title { font-size: 0.95rem; font-weight: 600; color: #cbd5e1; margin-bottom: 1.2rem; }
-  .chart-sub { font-size: 0.75rem; color: #64748b; margin-top: -1rem; margin-bottom: 1rem; }
-  canvas { max-height: 280px; }
-  .chart-full canvas { max-height: 320px; }
+/* Insight cards */
+.insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem}
+.insight{background:#161b27;border:1px solid #21283a;border-radius:12px;padding:1.2rem 1.4rem}
+.insight-phase{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#4b5d78;margin-bottom:.3rem}
+.insight-title{font-size:.95rem;font-weight:700;color:#f1f5f9;margin-bottom:.4rem}
+.insight-num{font-size:1.6rem;font-weight:800;margin:.4rem 0}
+.insight-body{font-size:.82rem;color:#94a3b8;line-height:1.55}
+.c-red{color:#f87171}.c-amber{color:#fbbf24}.c-green{color:#34d399}.c-blue{color:#60a5fa}.c-purple{color:#a78bfa}
 
-  /* Timeline insights */
-  .insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-  .insight-card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 1.4rem; }
-  .insight-phase { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 0.4rem; }
-  .insight-title { font-size: 1rem; font-weight: 600; color: #f1f5f9; margin-bottom: 0.5rem; }
-  .insight-text { font-size: 0.85rem; color: #94a3b8; line-height: 1.6; }
-  .insight-stat { font-size: 1.4rem; font-weight: 700; margin: 0.5rem 0; }
-  .color-red { color: #f87171; }
-  .color-green { color: #34d399; }
-  .color-amber { color: #fbbf24; }
-  .color-blue { color: #60a5fa; }
+/* Category bars */
+.cat-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.cat-table th{padding:.5rem .8rem;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#4b5d78;border-bottom:1px solid #21283a}
+.cat-table td{padding:.55rem .8rem;border-bottom:1px solid #1a1f2e}
+.cat-table tr:last-child td{border:0}
+.cat-bar{display:flex;align-items:center;gap:.6rem}
+.bar{height:8px;border-radius:4px;min-width:2px}
+.val{font-weight:700;min-width:42px;text-align:right}
 
-  /* Table */
-  .table-card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  th { text-align: left; padding: 0.6rem 1rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; border-bottom: 1px solid #2d3748; }
-  td { padding: 0.65rem 1rem; border-bottom: 1px solid #1e293b; }
-  tr:last-child td { border-bottom: none; }
-  .bar-cell { display: flex; align-items: center; gap: 0.8rem; }
-  .bar-fill { height: 8px; border-radius: 4px; transition: width 0.3s; }
-  .positive { background: #ef4444; }
-  .near-zero { background: #10b981; }
-  .moderate { background: #f59e0b; }
+/* Country flags */
+.country-row{display:flex;align-items:center;gap:.5rem;font-size:.85rem}
+.flag{font-size:1.2rem}
 
-  footer { text-align: center; padding: 1.5rem; color: #475569; font-size: 0.75rem; border-top: 1px solid #1e293b; }
+/* Trend arrow */
+.trend-up{color:#f87171}.trend-dn{color:#34d399}.trend-flat{color:#94a3b8}
 
-  @media (max-width: 768px) { .charts-grid { grid-template-columns: 1fr; } .chart-full { grid-column: 1; } }
+/* Table */
+.data-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.data-table th{padding:.6rem 1rem;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#4b5d78;border-bottom:1px solid #21283a}
+.data-table td{padding:.65rem 1rem;border-bottom:1px solid #1a1f2e}
+.data-table tr:last-child td{border:0}
+.data-table tr:hover td{background:rgba(255,255,255,.02)}
+.highlight-row td{background:rgba(239,68,68,.04)}
+
+footer{text-align:center;padding:2rem;color:#374151;font-size:.73rem;border-top:1px solid #1a1f2e;margin-top:1.5rem}
+footer a{color:#4b5d78;text-decoration:none}
+
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}.span-2{grid-column:1}}
+@media(max-width:600px){.kpi-value{font-size:1.6rem}.header{padding:1.5rem}.main{padding:1rem}}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>🇳🇱 Netherlands Inflation Dashboard</h1>
-  <p>Consumer Price Index (HICP) — Annual Rate of Change · 2020–2025</p>
-  <p class="source">Source: Eurostat HICP (Harmonised Index of Consumer Prices) · Data as of December 2025</p>
+  <div class="header-inner">
+    <div>
+      <h1><span>🇳🇱</span> Netherlands Inflation Dashboard</h1>
+      <div class="header-meta">
+        <p>Consumer Price Index (HICP) · Annual Rate of Change · 2020–2025</p>
+        <span class="badge">Eurostat HICP · Live Data · Updated April 2026</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:2rem;font-weight:800;color:#60a5fa">2.7%</div>
+      <div style="font-size:.75rem;color:#64748b">December 2025 (latest)</div>
+      <div style="font-size:.7rem;color:#34d399;margin-top:.2rem">▼ from 17.1% peak (Sep 2022)</div>
+    </div>
+  </div>
 </div>
 
-<div class="dashboard">
+<div class="main">
 
-  <!-- KPI Cards -->
-  <div class="kpi-grid">
-    <div class="kpi-card blue">
-      <div class="kpi-label">Latest (Dec 2025)</div>
-      <div class="kpi-value">2.7%</div>
-      <div class="kpi-sub">Annual rate of change</div>
-      <span class="kpi-badge badge-down">▼ vs 2022 peak</span>
-    </div>
-    <div class="kpi-card red">
-      <div class="kpi-label">Crisis Peak</div>
-      <div class="kpi-value">17.1%</div>
-      <div class="kpi-sub">September 2022</div>
-      <span class="kpi-badge badge-up">Highest in 40 years</span>
-    </div>
-    <div class="kpi-card green">
-      <div class="kpi-label">2025 Average</div>
-      <div class="kpi-value">3.0%</div>
-      <div class="kpi-sub">Full year estimate</div>
-      <span class="kpi-badge badge-neutral">Near ECB target</span>
-    </div>
-    <div class="kpi-card amber">
-      <div class="kpi-label">2024 Average</div>
-      <div class="kpi-value">3.2%</div>
-      <div class="kpi-sub">Full year</div>
-      <span class="kpi-badge badge-neutral">Stabilization phase</span>
-    </div>
-    <div class="kpi-card purple">
-      <div class="kpi-label">Deflation Low</div>
-      <div class="kpi-value">-1.0%</div>
-      <div class="kpi-sub">October 2023</div>
-      <span class="kpi-badge badge-down">Energy base effect</span>
+  <!-- Alert -->
+  <div class="alert-band">
+    <div class="alert-icon">⚠️</div>
+    <div class="alert-text">
+      <h3>Still above ECB 2% target after 3 years</h3>
+      <p>Netherlands has not returned to the ECB's 2% inflation target since 2021. While the energy crisis has passed, services inflation — driven by wage growth, housing costs, and sticky domestic prices — keeps overall inflation at 2.5–4%. Housing rents accelerated to 5.1% in 2025, a growing concern for households.</p>
     </div>
   </div>
 
-  <!-- Main monthly chart -->
-  <div class="charts-grid">
-    <div class="chart-card chart-full">
-      <div class="chart-title">Monthly HICP Inflation Rate — Netherlands (2020–2025)</div>
-      <div class="chart-sub">Annual % change vs same month previous year</div>
-      <canvas id="monthlyChart"></canvas>
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-accent" style="background:#60a5fa"></div>
+      <div class="kpi-label">Dec 2025 (Latest)</div>
+      <div class="kpi-value">2.7%</div>
+      <div class="kpi-note">Annual rate of change</div>
+      <span class="kpi-tag tag-warn">Above ECB target</span>
     </div>
-
-    <div class="chart-card">
-      <div class="chart-title">Annual Average Inflation (HICP)</div>
-      <canvas id="annualChart"></canvas>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:#ef4444"></div>
+      <div class="kpi-label">All-Time Peak</div>
+      <div class="kpi-value">17.1%</div>
+      <div class="kpi-note">September 2022</div>
+      <span class="kpi-tag tag-crisis">Highest since 1975</span>
     </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:#10b981"></div>
+      <div class="kpi-label">2025 Average</div>
+      <div class="kpi-value">3.0%</div>
+      <div class="kpi-note">Full year estimate</div>
+      <span class="kpi-tag tag-ok">Moderating</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:#f59e0b"></div>
+      <div class="kpi-label">2024 Average</div>
+      <div class="kpi-value">3.2%</div>
+      <div class="kpi-note">Sticky services</div>
+      <span class="kpi-tag tag-warn">Stabilized</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:#8b5cf6"></div>
+      <div class="kpi-label">Energy Peak (2022)</div>
+      <div class="kpi-value">+114%</div>
+      <div class="kpi-note">Electricity & gas YoY</div>
+      <span class="kpi-tag tag-crisis">Energy crisis</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-accent" style="background:#ec4899"></div>
+      <div class="kpi-label">Housing Rents 2025</div>
+      <div class="kpi-value">5.1%</div>
+      <div class="kpi-note">Actual rentals</div>
+      <span class="kpi-tag tag-crisis">Accelerating ↑</span>
+    </div>
+  </div>
 
-    <div class="chart-card">
-      <div class="chart-title">2025 Monthly Breakdown</div>
-      <canvas id="chart2025"></canvas>
+  <!-- Main monthly + annual -->
+  <div class="grid-2">
+    <div class="card span-2">
+      <div class="card-title">📈 Monthly HICP Inflation — Netherlands (Jan 2020 – Dec 2025)</div>
+      <div class="card-sub">Annual % change vs same month previous year · Bars colored by severity</div>
+      <canvas id="monthlyChart" style="max-height:300px"></canvas>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">📊 Annual Average (2018–2025)</div>
+      <div class="card-sub">HICP full-year avg %</div>
+      <canvas id="annualChart" style="max-height:240px"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">🌍 Country Comparison</div>
+      <div class="card-sub">NL vs EU27 avg · Germany · Belgium</div>
+      <canvas id="countryChart" style="max-height:240px"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">📅 2025 Monthly Trend</div>
+      <div class="card-sub">With ECB 2% target line</div>
+      <canvas id="chart2025" style="max-height:240px"></canvas>
+    </div>
+  </div>
+
+  <!-- Category breakdown -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">🏷️ Inflation by Category — Netherlands</div>
+      <div class="card-sub">Annual average HICP % change per category</div>
+      <canvas id="categoryChart" style="max-height:260px"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">🔥 Category Deep-Dive (Annual avg %)</div>
+      <div class="card-sub">Each category's contribution to overall inflation</div>
+      <table class="cat-table">
+        <thead><tr><th>Category</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>Trend</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>All-items HICP</td>
+            <td class="c-red"><b>11.6%</b></td><td class="c-amber">4.1%</td><td class="c-amber">3.2%</td><td class="c-amber">3.0%</td>
+            <td><span class="trend-dn">▼ Falling</span></td>
+          </tr>
+          <tr>
+            <td>⚡ Energy</td>
+            <td class="c-red"><b>+114%</b></td><td class="c-green">-37%</td><td class="c-green">-2.2%</td><td class="c-blue">+1.3%</td>
+            <td><span class="trend-dn">▼ Normalized</span></td>
+          </tr>
+          <tr>
+            <td>🥦 Food & beverages</td>
+            <td class="c-amber">10.7%</td><td class="c-red"><b>11.9%</b></td><td class="c-green">1.7%</td><td class="c-amber">4.0%</td>
+            <td><span class="trend-up">↑ Rising again</span></td>
+          </tr>
+          <tr>
+            <td>🏠 Housing rents</td>
+            <td class="c-blue">1.9%</td><td class="c-blue">2.5%</td><td class="c-amber">3.7%</td><td class="c-red"><b>5.1%</b></td>
+            <td><span class="trend-up">↑↑ Accelerating</span></td>
+          </tr>
+          <tr>
+            <td>🚗 Transport</td>
+            <td class="c-red">12.3%</td><td class="c-blue">1.8%</td><td class="c-blue">2.2%</td><td class="c-blue">1.5%</td>
+            <td><span class="trend-dn">▼ Stable</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
   <!-- Phase analysis -->
-  <div class="insights-grid">
-    <div class="insight-card">
-      <div class="insight-phase">Phase 1 · 2020–2021</div>
-      <div class="insight-title">Pandemic Suppression</div>
-      <div class="insight-stat color-blue">1.1% → 2.8%</div>
-      <div class="insight-text">COVID-19 lockdowns suppressed demand, keeping inflation at historic lows in 2020 (1.1%). As economies reopened and supply chains strained, prices began rising through 2021, ending the year at 6.4% in December.</div>
+  <div class="insight-grid">
+    <div class="insight">
+      <div class="insight-phase">Phase 1 · 2020</div>
+      <div class="insight-title">COVID Demand Collapse</div>
+      <div class="insight-num c-blue">1.1%</div>
+      <div class="insight-body">Lockdowns crushed consumer demand. Energy prices fell sharply (electricity & gas: -12% in 2020). The lowest inflation in a decade — a false calm before the storm.</div>
     </div>
-    <div class="insight-card">
-      <div class="insight-phase">Phase 2 · 2022</div>
-      <div class="insight-title">Energy Crisis Shock</div>
-      <div class="insight-stat color-red">Peaked at 17.1%</div>
-      <div class="insight-text">Russia's invasion of Ukraine triggered a European energy crisis. Netherlands — heavily reliant on natural gas for heating and industry — was hit hard. Gas prices on TTF hub surged 10×. The crisis accelerated Groningen gas field phase-out, further tightening supply.</div>
+    <div class="insight">
+      <div class="insight-phase">Phase 2 · 2021</div>
+      <div class="insight-title">Supply Chain Shock</div>
+      <div class="insight-num c-amber">2.8% → 6.4% (Dec)</div>
+      <div class="insight-body">Reopening economies clashed with broken supply chains. Energy surged +17.6% as economies reopened. By December 2021, the warning signs were clear: inflation was accelerating fast.</div>
     </div>
-    <div class="insight-card">
-      <div class="insight-phase">Phase 3 · 2023</div>
-      <div class="insight-title">Sharp Disinflation</div>
-      <div class="insight-stat color-amber">17.1% → -1.0%</div>
-      <div class="insight-text">Energy prices collapsed due to a mild winter, LNG imports, and demand destruction. The base effect from 2022's extreme prices created a remarkable statistical deflation in Sept–Oct 2023 (-0.3% and -1.0%). Core inflation remained elevated at 4–5%.</div>
+    <div class="insight">
+      <div class="insight-phase">Phase 3 · 2022</div>
+      <div class="insight-title">🔥 Energy Crisis</div>
+      <div class="insight-num c-red">Peak: 17.1%</div>
+      <div class="insight-body">Russia invaded Ukraine in Feb 2022. Dutch TTF gas prices hit all-time highs. Electricity & gas spiked +114% for the year. Netherlands was harder hit than Germany (8.7%) due to gas reliance and Groningen phase-out.</div>
     </div>
-    <div class="insight-card">
-      <div class="insight-phase">Phase 4 · 2024–2025</div>
+    <div class="insight">
+      <div class="insight-phase">Phase 4 · 2023</div>
+      <div class="insight-title">Dramatic Disinflation</div>
+      <div class="insight-num c-green">17.1% → -1%</div>
+      <div class="insight-body">Energy collapsed -37% as warm winter, LNG imports, and demand destruction kicked in. Brief deflation in Sep–Oct 2023. But food inflation hit its own peak at 11.9%, hitting household budgets hardest.</div>
+    </div>
+    <div class="insight">
+      <div class="insight-phase">Phase 5 · 2024–2025</div>
       <div class="insight-title">Sticky Normalization</div>
-      <div class="insight-stat color-green">3.2% → 3.0%</div>
-      <div class="insight-text">Inflation stabilized in the 2.5–4% range — above the ECB's 2% target but manageable. Services inflation remained sticky (wages, rents, hospitality). Energy prices rebounded mildly in late 2024. The Netherlands outperformed the EU average slightly in 2025.</div>
+      <div class="insight-num c-amber">3.0–3.2%</div>
+      <div class="insight-body">Energy normalized but services refused to cool. Housing rents hit 5.1% in 2025 — a structural issue as Netherlands faces housing shortage. Wage growth supports purchasing power but keeps services inflation elevated.</div>
+    </div>
+    <div class="insight">
+      <div class="insight-phase">⚖️ Vs. Neighbors</div>
+      <div class="insight-title">Netherlands Outlier</div>
+      <div class="insight-num c-purple">NL: 3.0% · EU: 2.5%</div>
+      <div class="insight-body">In 2025, NL inflation (3.0%) exceeded Germany (2.3%) and the EU average (2.5%). Persistent housing cost pressure and strong wage growth keep Dutch inflation structurally higher than peer economies.</div>
     </div>
   </div>
 
-  <!-- Annual table -->
-  <div class="table-card">
-    <div class="chart-title" style="margin-bottom:1rem">Annual Inflation Summary (HICP, Netherlands)</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>Avg Inflation</th>
-          <th>Visual</th>
-          <th>Peak Month</th>
-          <th>Context</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>2018</strong></td>
-          <td>1.6%</td>
-          <td><div class="bar-cell"><div class="bar-fill near-zero" style="width:10px"></div></div></td>
-          <td>—</td>
-          <td>Stable pre-pandemic</td>
-        </tr>
-        <tr>
-          <td><strong>2019</strong></td>
-          <td>2.7%</td>
-          <td><div class="bar-cell"><div class="bar-fill near-zero" style="width:18px"></div></div></td>
-          <td>—</td>
-          <td>Above ECB target</td>
-        </tr>
-        <tr>
-          <td><strong>2020</strong></td>
-          <td>1.1%</td>
-          <td><div class="bar-cell"><div class="bar-fill near-zero" style="width:8px"></div></div></td>
-          <td>Jun 1.7%</td>
-          <td>COVID demand collapse</td>
-        </tr>
-        <tr>
-          <td><strong>2021</strong></td>
-          <td>2.8%</td>
-          <td><div class="bar-cell"><div class="bar-fill near-zero" style="width:20px"></div></div></td>
-          <td>Dec 6.4%</td>
-          <td>Reopening + energy start</td>
-        </tr>
-        <tr>
-          <td><strong>2022</strong></td>
-          <td style="color:#f87171;font-weight:700">11.6%</td>
-          <td><div class="bar-cell"><div class="bar-fill positive" style="width:160px"></div></div></td>
-          <td>Sep 17.1% 🔥</td>
-          <td>Ukraine war · energy crisis</td>
-        </tr>
-        <tr>
-          <td><strong>2023</strong></td>
-          <td style="color:#fbbf24;font-weight:700">4.1%</td>
-          <td><div class="bar-cell"><div class="bar-fill moderate" style="width:55px"></div></div></td>
-          <td>Feb 8.9%</td>
-          <td>Rapid disinflation</td>
-        </tr>
-        <tr>
-          <td><strong>2024</strong></td>
-          <td style="color:#fbbf24;font-weight:700">3.2%</td>
-          <td><div class="bar-cell"><div class="bar-fill moderate" style="width:42px"></div></div></td>
-          <td>Dec 3.9%</td>
-          <td>Sticky services inflation</td>
-        </tr>
-        <tr>
-          <td><strong>2025</strong></td>
-          <td>3.0%</td>
-          <td><div class="bar-cell"><div class="bar-fill moderate" style="width:38px"></div></div></td>
-          <td>Apr 4.1%</td>
-          <td>Gradual normalization</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Full data table -->
+  <div class="card">
+    <div class="card-title">📋 Full Annual Data Table</div>
+    <div class="card-sub">HICP Annual Average % Change — Netherlands vs Peers</div>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>🇳🇱 Netherlands</th>
+            <th>🇩🇪 Germany</th>
+            <th>🇧🇪 Belgium</th>
+            <th>🇪🇺 EU-27 avg</th>
+            <th>⚡ NL Energy</th>
+            <th>🥦 NL Food</th>
+            <th>🏠 NL Rents</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>2019</td><td>2.7%</td><td>1.4%</td><td>1.2%</td><td>1.4%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>2020</td><td>1.1%</td><td>0.4%</td><td>0.4%</td><td>0.7%</td><td class="c-green">-12.0%</td><td>1.9%</td><td>2.7%</td></tr>
+          <tr><td>2021</td><td>2.8%</td><td>3.2%</td><td>3.2%</td><td>2.9%</td><td class="c-amber">+17.6%</td><td>-0.2%</td><td>1.8%</td></tr>
+          <tr class="highlight-row"><td><b>2022 🔥</b></td><td class="c-red"><b>11.6%</b></td><td>8.7%</td><td>10.3%</td><td>9.2%</td><td class="c-red"><b>+114%</b></td><td class="c-red">10.7%</td><td>1.9%</td></tr>
+          <tr><td>2023</td><td class="c-amber">4.1%</td><td>6.0%</td><td>2.3%</td><td>6.4%</td><td class="c-green">-37.0%</td><td class="c-red">11.9%</td><td>2.5%</td></tr>
+          <tr><td>2024</td><td class="c-amber">3.2%</td><td>2.5%</td><td>4.3%</td><td>2.6%</td><td class="c-green">-2.2%</td><td>1.7%</td><td>3.7%</td></tr>
+          <tr><td>2025</td><td class="c-amber">3.0%</td><td class="c-green">2.3%</td><td>3.0%</td><td class="c-green">2.5%</td><td>+1.3%</td><td class="c-amber">4.0%</td><td class="c-red">5.1%</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </div>
 
-<footer>Data: Eurostat HICP (prc_hicp_manr, prc_hicp_aind) · Netherlands (NL) · All-items CP00 · Retrieved April 2026</footer>
+<footer>
+  Data: Eurostat HICP — <a href="https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_manr/default/table" target="_blank">prc_hicp_manr</a> · <a href="https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table" target="_blank">prc_hicp_aind</a> · Netherlands (NL) · Retrieved April 2026 · Dashboard by Klevox Studio
+</footer>
 
 <script>
-// ── Monthly chart ─────────────────────────────────────────────────────
-var labels = ["Jan'20","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec'20","Jan'21","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec'21","Jan'22","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec'22","Jan'23","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec'23","Jan'24","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec'24","Jan'25","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec'25"];
+var CHART_DEFAULTS = {
+  responsive: true,
+  plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } }
+};
+Chart.defaults.color = '#64748b';
+Chart.defaults.borderColor = '#1e293b';
 
+// ── Monthly overall ─────────────────────────────────────────────────
+var monthLabels = ["Jan'20","","","","","","","","","","","Dec'20","Jan'21","","","","","","","","","","","Dec'21","Jan'22","","","","","","","","","","","Dec'22","Jan'23","","","","","","","","","","","Dec'23","Jan'24","","","","","","","","","","","Dec'24","Jan'25","","","","","","","","","","","Dec'25"];
 var monthly = [1.7,1.3,1.1,1,1.1,1.7,1.6,0.3,1,1.2,0.7,0.9,1.6,1.9,1.9,1.7,2,1.7,1.4,2.7,3,3.7,5.9,6.4,7.6,7.3,11.7,11.2,10.2,9.9,11.6,13.7,17.1,16.8,11.3,11,8.4,8.9,4.5,5.8,6.8,6.4,5.3,3.4,-0.3,-1,1.4,1,3.1,2.7,3.1,2.6,2.7,3.4,3.5,3.3,3.3,3.3,3.8,3.9,3,3.5,3.4,4.1,2.9,2.7,2.5,2.4,3,3,2.6,2.7];
-
-var colors = monthly.map(function(v) {
-  if (v >= 10) return 'rgba(239,68,68,0.85)';
-  if (v >= 5) return 'rgba(251,146,60,0.85)';
-  if (v >= 2) return 'rgba(251,191,36,0.85)';
-  if (v < 0) return 'rgba(16,185,129,0.9)';
-  return 'rgba(96,165,250,0.85)';
+var mColors = monthly.map(function(v){
+  if(v>=10) return 'rgba(239,68,68,.9)';
+  if(v>=5) return 'rgba(251,146,60,.85)';
+  if(v>=2) return 'rgba(251,191,36,.8)';
+  if(v<0) return 'rgba(16,185,129,.9)';
+  return 'rgba(96,165,250,.75)';
+});
+new Chart(document.getElementById('monthlyChart'),{
+  type:'bar',
+  data:{labels:monthLabels,datasets:[{label:'HICP % YoY',data:monthly,backgroundColor:mColors,borderWidth:0,borderRadius:2}]},
+  options:{...CHART_DEFAULTS,plugins:{...CHART_DEFAULTS.plugins,tooltip:{callbacks:{label:function(c){return c.raw+'%'}}}},scales:{x:{ticks:{color:'#4b5d78',font:{size:9},maxRotation:0},grid:{color:'#1a1f2e'}},y:{ticks:{color:'#94a3b8',callback:function(v){return v+'%'}},grid:{color:'#1a1f2e'},title:{display:true,text:'% YoY',color:'#4b5d78'}}}}
 });
 
-new Chart(document.getElementById('monthlyChart'), {
-  type: 'bar',
-  data: {
-    labels: labels,
-    datasets: [{
-      label: 'Inflation %',
-      data: monthly,
-      backgroundColor: colors,
-      borderWidth: 0,
-      borderRadius: 2,
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: function(c) { return c.raw + '%'; } } },
-      annotation: {}
-    },
-    scales: {
-      x: { ticks: { color: '#64748b', font: { size: 9 }, maxRotation: 45 }, grid: { color: '#1e293b' } },
-      y: { ticks: { color: '#94a3b8', callback: function(v) { return v + '%'; } }, grid: { color: '#1e293b' }, title: { display: true, text: '% YoY', color: '#64748b' } }
-    }
-  }
+// ── Annual avg ─────────────────────────────────────────────────────
+new Chart(document.getElementById('annualChart'),{
+  type:'bar',
+  data:{labels:['2018','2019','2020','2021','2022','2023','2024','2025'],datasets:[{label:'Annual avg %',data:[1.6,2.7,1.1,2.8,11.6,4.1,3.2,3.0],backgroundColor:['#3b82f6','#3b82f6','#3b82f6','#f59e0b','#ef4444','#f59e0b','#f59e0b','#10b981'],borderRadius:6,borderWidth:0}]},
+  options:{...CHART_DEFAULTS,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.raw+'%'}}}},scales:{x:{ticks:{color:'#94a3b8'},grid:{display:false}},y:{ticks:{color:'#94a3b8',callback:function(v){return v+'%'}},grid:{color:'#1a1f2e'}}}}
 });
 
-// ── Annual bar chart ─────────────────────────────────────────────────
-new Chart(document.getElementById('annualChart'), {
-  type: 'bar',
-  data: {
-    labels: ['2018','2019','2020','2021','2022','2023','2024','2025'],
-    datasets: [{
-      label: 'Annual avg %',
-      data: [1.6,2.7,1.1,2.8,11.6,4.1,3.2,3.0],
-      backgroundColor: ['#3b82f6','#3b82f6','#3b82f6','#f59e0b','#ef4444','#f59e0b','#f59e0b','#10b981'],
-      borderRadius: 6,
-      borderWidth: 0,
-    }]
+// ── Country comparison ─────────────────────────────────────────────
+new Chart(document.getElementById('countryChart'),{
+  type:'bar',
+  data:{
+    labels:['2019','2020','2021','2022','2023','2024','2025'],
+    datasets:[
+      {label:'🇳🇱 Netherlands',data:[2.7,1.1,2.8,11.6,4.1,3.2,3.0],backgroundColor:'rgba(96,165,250,.8)',borderRadius:4,borderWidth:0},
+      {label:'🇩🇪 Germany',data:[1.4,0.4,3.2,8.7,6.0,2.5,2.3],backgroundColor:'rgba(251,191,36,.7)',borderRadius:4,borderWidth:0},
+      {label:'🇧🇪 Belgium',data:[1.2,0.4,3.2,10.3,2.3,4.3,3.0],backgroundColor:'rgba(167,139,250,.7)',borderRadius:4,borderWidth:0},
+      {label:'🇪🇺 EU-27',data:[1.4,0.7,2.9,9.2,6.4,2.6,2.5],backgroundColor:'rgba(16,185,129,.6)',borderRadius:4,borderWidth:0},
+    ]
   },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: function(c) { return c.raw + '%'; } } }
-    },
-    scales: {
-      x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
-      y: { ticks: { color: '#94a3b8', callback: function(v) { return v + '%'; } }, grid: { color: '#1e293b' } }
-    }
-  }
+  options:{...CHART_DEFAULTS,plugins:{...CHART_DEFAULTS.plugins,tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.raw+'%'}}}},scales:{x:{ticks:{color:'#94a3b8'},grid:{display:false}},y:{ticks:{color:'#94a3b8',callback:function(v){return v+'%'}},grid:{color:'#1a1f2e'}},stacked:false}}
 });
 
-// ── 2025 monthly ─────────────────────────────────────────────────────
-new Chart(document.getElementById('chart2025'), {
-  type: 'line',
-  data: {
-    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-    datasets: [{
-      label: '2025 monthly %',
-      data: [3.0,3.5,3.4,4.1,2.9,2.7,2.5,2.4,3.0,3.0,2.6,2.7],
-      borderColor: '#60a5fa',
-      backgroundColor: 'rgba(96,165,250,0.1)',
-      borderWidth: 2.5,
-      pointBackgroundColor: '#60a5fa',
-      pointRadius: 4,
-      fill: true,
-      tension: 0.3
-    }, {
-      label: 'ECB target',
-      data: Array(12).fill(2),
-      borderColor: 'rgba(16,185,129,0.5)',
-      borderWidth: 1.5,
-      borderDash: [5,5],
-      pointRadius: 0,
-      fill: false
-    }]
+// ── 2025 monthly ───────────────────────────────────────────────────
+new Chart(document.getElementById('chart2025'),{
+  type:'line',
+  data:{
+    labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets:[
+      {label:'NL 2025',data:[3.0,3.5,3.4,4.1,2.9,2.7,2.5,2.4,3.0,3.0,2.6,2.7],borderColor:'#60a5fa',backgroundColor:'rgba(96,165,250,.1)',borderWidth:2.5,pointBackgroundColor:'#60a5fa',pointRadius:4,fill:true,tension:.35},
+      {label:'ECB 2% target',data:Array(12).fill(2),borderColor:'rgba(16,185,129,.5)',borderWidth:1.5,borderDash:[5,5],pointRadius:0,fill:false}
+    ]
   },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { labels: { color: '#94a3b8', font: { size: 11 } } },
-      tooltip: { callbacks: { label: function(c) { return c.dataset.label + ': ' + c.raw + '%'; } } }
-    },
-    scales: {
-      x: { ticks: { color: '#94a3b8' }, grid: { color: '#1e293b' } },
-      y: { ticks: { color: '#94a3b8', callback: function(v) { return v + '%'; } }, grid: { color: '#1e293b' }, min: 0, max: 5 }
+  options:{...CHART_DEFAULTS,scales:{x:{ticks:{color:'#94a3b8'},grid:{color:'#1a1f2e'}},y:{ticks:{color:'#94a3b8',callback:function(v){return v+'%'}},grid:{color:'#1a1f2e'},min:0,max:5}},plugins:{...CHART_DEFAULTS.plugins,tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.raw+'%'}}}}}
+});
+
+// ── Categories ─────────────────────────────────────────────────────
+new Chart(document.getElementById('categoryChart'),{
+  type:'line',
+  data:{
+    labels:['2020','2021','2022','2023','2024','2025'],
+    datasets:[
+      {label:'All-items',data:[1.1,2.8,11.6,4.1,3.2,3.0],borderColor:'#60a5fa',borderWidth:2.5,pointRadius:4,tension:.3,fill:false},
+      {label:'⚡ Energy',data:[-12,17.6,114,-37,-2.2,1.3],borderColor:'#f87171',borderWidth:2,pointRadius:4,tension:.3,fill:false,yAxisID:'y2'},
+      {label:'🥦 Food',data:[1.9,-0.2,10.7,11.9,1.7,4.0],borderColor:'#34d399',borderWidth:2,pointRadius:4,tension:.3,fill:false},
+      {label:'🏠 Rents',data:[2.7,1.8,1.9,2.5,3.7,5.1],borderColor:'#a78bfa',borderWidth:2,pointRadius:4,tension:.3,fill:false},
+      {label:'🚗 Transport',data:[-0.6,5.6,12.3,1.8,2.2,1.5],borderColor:'#fbbf24',borderWidth:2,pointRadius:4,tension:.3,fill:false},
+    ]
+  },
+  options:{
+    responsive:true,
+    plugins:{legend:{labels:{color:'#94a3b8',font:{size:10}}},tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.raw+'%'}}}},
+    scales:{
+      x:{ticks:{color:'#94a3b8'},grid:{color:'#1a1f2e'}},
+      y:{ticks:{color:'#94a3b8',callback:function(v){return v+'%'}},grid:{color:'#1a1f2e'},title:{display:true,text:'% (excl. energy)',color:'#4b5d78'}},
+      y2:{type:'linear',position:'right',ticks:{color:'#f87171',callback:function(v){return v+'%'}},grid:{display:false},title:{display:true,text:'⚡ Energy %',color:'#f87171'}}
     }
   }
 });
 </script>
-
 </body>
 </html>
