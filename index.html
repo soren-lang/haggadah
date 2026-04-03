@@ -968,122 +968,91 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 }
 
 /* ============================================
-   KIDS QUIZ SYSTEM
+   KIDS QUIZ — INLINE SYSTEM
    ============================================ */
-.quiz-fab {
-  position: fixed;
-  bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + 16px);
-  right: 16px;
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: var(--navy);
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  z-index: 999;
-  box-shadow: 0 4px 20px rgba(201,168,76,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s;
-  -webkit-tap-highlight-color: transparent;
-}
-.quiz-fab:hover { transform: scale(1.1); }
 
-@media (min-width: 768px) {
-  .quiz-fab { bottom: 24px; }
-}
-
-.quiz-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(10,10,26,0.97);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* Player Registration Card */
+.player-registration {
+  max-width: 400px;
+  margin: 2rem auto;
   padding: 1.5rem;
-  overflow-y: auto;
-}
-.quiz-modal.open { display: flex; }
-
-.quiz-close {
-  position: absolute;
-  top: 12px; right: 16px;
-  background: none; border: none;
-  color: var(--cream);
-  font-size: 2rem;
-  cursor: pointer;
-  z-index: 1001;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.quiz-container {
-  width: 100%;
-  max-width: 520px;
+  border-radius: 16px;
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.2);
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
-
-.quiz-title {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+.player-reg-title {
+  font-size: 1.4rem;
   color: var(--gold);
   font-family: var(--font-latin);
+  margin-bottom: 1rem;
 }
-
-/* Setup screen */
-.quiz-setup input[type="text"] {
-  width: 100%;
-  padding: 14px 18px;
+.player-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+.player-input-row input {
+  flex: 1;
+  padding: 12px 16px;
   border: 2px solid rgba(201,168,76,0.3);
   background: rgba(201,168,76,0.05);
   color: var(--cream);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   border-radius: 12px;
-  text-align: center;
-  margin-bottom: 1.5rem;
   font-family: var(--font-latin);
   outline: none;
   transition: border-color 0.3s;
 }
-.quiz-setup input[type="text"]:focus { border-color: var(--gold); }
-.quiz-setup input[type="text"]::placeholder { color: rgba(245,230,200,0.4); }
-
-.difficulty-btns {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-.diff-btn {
-  padding: 12px 24px;
-  border: 2px solid rgba(201,168,76,0.3);
-  background: transparent;
-  color: var(--cream);
+.player-input-row input:focus { border-color: var(--gold); }
+.player-input-row input::placeholder { color: rgba(245,230,200,0.4); }
+.player-add-btn {
+  padding: 12px 20px;
+  border: none;
+  background: var(--gold);
+  color: var(--navy);
   font-size: 1.1rem;
+  font-weight: 700;
   border-radius: 12px;
   cursor: pointer;
   font-family: var(--font-latin);
-  transition: all 0.3s;
+  white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
-.diff-btn:hover, .diff-btn.selected {
-  background: var(--gold);
-  color: var(--navy);
-  border-color: var(--gold);
+.player-list {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
 }
-
-.quiz-start-btn {
-  padding: 14px 48px;
+.player-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  background: rgba(201,168,76,0.06);
+  color: var(--cream);
+  font-family: var(--font-latin);
+  font-size: 1.05rem;
+}
+.player-list li .remove-player {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+.start-seder-btn {
+  padding: 14px 36px;
   border: none;
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
   color: var(--navy);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 700;
   border-radius: 50px;
   cursor: pointer;
@@ -1091,39 +1060,45 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   transition: transform 0.3s, opacity 0.3s;
   -webkit-tap-highlight-color: transparent;
 }
-.quiz-start-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.quiz-start-btn:not(:disabled):hover { transform: scale(1.05); }
+.start-seder-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.start-seder-btn:not(:disabled):hover { transform: scale(1.05); }
 
-/* Question screen */
-.quiz-progress-bar {
-  width: 100%;
-  height: 8px;
-  background: rgba(201,168,76,0.15);
-  border-radius: 4px;
-  margin-bottom: 0.75rem;
-  overflow: hidden;
+/* Inline Quiz Popup Card */
+.quiz-popup {
+  max-width: 520px;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: rgba(201,168,76,0.06);
+  border: 2px solid rgba(201,168,76,0.25);
+  text-align: center;
+  animation: fadeInUp 0.5s ease both;
+  transition: opacity 0.6s, transform 0.6s;
 }
-.quiz-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  border-radius: 4px;
-  transition: width 0.4s ease;
+.quiz-popup.collapse {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
+  pointer-events: none;
 }
-
-.quiz-question-num {
-  font-size: 0.95rem;
-  color: var(--cream);
-  opacity: 0.6;
-  margin-bottom: 0.5rem;
+.quiz-popup-player {
+  font-size: 1.3rem;
+  color: var(--gold-light);
   font-family: var(--font-latin);
+  margin-bottom: 0.75rem;
 }
-
+.quiz-popup-question {
+  font-size: 1.35rem;
+  color: var(--cream-light);
+  font-family: var(--font-latin);
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
 .quiz-timer-bar {
   width: 100%;
-  height: 5px;
-  background: rgba(201,168,76,0.1);
+  height: 6px;
+  background: rgba(201,168,76,0.12);
   border-radius: 3px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   overflow: hidden;
 }
 .quiz-timer-fill {
@@ -1135,28 +1110,18 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 }
 .quiz-timer-fill.warning { background: #e74c3c; }
 
-.quiz-question-text {
-  font-size: 1.5rem;
-  color: var(--cream-light);
-  font-family: var(--font-latin);
-  margin-bottom: 2rem;
-  line-height: 1.4;
-  min-height: 3rem;
-}
-
 .quiz-answers {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 1.5rem;
+  gap: 10px;
+  margin-bottom: 1rem;
 }
-
 .quiz-answer-btn {
-  padding: 16px 12px;
+  padding: 14px 10px;
   border: 2px solid rgba(201,168,76,0.2);
   background: rgba(201,168,76,0.05);
   color: var(--cream);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   border-radius: 14px;
   cursor: pointer;
   font-family: var(--font-latin);
@@ -1164,13 +1129,13 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-height: 60px;
+  gap: 6px;
+  min-height: 56px;
   -webkit-tap-highlight-color: transparent;
 }
 .quiz-answer-btn:hover:not(:disabled) {
   border-color: var(--gold);
-  background: rgba(201,168,76,0.1);
+  background: rgba(201,168,76,0.12);
 }
 
 @keyframes correctGlow {
@@ -1185,7 +1150,6 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   60% { transform: translateX(-6px); }
   80% { transform: translateX(6px); }
 }
-
 .quiz-answer-btn.correct {
   background: rgba(46,204,113,0.2);
   border-color: #2ecc71;
@@ -1198,94 +1162,83 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   color: #e74c3c;
   animation: wrongShake 0.5s ease;
 }
-
-.quiz-feedback {
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  min-height: 2rem;
+.quiz-popup-feedback {
+  font-size: 1.2rem;
+  min-height: 1.8rem;
   font-family: var(--font-latin);
+  margin-top: 0.5rem;
 }
 
-.quiz-next-btn {
-  padding: 12px 36px;
-  border: none;
-  background: var(--gold);
-  color: var(--navy);
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  font-family: var(--font-latin);
-  display: none;
-  margin: 0 auto;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Scoreboard */
-.quiz-scoreboard {
+/* Leaderboard in Nirtzah */
+.quiz-leaderboard {
+  max-width: 420px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: rgba(201,168,76,0.06);
+  border: 2px solid rgba(201,168,76,0.25);
   text-align: center;
+  animation: fadeInUp 0.6s ease both;
 }
-.scoreboard-title {
-  font-size: 2rem;
+.leaderboard-title {
+  font-size: 1.8rem;
   color: var(--gold);
-  margin-bottom: 1.5rem;
   font-family: var(--font-latin);
+  margin-bottom: 1.25rem;
 }
-.scoreboard-result {
-  font-size: 1.5rem;
-  color: var(--cream);
-  margin-bottom: 0.5rem;
-  font-family: var(--font-latin);
-}
-.scoreboard-score {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--gold-light);
-  margin-bottom: 1.5rem;
-  font-family: var(--font-latin);
-}
-.scoreboard-list {
+.leaderboard-list {
   list-style: none;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1.25rem;
+  padding: 0;
   max-width: 320px;
 }
-.scoreboard-list li {
+.leaderboard-list li {
   display: flex;
   justify-content: space-between;
-  padding: 10px 16px;
+  align-items: center;
+  padding: 10px 14px;
   border-bottom: 1px solid rgba(201,168,76,0.1);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-family: var(--font-latin);
   color: var(--cream);
 }
-.scoreboard-list li:first-child { color: var(--gold-light); font-weight: 700; }
-
-.scoreboard-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 1rem;
+.leaderboard-list li:first-child {
+  color: var(--gold-light);
+  font-weight: 700;
+  font-size: 1.25rem;
 }
-.scoreboard-actions button {
+.leaderboard-chag {
+  font-family: var(--font-hebrew);
+  font-size: 1.4rem;
+  color: var(--gold);
+  margin: 1rem 0;
+  direction: rtl;
+}
+.leaderboard-reset-btn {
   padding: 12px 28px;
-  border-radius: 50px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-family: var(--font-latin);
-  -webkit-tap-highlight-color: transparent;
-}
-.play-again-btn {
   border: none;
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
   color: var(--navy);
+  font-size: 1rem;
   font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: var(--font-latin);
+  margin-top: 0.5rem;
+  -webkit-tap-highlight-color: transparent;
 }
-.clear-scores-btn {
-  border: 1px solid rgba(231,76,60,0.5);
-  background: transparent;
-  color: #e74c3c;
+
+/* Flash overlays */
+@keyframes flashGreen {
+  0% { background: rgba(46,204,113,0.25); }
+  100% { background: transparent; }
 }
+@keyframes flashRed {
+  0% { background: rgba(231,76,60,0.25); }
+  100% { background: transparent; }
+}
+.quiz-popup.flash-correct { animation: flashGreen 0.6s ease; }
+.quiz-popup.flash-wrong { animation: flashRed 0.6s ease; }
 
 /* Confetti */
 @keyframes confettiFall {
@@ -1306,7 +1259,7 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 }
 
 @media print {
-  .quiz-fab, .quiz-modal, .video-section { display: none !important; }
+  .player-registration, .quiz-popup, .quiz-leaderboard, .video-section { display: none !important; }
 }
 </style>
 </head>
@@ -1399,6 +1352,17 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     <path d="M40,150 Q20,180 40,210 Q50,230 70,235" stroke="var(--gold)" stroke-width="0.5" fill="none" opacity="0.15"/>
     <path d="M260,150 Q280,180 260,210 Q250,230 230,235" stroke="var(--gold)" stroke-width="0.5" fill="none" opacity="0.15"/>
   </svg>
+
+  <!-- Player Registration for Quiz -->
+  <div class="player-registration" id="playerRegistration">
+    <div class="player-reg-title">👨‍👩‍👧‍👦 Who's at the Seder?</div>
+    <div class="player-input-row">
+      <input type="text" id="playerNameInput" placeholder="Enter a name..." maxlength="20">
+      <button class="player-add-btn" id="addPlayerBtn" onclick="addPlayer()">+ Add</button>
+    </div>
+    <ul class="player-list" id="playerList"></ul>
+    <button class="start-seder-btn" id="startSederBtn" disabled onclick="startSederQuiz()">🎮 Start Seder &amp; Quiz</button>
+  </div>
 
   <button class="cover-begin" onclick="scrollToSection(1)">
     <span>Begin the Seder</span>
@@ -1556,7 +1520,7 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     <div class="video-section">
       <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Mah Nishtanah for Kids (Animated)</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/GvO4HXFDmvE" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/aFuHwdKkj-s" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
 
@@ -1606,13 +1570,13 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     <div class="video-section">
       <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: The Passover Story for Kids (Animated)</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/rJjDUYYFSZk" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/HMCP3wPiQ2s" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Moses & Pharaoh for Kids</button>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Moses and the Burning Bush for Kids</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/Hbt56oQ3PwA" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/gMw-_mP4Zxg" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
 
@@ -1817,15 +1781,15 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 
     <!-- Videos: Dayenu -->
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Dayenu (Classic)</button>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Dayenu (Maccabeats)</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/GCROGpIVCDQ" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/04DhBtGcCVs" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
     <div class="video-section">
       <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Dayenu Kids Singalong</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/sH_1NaQwTyE" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/vYsHnwBbKcA" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -2088,9 +2052,9 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 
     <!-- Video: Chad Gadya -->
     <div class="video-section">
-      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Chad Gadya (Animated)</button>
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Chad Gadya (Rugrats Passover)</button>
       <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/VUzmZ_CJaYo" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/RjbCFGE8GrE" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -2135,7 +2099,7 @@ body.lang-nl [data-langcontent="en"] { display: none; }
   <div class="video-section">
     <button class="video-toggle-btn" onclick="toggleVideo(this)">▶ Watch: Next Year in Jerusalem</button>
     <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/l6nvFiSoOhQ" loading="lazy" referrerpolicy="no-referrer" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/McO7EH4_5PA" loading="lazy" referrerpolicy="no-referrer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -2148,6 +2112,9 @@ body.lang-nl [data-langcontent="en"] { display: none; }
     </svg>
   </div>
 
+  <!-- Quiz Leaderboard (rendered dynamically) -->
+  <div id="quizLeaderboardContainer"></div>
+
   <div style="text-align: center; margin-top: 2rem; opacity: 0.4; font-size: 0.85rem;">
     חַג פֶּסַח שָׂמֵחַ · Happy Passover · Vrolijk Pesach<br>
     <span style="font-size: 0.75rem; margin-top: 0.5rem; display: inline-block;">5786 / 2026 · Amsterdam</span>
@@ -2155,15 +2122,6 @@ body.lang-nl [data-langcontent="en"] { display: none; }
 </section>
 
 </main>
-
-<!-- Quiz FAB -->
-<button class="quiz-fab" onclick="openQuiz()" aria-label="Kids Quiz">🎮</button>
-
-<!-- Quiz Modal -->
-<div class="quiz-modal" id="quizModal">
-  <button class="quiz-close" onclick="closeQuiz()">✕</button>
-  <div class="quiz-container" id="quizContainer"></div>
-</div>
 
 <!-- ============================================
      BOTTOM NAVIGATION
@@ -2241,6 +2199,7 @@ function scrollToSection(index) {
 
 function updateActiveNav(index) {
   if (index === currentStep) return;
+  const prevStep = currentStep;
   currentStep = index;
 
   // Update bottom nav
@@ -2266,6 +2225,16 @@ function updateActiveNav(index) {
 
   // Update cups
   updateCups(sederSteps[index].cup);
+
+  // Quiz: maybe show a question on section transition
+  if (prevStep !== index && shouldShowQuiz(index)) {
+    setTimeout(() => injectQuizCard(index), 600);
+  }
+
+  // Quiz: show leaderboard when reaching Nirtzah (last section, index 14)
+  if (index === sederSteps.length - 1) {
+    setTimeout(() => renderLeaderboard(), 400);
+  }
 }
 
 function updateCups(cupNum) {
@@ -2462,84 +2431,84 @@ function toggleVideo(btn) {
 }
 
 // ==========================================
-// KIDS QUIZ SYSTEM
+// KIDS QUIZ — INLINE SYSTEM
 // ==========================================
-const quizData = {
-  easy: {
-    points: 5,
-    label: '⭐ Easy (4-7)',
-    questions: [
-      { q: "What do we eat instead of bread at Passover?", a: ["🫓 Matzah", "🫓 Pita", "🥯 Bagel", "🍘 Crackers"], c: 0 },
-      { q: "How many cups of wine do we drink?", a: ["2️⃣ Two", "3️⃣ Three", "4️⃣ Four", "5️⃣ Five"], c: 2 },
-      { q: "What do we dip in salt water?", a: ["🥕 Carrots", "🌿 Karpas/Parsley", "🥒 Cucumber", "🥬 Celery"], c: 1 },
-      { q: "Who led the Jewish people out of Egypt?", a: ["🧔 Abraham", "👑 David", "📜 Moses", "🚢 Noah"], c: 2 },
-      { q: "Whose heart did God harden?", a: ["🤴 The King", "👑 Pharaoh", "🤴 The Prince", "⚔️ The General"], c: 1 }
-    ]
-  },
-  medium: {
-    points: 10,
-    label: '🌟 Medium (8-11)',
-    questions: [
-      { q: "How many plagues did God send?", a: ["7️⃣ Seven", "8️⃣ Eight", "9️⃣ Nine", "🔟 Ten"], c: 3 },
-      { q: "What is the name of the hidden matzah?", a: ["🌿 Maror", "🥬 Karpas", "🫓 Afikomen", "🥪 Korech"], c: 2 },
-      { q: "What does 'Dayenu' mean?", a: ["🗣️ Let my people go", "✅ It would have been enough", "🙏 Thank you God", "🏙️ Next year in Jerusalem"], c: 1 },
-      { q: "Which plague came first?", a: ["🦗 Locusts", "🐸 Frogs", "🩸 Blood", "🌑 Darkness"], c: 2 },
-      { q: "What is the bitter herb called?", a: ["🥬 Karpas", "🌿 Maror", "🍎 Charoset", "🫓 Matzah"], c: 1 }
-    ]
-  },
-  hard: {
-    points: 15,
-    label: '🏆 Hard (12+)',
-    questions: [
-      { q: "What does Ha Lachma Anya mean?", a: ["🍞 This is the bread of affliction", "🌿 This is the bitter herb", "🐑 This is the Passover offering", "🫓 This is the matzah of freedom"], c: 0 },
-      { q: "How many stanzas does Dayenu have?", a: ["🔢 10", "🔢 12", "🔢 14", "🔢 15"], c: 2 },
-      { q: "What do the four sons represent?", a: ["📚 Four types of students", "👨‍👦 Four brothers of Moses", "💀 Four plagues", "🍷 Four cups"], c: 0 },
-      { q: "What is Korech?", a: ["🙏 A prayer", "🎵 A song", "🥪 The Hillel sandwich", "💧 Washing hands"], c: 2 },
-      { q: "When do we open the door for Elijah?", a: ["🍽️ Before the meal", "🎵 After Hallel", "🕯️ At the start", "🫓 After Afikomen"], c: 1 }
-    ]
-  }
+const quizQuestions = [
+  { q: "What do we eat instead of bread at Passover?", a: ["🫓 Matzah", "🫓 Pita", "🥯 Bagel", "🍘 Crackers"], c: 0 },
+  { q: "How many cups of wine do we drink?", a: ["2️⃣ Two", "3️⃣ Three", "4️⃣ Four", "5️⃣ Five"], c: 2 },
+  { q: "What do we dip in salt water?", a: ["🥕 Carrots", "🌿 Karpas/Parsley", "🥒 Cucumber", "🥬 Celery"], c: 1 },
+  { q: "Who led the Jewish people out of Egypt?", a: ["🧔 Abraham", "👑 David", "📜 Moses", "🚢 Noah"], c: 2 },
+  { q: "Whose heart did God harden?", a: ["🤴 The King", "👑 Pharaoh", "🤴 The Prince", "⚔️ The General"], c: 1 },
+  { q: "How many plagues did God send?", a: ["7️⃣ Seven", "8️⃣ Eight", "9️⃣ Nine", "🔟 Ten"], c: 3 },
+  { q: "What is the name of the hidden matzah?", a: ["🌿 Maror", "🥬 Karpas", "🫓 Afikomen", "🥪 Korech"], c: 2 },
+  { q: "What does 'Dayenu' mean?", a: ["🗣️ Let my people go", "✅ It would have been enough", "🙏 Thank you God", "🏙️ Next year in Jerusalem"], c: 1 },
+  { q: "Which plague came first?", a: ["🦗 Locusts", "🐸 Frogs", "🩸 Blood", "🌑 Darkness"], c: 2 },
+  { q: "What is the bitter herb called?", a: ["🥬 Karpas", "🌿 Maror", "🍎 Charoset", "🫓 Matzah"], c: 1 },
+  { q: "What does Ha Lachma Anya mean?", a: ["🍞 Bread of affliction", "🌿 The bitter herb", "🐑 Passover offering", "🫓 Matzah of freedom"], c: 0 },
+  { q: "How many stanzas does Dayenu have?", a: ["🔢 10", "🔢 12", "🔢 14", "🔢 15"], c: 2 },
+  { q: "What do the four sons represent?", a: ["📚 Four types of learners", "👨‍👦 Four brothers", "💀 Four plagues", "🍷 Four cups"], c: 0 },
+  { q: "What is Korech?", a: ["🙏 A prayer", "🎵 A song", "🥪 The Hillel sandwich", "💧 Washing hands"], c: 2 },
+  { q: "When do we open the door for Elijah?", a: ["🍽️ Before the meal", "🎵 After Hallel", "🕯️ At the start", "🫓 After Afikomen"], c: 1 }
+];
+
+const quizState = {
+  players: [],
+  currentPlayerIndex: 0,
+  questionsAsked: new Set(),
+  sectionQuizShown: new Set(),
+  active: false,
+  timerInterval: null
 };
 
-let quizState = { difficulty: null, playerName: '', questions: [], current: 0, score: 0, timerInterval: null, questionStart: 0 };
-
-function openQuiz() {
-  document.getElementById('quizModal').classList.add('open');
-  showSetup();
+// ---------- Player Registration ----------
+function renderPlayerList() {
+  const list = document.getElementById('playerList');
+  const btn = document.getElementById('startSederBtn');
+  list.innerHTML = quizState.players.map((p, i) =>
+    `<li><span>🎯 ${p.name}</span><button class="remove-player" onclick="removePlayer(${i})">×</button></li>`
+  ).join('');
+  btn.disabled = quizState.players.length === 0;
 }
 
-function closeQuiz() {
-  document.getElementById('quizModal').classList.remove('open');
-  clearInterval(quizState.timerInterval);
+function addPlayer() {
+  const input = document.getElementById('playerNameInput');
+  const name = input.value.trim();
+  if (!name) return;
+  if (quizState.players.some(p => p.name.toLowerCase() === name.toLowerCase())) {
+    input.value = '';
+    return;
+  }
+  quizState.players.push({ name, score: 0 });
+  input.value = '';
+  input.focus();
+  renderPlayerList();
 }
 
-function showSetup() {
-  const c = document.getElementById('quizContainer');
-  c.innerHTML = `
-    <div class="quiz-setup">
-      <div class="quiz-title">🎮 Seder Quiz</div>
-      <input type="text" id="quizPlayerName" placeholder="Enter your name..." maxlength="20" value="${quizState.playerName}">
-      <div style="color: var(--cream); opacity: 0.6; margin-bottom: 0.75rem; font-family: var(--font-latin);">Choose difficulty:</div>
-      <div class="difficulty-btns">
-        <button class="diff-btn" onclick="selectDifficulty('easy', this)">⭐ Easy<br><small>Ages 4-7</small></button>
-        <button class="diff-btn" onclick="selectDifficulty('medium', this)">🌟 Medium<br><small>Ages 8-11</small></button>
-        <button class="diff-btn" onclick="selectDifficulty('hard', this)">🏆 Hard<br><small>Ages 12+</small></button>
-      </div>
-      <button class="quiz-start-btn" id="quizStartBtn" disabled onclick="startQuiz()">Start Quiz →</button>
-    </div>
-  `;
+function removePlayer(index) {
+  quizState.players.splice(index, 1);
+  renderPlayerList();
 }
 
-function selectDifficulty(diff, btn) {
-  quizState.difficulty = diff;
-  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  const nameInput = document.getElementById('quizPlayerName');
-  document.getElementById('quizStartBtn').disabled = !nameInput.value.trim();
-  nameInput.addEventListener('input', () => {
-    document.getElementById('quizStartBtn').disabled = !nameInput.value.trim() || !quizState.difficulty;
-  });
+function startSederQuiz() {
+  if (quizState.players.length === 0) return;
+  quizState.active = true;
+  quizState.currentPlayerIndex = 0;
+  quizState.questionsAsked.clear();
+  quizState.sectionQuizShown.clear();
+  scrollToSection(1);
 }
 
+// Enter key to add player
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('playerNameInput');
+  if (input) {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); addPlayer(); }
+    });
+  }
+});
+
+// ---------- Shuffle helper ----------
 function shuffleArray(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -2549,39 +2518,79 @@ function shuffleArray(arr) {
   return a;
 }
 
-function startQuiz() {
-  const name = document.getElementById('quizPlayerName').value.trim();
-  if (!name || !quizState.difficulty) return;
-  quizState.playerName = name;
-  quizState.score = 0;
-  quizState.current = 0;
-  quizState.questions = shuffleArray(quizData[quizState.difficulty].questions).slice(0, 5);
-  showQuestion();
+// ---------- Pick a random unused question ----------
+function pickQuestion() {
+  const available = quizQuestions
+    .map((q, i) => ({ ...q, _i: i }))
+    .filter(q => !quizState.questionsAsked.has(q._i));
+  if (available.length === 0) return null;
+  const pick = available[Math.floor(Math.random() * available.length)];
+  quizState.questionsAsked.add(pick._i);
+  return pick;
 }
 
-function showQuestion() {
-  const q = quizState.questions[quizState.current];
-  const total = quizState.questions.length;
-  const progress = ((quizState.current) / total) * 100;
-  const c = document.getElementById('quizContainer');
+// ---------- Should we show a quiz on this section? ----------
+function shouldShowQuiz(sectionIndex) {
+  if (!quizState.active) return false;
+  if (sectionIndex <= 0 || sectionIndex >= sederSteps.length - 1) return false; // not cover, not nirtzah
+  if (quizState.sectionQuizShown.has(sectionIndex)) return false;
+  if (quizState.questionsAsked.size >= quizQuestions.length) return false;
+  // ~1 in 3 chance
+  return Math.random() < 0.35;
+}
 
-  c.innerHTML = `
-    <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${progress}%"></div></div>
-    <div class="quiz-question-num">Question ${quizState.current + 1} of ${total} · ${quizState.playerName} · ${quizState.score} pts</div>
+// ---------- Inject quiz card into section ----------
+function injectQuizCard(sectionIndex) {
+  // Remove any existing popup first
+  const existing = document.querySelector('.quiz-popup');
+  if (existing) existing.remove();
+
+  const question = pickQuestion();
+  if (!question) return;
+
+  const player = quizState.players[quizState.currentPlayerIndex];
+  quizState.sectionQuizShown.add(sectionIndex);
+
+  const sectionEl = document.getElementById(sederSteps[sectionIndex].id);
+  if (!sectionEl) return;
+
+  // Find the first content element after dividers/titles
+  const titleEn = sectionEl.querySelector('.section-title-en');
+  const insertAfter = titleEn || sectionEl.querySelector('.section-title-he') || sectionEl.firstElementChild;
+
+  const card = document.createElement('div');
+  card.className = 'quiz-popup';
+  card.id = 'activeQuizCard';
+  card.innerHTML = `
+    <div class="quiz-popup-player">${player.name}'s turn! 🎯</div>
+    <div class="quiz-popup-question">${question.q}</div>
     <div class="quiz-timer-bar"><div class="quiz-timer-fill" id="quizTimerFill"></div></div>
-    <div class="quiz-question-text">${q.q}</div>
-    <div class="quiz-answers" id="quizAnswers">
-      ${q.a.map((a, i) => `<button class="quiz-answer-btn" onclick="answerQuestion(${i})">${a}</button>`).join('')}
+    <div class="quiz-answers">
+      ${question.a.map((a, i) => `<button class="quiz-answer-btn" data-idx="${i}">${a}</button>`).join('')}
     </div>
-    <div class="quiz-feedback" id="quizFeedback"></div>
-    <button class="quiz-next-btn" id="quizNextBtn" onclick="nextQuestion()">Next →</button>
+    <div class="quiz-popup-feedback" id="quizPopupFeedback"></div>
   `;
 
-  quizState.questionStart = Date.now();
-  startTimer();
+  if (insertAfter && insertAfter.nextSibling) {
+    sectionEl.insertBefore(card, insertAfter.nextSibling);
+  } else {
+    sectionEl.appendChild(card);
+  }
+
+  // Scroll card into view
+  setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+
+  // Wire up answer buttons
+  const btns = card.querySelectorAll('.quiz-answer-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => handleQuizAnswer(btn, parseInt(btn.dataset.idx), question, player, card, btns));
+  });
+
+  // Start 10s timer
+  startQuizTimer(question, player, card, btns);
 }
 
-function startTimer() {
+function startQuizTimer(question, player, card, btns) {
   clearInterval(quizState.timerInterval);
   const fill = document.getElementById('quizTimerFill');
   if (!fill) return;
@@ -2598,108 +2607,101 @@ function startTimer() {
 
   quizState.timerInterval = setInterval(() => {
     const elapsed = Date.now() - start;
-    if (elapsed > 7000) fill.classList.add('warning');
+    if (elapsed > 7000 && fill) fill.classList.add('warning');
     if (elapsed >= duration) {
       clearInterval(quizState.timerInterval);
-      autoTimeout();
+      // Timeout
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (i === question.c) b.classList.add('correct');
+      });
+      const fb = document.getElementById('quizPopupFeedback');
+      if (fb) fb.innerHTML = '⏰ Time\'s up! +0';
+      card.classList.add('flash-wrong');
+      collapseQuizCard(card);
     }
   }, 250);
 }
 
-function autoTimeout() {
-  const q = quizState.questions[quizState.current];
-  const btns = document.querySelectorAll('.quiz-answer-btn');
-  btns.forEach((b, i) => {
-    b.disabled = true;
-    if (i === q.c) b.classList.add('correct');
-  });
-  document.getElementById('quizFeedback').innerHTML = '⏰ Time\'s up!';
-  document.getElementById('quizNextBtn').style.display = 'inline-block';
-}
-
-function answerQuestion(index) {
+function handleQuizAnswer(btn, index, question, player, card, btns) {
   clearInterval(quizState.timerInterval);
-  const q = quizState.questions[quizState.current];
-  const btns = document.querySelectorAll('.quiz-answer-btn');
-  const elapsed = Date.now() - quizState.questionStart;
-  const feedback = document.getElementById('quizFeedback');
-
   btns.forEach((b, i) => {
     b.disabled = true;
-    if (i === q.c) b.classList.add('correct');
+    if (i === question.c) b.classList.add('correct');
   });
 
-  if (index === q.c) {
-    let pts = quizData[quizState.difficulty].points;
-    let bonusText = '';
-    if (elapsed < 5000) { pts += 5; bonusText = ' (+5 speed bonus!)'; }
-    quizState.score += pts;
-    feedback.innerHTML = `✅ Correct! +${pts} points${bonusText}`;
+  const fb = document.getElementById('quizPopupFeedback');
+
+  if (index === question.c) {
+    player.score += 10;
+    if (fb) fb.innerHTML = '✅ Correct! +10 🎉';
+    card.classList.add('flash-correct');
     if (navigator.vibrate) navigator.vibrate(50);
   } else {
-    btns[index].classList.add('wrong');
-    feedback.innerHTML = '❌ Not quite!';
+    btn.classList.add('wrong');
+    if (fb) fb.innerHTML = '❌ Not quite! +0';
+    card.classList.add('flash-wrong');
     if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
   }
 
-  document.getElementById('quizNextBtn').style.display = 'inline-block';
+  // Advance to next player (round-robin)
+  quizState.currentPlayerIndex = (quizState.currentPlayerIndex + 1) % quizState.players.length;
+
+  collapseQuizCard(card);
 }
 
-function nextQuestion() {
-  quizState.current++;
-  if (quizState.current >= quizState.questions.length) {
-    finishQuiz();
-  } else {
-    showQuestion();
+function collapseQuizCard(card) {
+  setTimeout(() => {
+    card.classList.add('collapse');
+    setTimeout(() => card.remove(), 700);
+  }, 2000);
+}
+
+// ---------- Leaderboard (Nirtzah) ----------
+function renderLeaderboard() {
+  const container = document.getElementById('quizLeaderboardContainer');
+  if (!container) return;
+  if (!quizState.active || quizState.players.length === 0) {
+    container.innerHTML = '';
+    return;
   }
-}
 
-function finishQuiz() {
-  clearInterval(quizState.timerInterval);
-  saveScore(quizState.playerName, quizState.score, quizState.difficulty);
-  showConfetti();
-  showScoreboard();
-}
-
-function saveScore(name, score, difficulty) {
-  let scores = [];
-  try { scores = JSON.parse(localStorage.getItem('haggadah_scores') || '[]'); } catch(e) {}
-  scores.push({ name, score, difficulty, date: new Date().toISOString() });
-  scores.sort((a, b) => b.score - a.score);
-  scores = scores.slice(0, 50);
-  localStorage.setItem('haggadah_scores', JSON.stringify(scores));
-}
-
-function getScores() {
-  try { return JSON.parse(localStorage.getItem('haggadah_scores') || '[]'); } catch(e) { return []; }
-}
-
-function showScoreboard() {
-  const scores = getScores().slice(0, 10);
+  const sorted = [...quizState.players].sort((a, b) => b.score - a.score);
   const medals = ['👑', '🥈', '🥉'];
-  const c = document.getElementById('quizContainer');
+  const year = new Date().getFullYear();
 
-  const listHTML = scores.length
-    ? `<ul class="scoreboard-list">${scores.map((s, i) => `<li><span>${i < 3 ? medals[i] : (i+1)+'.'} ${s.name}</span><span>${s.score} pts</span></li>`).join('')}</ul>`
-    : '<div style="color:var(--cream);opacity:0.5;margin:1rem 0;">No scores yet!</div>';
+  // Save scores to localStorage
+  try {
+    const saved = { date: new Date().toISOString(), players: sorted };
+    localStorage.setItem('haggadah_scores', JSON.stringify(saved));
+  } catch(e) {}
 
-  c.innerHTML = `
-    <div class="quiz-scoreboard">
-      <div class="scoreboard-title">🏆 Seder Champions</div>
-      <div class="scoreboard-result">${quizState.playerName}'s Score</div>
-      <div class="scoreboard-score">${quizState.score} points</div>
-      ${listHTML}
-      <div class="scoreboard-actions">
-        <button class="play-again-btn" onclick="showSetup()">🎮 Play Again</button>
-        <button class="clear-scores-btn" onclick="clearScores()">🗑️ Clear Scores</button>
-      </div>
+  container.innerHTML = `
+    <div class="quiz-leaderboard">
+      <div class="leaderboard-title">🏆 Seder Quiz Champions ${year}!</div>
+      <ul class="leaderboard-list">
+        ${sorted.map((p, i) => {
+          const medal = i < 3 ? medals[i] : (i + 1) + '.';
+          const confetti = i === 0 ? ' 🎉🎉🎉' : '';
+          return `<li><span>${medal} ${p.name}</span><span>${p.score} pts${confetti}</span></li>`;
+        }).join('')}
+      </ul>
+      <div class="leaderboard-chag">!חַג פֶּסַח שָׂמֵחַ</div>
+      <button class="leaderboard-reset-btn" onclick="resetQuizNextYear()">🔄 Play Again Next Year</button>
     </div>
   `;
+
+  showConfetti();
 }
 
-function clearScores() {
-  localStorage.removeItem('haggadah_scores');
-  showScoreboard();
+function resetQuizNextYear() {
+  quizState.players.forEach(p => p.score = 0);
+  quizState.questionsAsked.clear();
+  quizState.sectionQuizShown.clear();
+  quizState.currentPlayerIndex = 0;
+  const container = document.getElementById('quizLeaderboardContainer');
+  if (container) container.innerHTML = '';
+  scrollToSection(0);
 }
 
 function showConfetti() {
